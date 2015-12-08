@@ -14,10 +14,8 @@ public class Hotel {
 		view = new View();
 	}
 	
-	public boolean addRoom(int number){
-		roomMap.put(number, new Room(number));
-		
-		return true;
+	public Room addRoom(int number){
+		return roomMap.put(number, new Room(number));
 	}
 
 }
