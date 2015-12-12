@@ -11,4 +11,11 @@ public class Discount {
 		discountedRoomTypes = roomTypes;
 		this.discount = discount;
 	}
+	
+	public boolean checkCompatibility(Booking booking){
+		
+		return true;
+	}
+	
+	
 }

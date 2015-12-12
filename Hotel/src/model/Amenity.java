@@ -14,4 +14,17 @@ public class Amenity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		boolean result = false;
+		
+		if(o instanceof Amenity){
+			Amenity other = (Amenity) o;
+			
+			result = name.equals(other.name);
+		}
+		
+		return result;
+	}
 }

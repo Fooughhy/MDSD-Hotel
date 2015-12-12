@@ -6,12 +6,25 @@ public class RoomType {
 	public RoomType(String name){
 		setRoomTypeName(name);
 	}
-
+	
+	public void setRoomTypeName(String roomTypeName) {
+		this.roomTypeName = roomTypeName;
+	}
+	
 	public String getRoomTypeName() {
 		return roomTypeName;
 	}
-
-	public void setRoomTypeName(String roomTypeName) {
-		this.roomTypeName = roomTypeName;
+	
+	@Override
+	public boolean equals(Object o){
+		boolean result = false;
+		
+		if(o instanceof RoomType){
+			RoomType other = (RoomType) o;
+			
+			result = roomTypeName.equals(other.roomTypeName);
+		}
+		
+		return result;
 	}
 }

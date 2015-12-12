@@ -1,5 +1,5 @@
 package model;
 
-enum UserType {
+public enum UserType {
 	Admin, Receptionist, Cleaner;
 }

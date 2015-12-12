@@ -33,5 +33,16 @@ public class Guest {
 		this.guestPassPortNumber = guestPassPortNumber;
 	}
 	
-	
+	@Override
+	public boolean equals(Object o){
+		boolean result = false;
+		
+		if(o instanceof Guest){
+			Guest other = (Guest) o;
+			
+			result = guestName.equals(other.guestName) && guestPassPortNumber.equals(other.guestPassPortNumber) && guestPhoneNumber.equals(other.guestPhoneNumber);
+		}
+		
+		return result;
+	}
 }

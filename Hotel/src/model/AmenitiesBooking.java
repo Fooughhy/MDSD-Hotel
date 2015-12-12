@@ -34,5 +34,17 @@ public class AmenitiesBooking {
 	public void setBookedAmenity(Amenity bookedAmenity) {
 		this.bookedAmenity = bookedAmenity;
 	}
-
+	
+	@Override
+	public boolean equals(Object o){
+		boolean result = false;
+		
+		if(o instanceof AmenitiesBooking){
+			AmenitiesBooking other = (AmenitiesBooking) o;
+			
+			result = bookedAmenity.equals(other.bookedAmenity) && bookingGuest.equals(other.bookingGuest) && bookingReceptionist.equals(other.bookingReceptionist);
+		}
+		
+		return result;
+	}
 }

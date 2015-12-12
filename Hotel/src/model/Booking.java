@@ -8,20 +8,25 @@ public class Booking {
 	private final long bookingId;
 
 	private Guest bookingGuest;
-	private Room[] bookedRooms;
 	private User bookingReceptionist;
+	
+	private Room[] bookedRooms;
 	private Date[] bookedDays;
 	
 	public Booking(Room[] rooms, Guest guest, User receptionist, Date[] days){
-		bookingId = getUniqueBoookingId();
+		bookingId = getNewUniqueBoookingId();
 		bookedRooms = rooms;
 		bookingGuest = guest;
 		bookingReceptionist = receptionist;
 		bookedDays = days;
 	}
 	
-	private static synchronized long getUniqueBoookingId(){
+	private static synchronized long getNewUniqueBoookingId(){
 		return latestBookingId++;
+	}
+	
+	public long getBookingId(){
+		return bookingId;
 	}
 	
 	public Guest getBookingGuest() {
@@ -46,5 +51,19 @@ public class Booking {
 
 	public void setBookingReceptionist(User bookingReceptionist) {
 		this.bookingReceptionist = bookingReceptionist;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		boolean result = false;
+		
+		if(o instanceof Booking){
+			Booking other = (Booking) o;
+			
+			result = bookingGuest.equals(other.bookingGuest) && bookingReceptionist.equals(other.bookingReceptionist) && 
+					 bookedDays.equals(other.bookedDays) && bookedRooms.equals(other.bookedRooms) && bookingId == other.bookingId;
+		}
+		
+		return result;
 	}
 }
