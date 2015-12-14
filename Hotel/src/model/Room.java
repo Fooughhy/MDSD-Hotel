@@ -3,7 +3,7 @@ package model;
 import java.util.*;
 
 public class Room {
-	private int roomNumber;
+	private int roomNumber; // should this not be a String?
 	private List<RoomType> roomTypesList;
 
 	public Room(int number){
