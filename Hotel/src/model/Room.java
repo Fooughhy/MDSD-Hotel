@@ -5,7 +5,7 @@ import java.util.*;
 public class Room {
 	private int roomNumber;
 	private List<RoomType> roomTypesList;
-	
+
 	public Room(int number){
 		roomNumber = number;
 		roomTypesList = new ArrayList<RoomType>();
@@ -14,6 +14,22 @@ public class Room {
 	public Room(int number, List<RoomType> initialRoomTypes){
 		roomNumber = number;
 		roomTypesList = initialRoomTypes;
+	}
+	
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public List<RoomType> getRoomTypesList() {
+		return roomTypesList;
+	}
+
+	public void setRoomTypesList(List<RoomType> roomTypesList) {
+		this.roomTypesList = roomTypesList;
 	}
 	
 	public void modifyRoomNumber(int number){

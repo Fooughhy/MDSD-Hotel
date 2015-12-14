@@ -18,6 +18,10 @@ public class User {
 		return loggedIn;
 	}
 	
+	public void logOut(){
+		loggedIn = false;
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		boolean result = false;

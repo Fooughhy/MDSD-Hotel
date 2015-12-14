@@ -8,14 +8,15 @@ public class KeyCard {
 	}
 	
 	public KeyCard(Room room){
-		connectToRoom(room);
+		setRoom(room);
 	}
 	
-	public void connectToRoom(Room room){
+	public Room getRoom(){
+		return room;
+	}
+	
+	public boolean setRoom(Room room){
 		this.room = room;
-	}
-	
-	public void disconnectFromRoom(){
-		connectToRoom(null);
+		return true;
 	}
 }
