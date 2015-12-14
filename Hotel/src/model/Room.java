@@ -3,24 +3,24 @@ package model;
 import java.util.*;
 
 public class Room {
-	private int roomNumber; // should this not be a String?
+	private String roomNumber;
 	private List<RoomType> roomTypesList;
 
-	public Room(int number){
+	public Room(String number){
 		roomNumber = number;
 		roomTypesList = new ArrayList<RoomType>();
 	}
 	
-	public Room(int number, List<RoomType> initialRoomTypes){
+	public Room(String number, List<RoomType> initialRoomTypes){
 		roomNumber = number;
 		roomTypesList = initialRoomTypes;
 	}
 	
-	public int getRoomNumber() {
+	public String getRoomNumber() {
 		return roomNumber;
 	}
 
-	public void setRoomNumber(int roomNumber) {
+	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 
@@ -32,7 +32,7 @@ public class Room {
 		this.roomTypesList = roomTypesList;
 	}
 	
-	public void modifyRoomNumber(int number){
+	public void modifyRoomNumber(String number){
 		roomNumber = number;
 	}
 	

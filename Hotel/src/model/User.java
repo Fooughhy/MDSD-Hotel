@@ -17,6 +17,14 @@ public class User {
 		loggedIn = username.equals(Username) && password.equals(Password);
 		return loggedIn;
 	}
+
+	public String getUserName(){
+                return this.Username;
+	}
+
+	public UserType getUserType(){
+                return this.userType;
+	}
 	
 	public void logOut(){
 		loggedIn = false;

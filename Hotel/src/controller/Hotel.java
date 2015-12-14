@@ -4,11 +4,12 @@ import java.util.*;
 
 import model.*;
 import view.*;
+import java.util.Date;
 
 public class Hotel {
 	
 	private View view;
-	private Map<Integer,Room> roomMap;
+	private Map<String,Room> roomMap;
 	private List<Guest> guestList;
 	private List<Amenity> amenitiesList;
 	private List<User> userList;
@@ -19,7 +20,7 @@ public class Hotel {
 	public Hotel(){
 		view = new View();
 		
-		roomMap = new TreeMap<Integer,Room>();
+		roomMap = new TreeMap<String,Room>();
 		guestList = new ArrayList<>();
 		amenitiesList = new ArrayList<>();
 		userList = new ArrayList<>();
@@ -28,13 +29,24 @@ public class Hotel {
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
 	}
-	
-	public Room addRoom(Room room, int number){
-		return roomMap.put(number, room);
+	public void createBooking(User user,Guest guest,int roomnr,Date sDate,Date eDate){ //TODO remember to change roomnumber!
+                //TODO FIX THIS SHEEEET
+                System.out.println("this is the created booking, its not saved right now");
+	}
+
+	public void createGuest(String name, String phoneNumber, String passPort){
+                guestList.add(new Guest(name,phoneNumber,passPort));
+	}
+	public void addRoom(Room room, String number){
+		roomMap.put(number, room);
 	}
 	
-	public boolean removeRoom(Room room){
-		return roomMap.remove(room.getRoomNumber(), room);
+	public void addRoom(Room room){
+                roomMap.put(room.getRoomNumber(),room);
+	}
+	
+	public void removeRoom(Room room){
+		roomMap.remove(room);
 	}
 	
 	public boolean addRoomTypeToRoom(Room room, RoomType roomtype){
