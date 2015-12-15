@@ -29,7 +29,7 @@ public class Hotel {
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
 	}
-	public void createBooking(User user,Guest guest,int roomnr,Date sDate,Date eDate){ //TODO remember to change roomnumber!
+	public void createBooking(User user,Guest guest,int roomnr,Date startDate,Date endDate){ //TODO remember to change roomnumber!
                 //TODO FIX THIS SHEEEET
                 System.out.println("this is the created booking, its not saved right now");
 	}
@@ -63,6 +63,14 @@ public class Hotel {
 	
 	public boolean removeRoomType(RoomType roomtype){
 		return roomTypeList.remove(roomtype);
+	}
+	
+	public boolean addAmenity(Amenity amenity){
+		return amenitiesList.add(amenity);
+	}
+	
+	public boolean removeAmenity(Amenity amenity){
+		return amenitiesList.remove(amenity);
 	}
 	
 	public boolean logInUser(User user, String username, String password){
