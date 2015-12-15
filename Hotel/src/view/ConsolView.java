@@ -56,7 +56,7 @@ public class ConsolView{
                 System.out.print("enter end date: ");
                 String eDate = s.next();
                 System.out.println("createing dates form inputed strings");
-                DateFormat format = new SimpleDateFormat("dd-MMM-yy");
+                DateFormat format = new SimpleDateFormat("dd-MM-yy");
 
                 Date startDate = new Date();
                 Date endDate= new Date();
@@ -99,7 +99,7 @@ public class ConsolView{
                 String roomNumber = s.next();
                 String temp="Nothing right now";
                 ArrayList roomTraitList = new ArrayList<RoomType>();
-                while(temp != "0"){
+                while(!temp.equals("0")){
                         System.out.print("add a traits to the room. end with a zero");
                         temp = s.next();
                         roomTraitList.add(new RoomType(temp));

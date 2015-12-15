@@ -7,7 +7,7 @@ import controller.Hotel;
 import model.*;
 
 public class ProjectStartup {
-
+	/*
 	public static void main(String[] args) {
 		
 		Hotel hotel = new Hotel();
@@ -36,9 +36,9 @@ public class ProjectStartup {
 			t.add(list1.get(random.nextInt(2)));
 			t.add(list2.get(random.nextInt(2)));
 			
-			Room room = new Room(i, t);
-			hotel.addRoom(room, i);
+			Room room = new Room(""+i, t);
+			hotel.addRoom(room, ""+i);
 		}
 	}
-
+	*/
 }
