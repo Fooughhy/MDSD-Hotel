@@ -37,9 +37,6 @@ public class Hotel {
 	public void createGuest(String name, String phoneNumber, String passPort){
                 guestList.add(new Guest(name,phoneNumber,passPort));
 	}
-	public void addRoom(Room room, String number){
-		roomMap.put(number, room);
-	}
 	
 	public void addRoom(Room room){
                 roomMap.put(room.getRoomNumber(),room);
