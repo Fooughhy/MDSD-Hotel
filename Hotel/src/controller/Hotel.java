@@ -100,13 +100,12 @@ public class Hotel {
 	}
 	
 	public User getUserByUsername(String username){
-		User user;
-		Iterator<User> i = userList.iterator();
+		System.out.println(userList.size());
+		System.out.println(userList.get(0).getUsername());
 		
-		for(user = i.next(); i.hasNext(); i.next()){
-			if(user.getUsername().equals(username)){
-				return user;
-			}
+		for(User temp : userList){
+			if(temp.getUsername().equals(username))
+				return temp;
 		}
 		
 		return null;
