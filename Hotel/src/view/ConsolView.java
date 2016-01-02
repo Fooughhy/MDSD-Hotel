@@ -113,12 +113,11 @@ public class ConsolView{
                 User temp=null;
                 boolean rdyToGo=false;
                 String username = "";
-                String pass = "";
 	        while(!rdyToGo){
                         System.out.println("Please insert username: ");
                         username = s.next();
                         System.out.println("Please insert password: ");
-                        pass = s.next();
+                        String pass = s.next();
                         temp = hotel.getUserByUsername(username);
                         if(temp==null) System.out.println("cant find username");
                         else if(temp.getPassword().equals(pass)) rdyToGo=true;
