@@ -27,7 +27,7 @@ public class ConsolView{
                 System.out.println("User logged in");
                 String command;
                 while(true){
-                        System.out.print(user.getUserName()+":");
+                        System.out.print(user.getUsername()+":");
                         command = s.next();
 
                         if(command.equals("addRoom")) addRoom();
@@ -110,18 +110,19 @@ public class ConsolView{
         }
 
 	private User loggin(){
-                user temp=null;
-                boolean rdyToGo=false
-	        while(!readtToGo){
+                User temp=null;
+                boolean rdyToGo=false;
+                String username = "";
+	        while(!rdyToGo){
                         System.out.println("Please insert username: ");
-                        String username = s.next();
+                        username = s.next();
                         System.out.println("Please insert password: ");
                         String pass = s.next();
-                        temp = getUserByUsername(username);
+                        temp = hotel.getUserByUsername(username);
                         if(temp==null) System.out.println("cant find username");
-                        else if(temp.getPassword.equals(pass)) rdyToGo=true;
+                        else if(temp.getPassword().equals(pass)) rdyToGo=true;
                 }
-                System.out.println("logged in yeeey")
+                System.out.println("logged in yeeey");
                 
 
 
