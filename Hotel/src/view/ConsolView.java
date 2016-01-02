@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Date;
 import java.text.*;
 import java.util.ArrayList;
+import java.io.*;
 
 public class ConsolView{
 
@@ -109,9 +110,23 @@ public class ConsolView{
         }
 
 	private User loggin(){
-                System.out.println("Please insert username: (ONLY ADMIN NOW!");
-                String username = s.next();
-                //check in hiden file for uasername and pass
+                user temp=null;
+                boolean rdyToGo=false
+	        while(!readtToGo){
+                        System.out.println("Please insert username: ");
+                        String username = s.next();
+                        System.out.println("Please insert password: ");
+                        String pass = s.next();
+                        temp = getUserByUsername(username);
+                        if(temp==null) System.out.println("cant find username");
+                        else if(temp.getPassword.equals(pass)) rdyToGo=true;
+                }
+                System.out.println("logged in yeeey")
+                
+
+
+                
+                
                 return new User(username,"admin",UserType.Admin);
 	}
 }
