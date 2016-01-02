@@ -10,15 +10,18 @@ public class Booking {
 	private Guest bookingGuest;
 	private User bookingReceptionist;
 	
+	private RoomType[] reservedRoomTypes;
 	private Room[] bookedRooms;
-	private Date[] bookedDays;
+	private Date startDate;
+	private Date endDate;
 	
-	public Booking(Room[] rooms, Guest guest, User receptionist, Date[] days){
+	public Booking(RoomType[] rooms, Guest guest, User receptionist, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
-		bookedRooms = rooms;
+		reservedRoomTypes = rooms;
 		bookingGuest = guest;
 		bookingReceptionist = receptionist;
-		bookedDays = days;
+		startDate = startDay;
+		endDate = endDay;
 	}
 	
 	private static synchronized long getNewUniqueBoookingId(){
@@ -41,6 +44,14 @@ public class Booking {
 		return bookedRooms;
 	}
 
+	public void setReservedRoomTypes(RoomType[] reservedTypes){
+		reservedRoomTypes = reservedTypes;
+	}
+	
+	public RoomType[] getReservedRoomTypes(){
+		return reservedRoomTypes;
+	}
+	
 	public void setBookedRooms(Room[] bookedRooms) {
 		this.bookedRooms = bookedRooms;
 	}
@@ -61,7 +72,7 @@ public class Booking {
 			Booking other = (Booking) o;
 			
 			result = bookingGuest.equals(other.bookingGuest) && bookingReceptionist.equals(other.bookingReceptionist) && 
-					 bookedDays.equals(other.bookedDays) && bookedRooms.equals(other.bookedRooms) && bookingId == other.bookingId;
+					 startDate.equals(other.startDate) && endDate.equals(other.endDate) && bookedRooms.equals(other.bookedRooms) && bookingId == other.bookingId;
 		}
 		
 		return result;

@@ -71,7 +71,7 @@ public class ConsolView{
                 System.out.println("guest created BUT NOT SAVED!!");
 
                 
-                hotel.createBooking(this.user,guest,1,startDate,endDate);
+                hotel.createBooking(this.user,guest,null,startDate,endDate);
                 System.out.println("booking is created.");
                 
         }
@@ -98,7 +98,7 @@ public class ConsolView{
                 System.out.print("add number on room: ");
                 String roomNumber = s.next();
                 String temp="Nothing right now";
-                ArrayList roomTraitList = new ArrayList<RoomType>();
+                ArrayList<RoomType> roomTraitList = new ArrayList<>();
                 while(!temp.equals("0")){
                         System.out.print("add a traits to the room. end with a zero");
                         temp = s.next();

@@ -32,10 +32,6 @@ public class Room {
 		this.roomTypesList = roomTypesList;
 	}
 	
-	public void modifyRoomNumber(String number){
-		roomNumber = number;
-	}
-	
 	public boolean addRoomType(RoomType roomtype){
 		if(!roomTypesList.contains(roomtype)){
 			return roomTypesList.add(roomtype);

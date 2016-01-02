@@ -15,6 +15,9 @@ public class Hotel {
 	private List<User> userList;
 	private List<RoomType> roomTypeList;
 	
+	private List<AmenitiesBooking> amenitiesBookingList;
+	private List<Booking> bookingList;
+	
 	private List<User> loggedInUsers;
 	
 	public Hotel(){
@@ -26,20 +29,38 @@ public class Hotel {
 		userList = new ArrayList<>();
 		loggedInUsers = new ArrayList<>();
 		
+		amenitiesBookingList = new ArrayList<>();
+		bookingList = new ArrayList<>();
+		
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
 	}
-	public void createBooking(User user,Guest guest,int roomnr,Date startDate,Date endDate){ //TODO remember to change roomnumber!
-                //TODO FIX THIS SHEEEET
-                System.out.println("this is the created booking, its not saved right now");
+	
+	public Booking createBooking(User user, Guest guest, RoomType[] rooms, Date startDate, Date endDate){
+		System.out.println("this is the created booking, its not saved right now");
+		// TODO: Check availability of roomtypes before creating the booking!
+		Booking booking = new Booking(rooms, guest, user, startDate, endDate);
+		bookingList.add(booking);
+		return booking;
+	}
+	
+	public AmenitiesBooking createAmenitiesBooking(User user, Guest guest, Amenity amenity, Date time){
+		// TODO: Check availability of amenity for specified time before creating the booking
+		AmenitiesBooking booking = new AmenitiesBooking(amenity, guest, user, time);
+		amenitiesBookingList.add(booking);
+		return booking;
+	}
+	
+	public void specifyRoomForBooking(Booking booking){
+		// TODO: Book a specific room that minimizes unbooked time for rooms (?)
 	}
 
 	public void createGuest(String name, String phoneNumber, String passPort){
-                guestList.add(new Guest(name,phoneNumber,passPort));
+		guestList.add(new Guest(name,phoneNumber,passPort));
 	}
 	
 	public void addRoom(Room room){
-                roomMap.put(room.getRoomNumber(),room);
+		roomMap.put(room.getRoomNumber(),room);
 	}
 	
 	public void removeRoom(Room room){
@@ -70,8 +91,29 @@ public class Hotel {
 		return amenitiesList.remove(amenity);
 	}
 	
+	public boolean addUser(User user){
+		return userList.add(user);
+	}
+	
+	public boolean removeUser(User user){
+		return userList.remove(user);
+	}
+	
+	public User getUserByUsername(String username){
+		User user;
+		Iterator<User> i = userList.iterator();
+		
+		for(user = i.next(); i.hasNext(); i.next()){
+			if(user.getUsername().equals(username)){
+				return user;
+			}
+		}
+		
+		return null;
+	}
+	
 	public boolean logInUser(User user, String username, String password){
-		if(!loggedInUsers.contains(user)){
+		if(!loggedInUsers.contains(user) && userList.contains(user)){
 			if(user.logIn(username, password)){
 				return loggedInUsers.add(user);
 			}

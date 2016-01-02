@@ -1,11 +1,14 @@
 package model;
 
+import java.util.Date;
+
 public class AmenitiesBooking {
 	private Amenity bookedAmenity;
 	private Guest bookingGuest;
 	private User bookingReceptionist;
+	private Date bookedTime;
 	
-	public AmenitiesBooking(Amenity amenity, Guest guest, User receptionist){
+	public AmenitiesBooking(Amenity amenity, Guest guest, User receptionist, Date time){
 		setBookedAmenity(amenity);
 		setBookingGuest(guest);
 		setBookingReceptionist(receptionist);
@@ -33,6 +36,13 @@ public class AmenitiesBooking {
 
 	public void setBookedAmenity(Amenity bookedAmenity) {
 		this.bookedAmenity = bookedAmenity;
+	}
+	
+	public Date getBookedTime(){
+		return bookedTime;
+	}
+	public void setBookedTime(Date time){
+		bookedTime = time;
 	}
 	
 	@Override

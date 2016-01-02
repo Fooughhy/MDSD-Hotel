@@ -18,12 +18,16 @@ public class User {
 		return loggedIn;
 	}
 
-	public String getUserName(){
-                return this.Username;
+	public String getUsername(){
+		return Username;
 	}
 
 	public UserType getUserType(){
-                return this.userType;
+		return userType;
+	}
+	
+	public String getPassword(){
+		return Password;
 	}
 	
 	public void logOut(){

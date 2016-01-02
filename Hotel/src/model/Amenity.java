@@ -6,7 +6,7 @@ public class Amenity {
 	public Amenity(String name){
 		this.setName(name);
 	}
-
+	
 	public String getName() {
 		return name;
 	}
