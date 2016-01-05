@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import model.AmenitiesBooking;
 import model.Amenity;
 import model.Booking;
 import model.Guest;
+import model.HotelFullException;
 import model.Room;
 import model.RoomType;
 import model.User;
@@ -35,7 +37,13 @@ public class Hotel {
 	
 	private List<User> loggedInUsers;
 	
+	// The last check out date of all rooms
 	private Map<RoomType, Map<Room, Date>> rooms;
+	
+	// The availability of rooms for any given day.
+	// The number of bookings for a RoomType for any day
+	// If Date is <null> then there is no booked room.
+	private Map<Date, Map<RoomType, Integer>> bookedRooms;
 	
 	public Hotel(){
 		view = new View();
@@ -48,6 +56,7 @@ public class Hotel {
 		roomTypeList = new HashSet<RoomType>();
 		amenitiesBookingList = new ArrayList<AmenitiesBooking>();
 		bookingList = new ArrayList<Booking>();
+		bookedRooms = new HashMap<Date, Map<RoomType, Integer>>();
 		
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
@@ -94,11 +103,39 @@ public class Hotel {
 	}
 	
 	public Booking createBooking(User user, Guest guest, RoomType[] rooms, Date startDate, Date endDate){
-		System.out.println("this is the created booking, its not saved right now");
-		// TODO: Check availability of roomtypes before creating the booking!
 		Booking booking = new Booking(rooms, guest, user, startDate, endDate);
 		bookingList.add(booking);
+		
+		setRoomTypeBooked(rooms, startDate, endDate);
+		
 		return booking;
+	}
+
+	private void setRoomTypeBooked(RoomType[] rooms, Date start, Date end) {
+		Calendar startCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+		startCal.setTime(start);
+		startCal.set(Calendar.HOUR_OF_DAY, 0);
+		endCal.setTime(end);
+		endCal.set(Calendar.HOUR_OF_DAY, 0);
+		
+		while (startCal.before(endCal)) {
+			Date d = startCal.getTime();
+			
+		    if (bookedRooms.get(d) == null) {
+		    	bookedRooms.put(d, new HashMap<RoomType, Integer>());
+		    }
+		    
+		    for (int i = 0; i < rooms.length; i++) {
+				if (bookedRooms.get(d).get(rooms[i]) == null) {
+					bookedRooms.get(d).put(rooms[i], 1);
+				} else {
+					bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1);
+				}
+			}
+			
+			startCal.add(Calendar.DAY_OF_MONTH, 1);
+		}
 	}
 	
 	public AmenitiesBooking createAmenitiesBooking(User user, Guest guest, Amenity amenity, Date time){
@@ -118,6 +155,10 @@ public class Hotel {
 	 * @param booking The booking with no rooms given.
 	 */
 	public void specifyRoomForBooking(Booking booking){
+		if (booking.getBookedRooms() != null) {
+			return;
+		}
+		
 		RoomType[] types = booking.getReservedRoomTypes();
 		Room[] bookedRooms = new Room[types.length];
 		
@@ -135,10 +176,6 @@ public class Hotel {
 			if (bookedRooms[i] == null) {
 				throw new RuntimeException("There is no available room for the booked period.");
 			}
-		}
-		System.out.println("test");
-		for (int i = 0; i < bookedRooms.length; i++) {
-			System.out.println(bookedRooms[i].getRoomNumber());
 		}
 		booking.setBookedRooms(bookedRooms);
 	}
@@ -218,6 +255,63 @@ public class Hotel {
 		return roomTypeList;
 	}
 	
+	
+	/**
+	 * Returns the room types that are available for a given set of days.
+	 * 
+	 * @param start The check in time as a Date with Hours=00, Minutes=00
+	 * @param end The check out time as a Date with Hours=00, Minutes=00
+	 * @return The types of rooms in the hotel that are available from
+	 *  startDate to endDate
+	 */
+	public Set<RoomType> getAvailableRoomTypes(Date start, Date end) throws HotelFullException {
+		Set<RoomType> available = new HashSet<RoomType>();
+		
+		List<Date> fullDates = new LinkedList<Date>();
+		
+		available.addAll(getRoomTypeList());
+		
+		Calendar startCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+		startCal.setTime(start);
+		startCal.set(Calendar.HOUR_OF_DAY, 0);
+		endCal.setTime(end);
+		endCal.set(Calendar.HOUR_OF_DAY, 0);
+		
+		while (startCal.before(endCal)) {
+			Date d = startCal.getTime();
+			
+			int types = getRoomTypeList().size();
+			
+			if (bookedRooms.get(d) != null) {
+				for (RoomType roomType : getRoomTypeList()) {
+					if (bookedRooms.get(d).containsKey(roomType)) { // There is some booking for this type
+						int bookedNr = bookedRooms.get(d).get(roomType);
+						
+						// If fully booked then remove the room type from options.
+						if (bookedNr == rooms.get(roomType).size()) {
+							available.remove(roomType);
+							types--;
+						}
+					}
+				}
+			}
+			
+			if (types == 0) {
+				// all types full this day
+				fullDates.add(d);
+			}
+			
+			startCal.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		
+		if (!fullDates.isEmpty()) {
+			throw new HotelFullException(fullDates);
+		}
+		
+		return available;
+	}
+	
 	public Booking getBookingById(int id) {
 		for (Booking b : bookingList) {
 			if (b.getBookingId() == id) {
@@ -225,5 +319,9 @@ public class Hotel {
 			}
 		}
 		return null;
+	}
+
+	public Room getRoomByNumber(String roomNumber) {
+		return roomMap.get(roomNumber);
 	}
 }
