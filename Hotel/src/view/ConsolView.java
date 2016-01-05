@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 import controller.Hotel;
 import model.Booking;
 import model.Guest;
+import model.HotelFullException;
 import model.Room;
 import model.RoomType;
 import model.User;
@@ -43,8 +45,6 @@ public class ConsolView {
 				addRoom();
 			else if (command.equals("bookRoom"))
 				bookRoom();
-			else if (command.equals("bookRoomTest"))
-				bookRoomTest();
 			else if (command.equals("addGuest"))
 				addGuest();
 			else if (command.equals("checkin"))
@@ -80,23 +80,45 @@ public class ConsolView {
 		return new Guest(name, phoneNumber, passPortNumber);
 	}
 
-	private void bookRoomTest() {
-		System.out.print("enter start date (yyyy-mm-dd):");
-		String sDate = s.next();
-		System.out.print("enter end date (yyyy-mm-dd):");
-		String eDate = s.next();
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
+	private void bookRoom() {
 		Date startDate = new Date();
 		Date endDate = new Date();
+		
+		Set<RoomType> available = new HashSet<RoomType>();
+		
+		boolean notOk = true;
+		while (notOk) {
+			System.out.print("enter start date (yyyy-mm-dd):");
+			String sDate = s.next();
+			System.out.print("enter end date (yyyy-mm-dd):");
+			String eDate = s.next();
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+	
+			try {
+				startDate = format.parse(sDate);
+				endDate = format.parse(eDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+	
+			// Start must be at least 1 day before end date.
+			notOk = startDate.getTime() >= endDate.getTime();
+			
 
-		try {
-			startDate = format.parse(sDate);
-			endDate = format.parse(eDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
+			try {
+				available.addAll(hotel.getAvailableRoomTypes(startDate, endDate));
+			} catch (HotelFullException e) {
+				System.out.println("Hotel full for the following dates");
+				SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+				for (Date d : e.getFullDates()) {
+					System.out.println(ft.format(d));
+				}
+				notOk = true;
+			}
+			
 		}
-
+		
 		// Set check in and out hours
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
@@ -109,7 +131,7 @@ public class ConsolView {
 		endDate = cal.getTime();
 		
 		System.out.println("Select a room type, the available types are: ");
-		for (RoomType type : hotel.getRoomTypeList()) {
+		for (RoomType type : available) {
 			System.out.println(type.getRoomTypeName());
 		}
 
@@ -117,14 +139,14 @@ public class ConsolView {
 		while (validRoomType == null) {
 			System.out.println("Enter your RoomType: ");
 			String rType = s.next();
-			for (RoomType type : hotel.getRoomTypeList()) {
+			for (RoomType type : available) {
 				if (type.getRoomTypeName().equals(rType)) {
 					validRoomType = type;
 					break;
 				}
 			}
 			if (validRoomType == null) {
-				System.err.println("RoomType not valid!");
+				System.out.println("RoomType not valid!");
 			}
 		}
 
@@ -136,29 +158,25 @@ public class ConsolView {
 		System.out.println("Booking process completed for booking with ID:" + book.getBookingId());
 	}
 
-	private void bookRoom() {
-		/*
-		 * //everyone permitted? still the admin thing is really strange!!!
-		 * System.out.println("enter start-date: "+
-		 * "(this is a bit complicated so for now we asume u enter today and only today)"
-		 * ); //TODO add startDate and endDate System.out.println(
-		 * "Searching for free rooms"+
-		 * "some algortihm here. for now ALL rooms are available");
-		 * 
-		 * for(int i = 0;
-		 * i<hotel.getAvailableRooms(startDate,endDate).size(),i++){
-		 * println("room:" hotel.); }
-		 */
-	}
-
 	private void addRoom() {
 		if (user.getUserType() != UserType.Admin) {
 			System.out.println("nope!");
 			return;
 		}
-		System.out.print("Input the room number: ");
-		String roomNumber = s.next();
-
+		
+		boolean nrNotOk = true;
+		String roomNumber = null;
+		while (nrNotOk) {
+			System.out.print("Input the room number: ");
+			 roomNumber = s.next();
+			
+			if (hotel.getRoomByNumber(roomNumber) == null) {
+				nrNotOk = false;
+			} else {
+				System.out.println("Room number already exists, remove the old room or choose another number.");
+			}
+		}
+		
 		RoomType type = null;
 		while (type == null) {
 			System.out.print("Input the room type: ");
@@ -199,7 +217,6 @@ public class ConsolView {
 			else if (temp.getPassword().equals(pass))
 				rdyToGo = true;
 		}
-		System.out.println("logged in yeeey");
 
 		return temp;
 	}
