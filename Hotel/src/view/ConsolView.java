@@ -3,6 +3,7 @@ package view;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -96,6 +97,17 @@ public class ConsolView {
 			e.printStackTrace();
 		}
 
+		// Set check in and out hours
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startDate);
+		cal.set(Calendar.HOUR_OF_DAY, 15);
+		startDate = cal.getTime();
+		
+		cal = Calendar.getInstance();
+		cal.setTime(endDate);
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		endDate = cal.getTime();
+		
 		System.out.println("Select a room type, the available types are: ");
 		for (RoomType type : hotel.getRoomTypeList()) {
 			System.out.println(type.getRoomTypeName());
