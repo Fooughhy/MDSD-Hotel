@@ -1,10 +1,25 @@
 package controller;
 
-import java.util.*;
-
-import model.*;
-import view.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import model.AmenitiesBooking;
+import model.Amenity;
+import model.Booking;
+import model.Guest;
+import model.Room;
+import model.RoomType;
+import model.User;
+import model.UserType;
+import view.View;
 
 public class Hotel {
 	
@@ -13,27 +28,69 @@ public class Hotel {
 	private List<Guest> guestList;
 	private List<Amenity> amenitiesList;
 	private List<User> userList;
-	private List<RoomType> roomTypeList;
+	private Set<RoomType> roomTypeList;
 	
 	private List<AmenitiesBooking> amenitiesBookingList;
 	private List<Booking> bookingList;
 	
 	private List<User> loggedInUsers;
 	
+	private Map<RoomType, Map<Room, Date>> rooms;
+	
 	public Hotel(){
 		view = new View();
 		
 		roomMap = new TreeMap<String,Room>();
-		guestList = new ArrayList<>();
-		amenitiesList = new ArrayList<>();
-		userList = new ArrayList<>();
-		loggedInUsers = new ArrayList<>();
-		
-		amenitiesBookingList = new ArrayList<>();
-		bookingList = new ArrayList<>();
+		guestList = new ArrayList<Guest>();
+		amenitiesList = new ArrayList<Amenity>();
+		userList = new ArrayList<User>();
+		loggedInUsers = new ArrayList<User>();
+		roomTypeList = new HashSet<RoomType>();
+		amenitiesBookingList = new ArrayList<AmenitiesBooking>();
+		bookingList = new ArrayList<Booking>();
 		
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
+		setupBookedRooms();
+	}
+	
+	/**
+	 * Sets up a map between RoomTypes and the rooms of the type.
+	 * Each room has stored the last check out date of the room.
+	 * This is used to only check in rooms that has been checked out.
+	 * The booking process guarantees that any booked room can be checked in.
+	 */
+	private void setupBookedRooms() {
+		// Run at startup of program or when adding a new room
+		// not when booking a Room, as this only books a RoomType.
+		rooms = new HashMap<RoomType, Map<Room, Date>>();
+		
+		for (RoomType rt : roomTypeList) {
+			rooms.put(rt, new HashMap<Room, Date>());
+		}
+		
+		Iterator<Room> it = roomMap.values().iterator();
+		
+		Date before = new Date();
+		before.setTime(0);
+		
+		while(it.hasNext()) {
+			Room room = it.next();
+			rooms.get(room.getRoomType()).put(room, before);
+		}		
+		
+		for (Booking booking : bookingList) {
+			
+			Room[] bookedrooms = booking.getBookedRooms();
+			Date endDate = booking.getEndDate();
+			
+			for (Room room : bookedrooms) {
+				Date currentEnd = rooms.get(room.getRoomType()).get(room.getRoomNumber());
+				if (endDate.after(currentEnd)) {
+					rooms.get(room.getRoomType()).put(room, endDate);
+				}
+			}
+		}
 	}
 	
 	public Booking createBooking(User user, Guest guest, RoomType[] rooms, Date startDate, Date endDate){
@@ -51,8 +108,39 @@ public class Hotel {
 		return booking;
 	}
 	
+	/**
+	 * Checks in a booking to a set of room numbers.
+	 * 
+	 * Sets the bookedRooms of the booking using the Hotels
+	 * data of booked rooms, and the RoomTypes booked in the
+	 * booking.
+	 * 
+	 * @param booking The booking with no rooms given.
+	 */
 	public void specifyRoomForBooking(Booking booking){
-		// TODO: Book a specific room that minimizes unbooked time for rooms (?)
+		RoomType[] types = booking.getReservedRoomTypes();
+		Room[] bookedRooms = new Room[types.length];
+		
+		for (int i = 0; i < bookedRooms.length; i++) {
+			Map<Room, Date> roomsOfType = rooms.get(types[i]);
+			Set<Room> roomNrs = roomsOfType.keySet();
+			for (Room nr : roomNrs) {
+				if  (roomsOfType.get(nr).before(booking.getStartDate())) { // room is checked out or was never checked in before.
+					bookedRooms[i] = nr;
+					rooms.get(nr.getRoomType()).put(nr, booking.getEndDate()); // set booked room to have later end date.
+					break;
+				}
+			}
+			// if no room was found then bookedRooms[i] is null. throw error as booking should not allow this?
+			if (bookedRooms[i] == null) {
+				throw new RuntimeException("There is no available room for the booked period.");
+			}
+		}
+		System.out.println("test");
+		for (int i = 0; i < bookedRooms.length; i++) {
+			System.out.println(bookedRooms[i].getRoomNumber());
+		}
+		booking.setBookedRooms(bookedRooms);
 	}
 
 	public void createGuest(String name, String phoneNumber, String passPort){
@@ -61,26 +149,22 @@ public class Hotel {
 	
 	public void addRoom(Room room){
 		roomMap.put(room.getRoomNumber(),room);
+		setupBookedRooms();
 	}
 	
 	public void removeRoom(Room room){
 		roomMap.remove(room);
-	}
-	
-	public boolean addRoomTypeToRoom(Room room, RoomType roomtype){
-		return room.addRoomType(roomtype);
-	}
-	
-	public boolean removeRoomTypeFromRoom(Room room, RoomType roomtype){
-		return room.removeRoomType(roomtype);
+		setupBookedRooms();
 	}
 	
 	public boolean addRoomType(RoomType roomtype){
-		return roomTypeList.add(roomtype);
+		return getRoomTypeList().add(roomtype);
 	}
 	
 	public boolean removeRoomType(RoomType roomtype){
-		return roomTypeList.remove(roomtype);
+		// TODO: Edit all rooms of this type, if we allow removal
+		// otherwise only remove types with no rooms.
+		return getRoomTypeList().remove(roomtype);
 	}
 	
 	public boolean addAmenity(Amenity amenity){
@@ -128,5 +212,18 @@ public class Hotel {
 		}
 		
 		return false;
+	}
+
+	public Set<RoomType> getRoomTypeList() {
+		return roomTypeList;
+	}
+	
+	public Booking getBookingById(int id) {
+		for (Booking b : bookingList) {
+			if (b.getBookingId() == id) {
+				return b;
+			}
+		}
+		return null;
 	}
 }

@@ -64,6 +64,14 @@ public class Booking {
 		this.bookingReceptionist = bookingReceptionist;
 	}
 	
+	public Date getEndDate() {
+		return endDate;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		boolean result = false;
