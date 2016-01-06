@@ -35,7 +35,7 @@ public class Hotel {
 	private List<AmenitiesBooking> amenitiesBookingList;
 	private List<Booking> bookingList;
 	
-	private List<User> loggedInUsers;
+	private User loggedInUsers;
 	
 	// The last check out date of all rooms
 	private Map<RoomType, Map<Room, Date>> rooms;
@@ -52,7 +52,7 @@ public class Hotel {
 		guestList = new ArrayList<Guest>();
 		amenitiesList = new ArrayList<Amenity>();
 		userList = new ArrayList<User>();
-		loggedInUsers = new ArrayList<User>();
+		//loggedInUsers = new ArrayList<User>();
 		roomTypeList = new HashSet<RoomType>();
 		amenitiesBookingList = new ArrayList<AmenitiesBooking>();
 		bookingList = new ArrayList<Booking>();
@@ -232,7 +232,8 @@ public class Hotel {
 		return null;
 	}
 	
-	public boolean logInUser(User user, String username, String password){
+	// Tom removed this.
+	/*public boolean logInUser(User user, String username, String password){
 		if(!loggedInUsers.contains(user) && userList.contains(user)){
 			if(user.logIn(username, password)){
 				return loggedInUsers.add(user);
@@ -250,7 +251,7 @@ public class Hotel {
 		
 		return false;
 	}
-
+*/
 	public Set<RoomType> getRoomTypeList() {
 		return roomTypeList;
 	}

@@ -278,6 +278,7 @@ public class ConsolView {
 			else if (temp.getPassword().equals(pass))
 				rdyToGo = true;
 		}
+		
 
 		return temp;
 	}
