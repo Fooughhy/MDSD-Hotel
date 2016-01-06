@@ -7,10 +7,10 @@ import component.interfaces.AdminRoomManagement;
 import component.interfaces.AmenitiesBooking;
 import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
-import component.interfaces.ViewRoom;
+import component.interfaces.ViewFacilities;
 import component.model.Room;
 
-public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
+public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
 
 	@Override
 	public boolean createRoomType(String type, int basePrice) {
@@ -146,6 +146,24 @@ public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, Ameni
 
 	@Override
 	public Set<String> getTypeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getAmenities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getAmenityCapacity(String amenityName) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getAmenityDescription(String amenityName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

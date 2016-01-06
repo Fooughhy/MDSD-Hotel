@@ -2,20 +2,20 @@ package component.interfaces;
 
 import java.util.Set;
 
-public interface ViewRoom {
+public interface ViewFacilities {
 
 	/**
 	 * Returns the room numbers of all rooms.
 	 * @return An array of all room numbers.
 	 */
-	public int[] getRooms();
+	public Set<Integer> getRooms();
 	
 	/**
 	 * Returns the room numbers of all rooms of one type.
 	 * @param roomType The type of room.
 	 * @return An array of all room numbers of type roomType.
 	 */
-	public int[] getRooms(String roomType);
+	public Set<Integer> getRooms(String roomType);
 	
 	/**
 	 * Return the name of the room type for a room.
@@ -29,5 +29,25 @@ public interface ViewRoom {
 	 * @return A set of names.
 	 */
 	public Set<String> getTypeList();
+
+	/**
+	 * Returns the names of all the created amenities.
+	 * @return The names of all amenities.
+	 */
+	public Set<String> getAmenities();
+	
+	/**
+	 * Retrieve the max capacity of the amenity.
+	 * @param amenityName The name of the amenity.
+	 * @return The max capacity.
+	 */
+	public int getAmenityCapacity(String amenityName);
+	
+	/**
+	 * Return a String description of the amenity.
+	 * @param amenityName The name of the amenity.
+	 * @return A String description.
+	 */
+	public String getAmenityDescription(String amenityName);
 	
 }

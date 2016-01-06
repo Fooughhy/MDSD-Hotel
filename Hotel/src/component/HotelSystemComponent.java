@@ -12,7 +12,7 @@ import component.interfaces.DiscountManagement;
 import component.interfaces.Discounts;
 import component.interfaces.GuestInterface;
 import component.interfaces.RoomManagement;
-import component.interfaces.ViewRoom;
+import component.interfaces.ViewFacilities;
 import component.payment.PaymentSystemComponent;
 
 public class HotelSystemComponent {
@@ -67,7 +67,7 @@ public class HotelSystemComponent {
 		return facilities;
 	}
 	
-	public ViewRoom getViewRoom() {
+	public ViewFacilities getViewFacilities() {
 		return facilities;
 	}
 }

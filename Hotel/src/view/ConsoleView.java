@@ -4,12 +4,9 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import access.UserType;
 import component.HotelSystemComponent;
-import model.Room;
-import model.RoomType;
 import access.User;
 
 public class ConsoleView {
@@ -57,9 +54,9 @@ public class ConsoleView {
 					} else if ("removeRoomType".equals(command)) {
 						removeRoomType();
 					} else if ("createAmenity".equals(command)) {
-						// CODE;
+						createAmenity();
 					} else if ("removeAmenity".equals(command)) {
-						// CODE;
+						removeAmenity();
 					}
 				}
 				if (getAccess().equals(UserType.HotelManager)) {
@@ -118,8 +115,59 @@ public class ConsoleView {
 		}
 	}
 	
+	
+	
+	private void createAmenity() {
+		String name = null;
+		while (name == null) {
+			System.out.print("Input the amenity name: ");
+			name = scanner.next();
+
+			if (comp.getViewFacilities().getAmenities().contains(name)) {
+				System.out.println("An amenity of that name already exists.");
+			}
+		}
+		
+		int maxCapacity = 0;
+		while (maxCapacity < 1) {
+			System.out.print("Input the amenity capacity: ");
+			try {
+				maxCapacity = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+		}
+		
+		String description = null;
+		while (description == null) {
+			System.out.print("Input the amenity description: ");
+			description = scanner.next();
+		}
+		
+		comp.getAmenitiesManagement().createAmenity(name, maxCapacity, description);
+	}
+
+	private void removeAmenity() {
+		if (comp.getViewFacilities().getAmenities().isEmpty()) {
+			System.out.println("There are no amenities, use <createAmenity>.");
+			return;
+		}
+		
+		String name = null;
+		while (name == null) {
+			System.out.print("Input the amenity name: ");
+			name = scanner.next();
+
+			if (!comp.getViewFacilities().getAmenities().contains(name)) {
+				System.out.println("An amenity of that name does not exists.");
+			}
+		}
+		
+		comp.getAmenitiesManagement().removeAmenity(name);
+	}
+
 	private void removeRoom() {
-		if (comp.getViewRoom().getRooms().length < 1) {
+		if (comp.getViewFacilities().getRooms().isEmpty()) {
 			System.out.println("There are no rooms, use <createRoom>.");
 			return;
 		}
@@ -132,7 +180,7 @@ public class ConsoleView {
 				System.out.println("Incorrect format.");
 			} // Do not update if incorrect format
 
-			if (comp.getViewRoom().getRoomType(roomNumber) == null) {
+			if (comp.getViewFacilities().getRoomType(roomNumber) == null) {
 				System.out.println("Room number does not exists, choose another number.");
 			}
 		}
@@ -143,7 +191,7 @@ public class ConsoleView {
 	}
 
 	private void removeRoomType() {
-		if (comp.getViewRoom().getTypeList().isEmpty()) {
+		if (comp.getViewFacilities().getTypeList().isEmpty()) {
 			System.out.println("There are no room types, use <createRoomType>.");
 			return;
 		}
@@ -152,12 +200,12 @@ public class ConsoleView {
 			System.out.print("Input the room type: ");
 			roomType = scanner.next();
 
-			if (!comp.getViewRoom().getTypeList().contains(roomType)) {
+			if (!comp.getViewFacilities().getTypeList().contains(roomType)) {
 				System.out.println("Room type does not exists.");
 			}
 		}
 		
-		if (comp.getViewRoom().getRooms(roomType).length > 0) {
+		if (comp.getViewFacilities().getRooms(roomType).length > 0) {
 			System.out.println("There are rooms of this type, remove them first.");
 			return;
 		}
@@ -173,7 +221,7 @@ public class ConsoleView {
 			System.out.print("Input the room type: ");
 			roomType = scanner.next();
 
-			if (comp.getViewRoom().getTypeList().contains(roomType)) {
+			if (comp.getViewFacilities().getTypeList().contains(roomType)) {
 				System.out.println("Room type already exists, choose another name.");
 			}
 		}
@@ -192,7 +240,7 @@ public class ConsoleView {
 	}
 	
 	private void changeRoomPrice() {
-		if (comp.getViewRoom().getTypeList().isEmpty()) {
+		if (comp.getViewFacilities().getTypeList().isEmpty()) {
 			System.out.println("There are no room types, use <createRoomType>.");
 			return;
 		}
@@ -202,7 +250,7 @@ public class ConsoleView {
 			System.out.print("Input the room type: ");
 			roomType = scanner.next();
 
-			if (!comp.getViewRoom().getTypeList().contains(roomType)) {
+			if (!comp.getViewFacilities().getTypeList().contains(roomType)) {
 				System.out.println("Room type does not exists, choose another type.");
 			}
 		}
@@ -221,7 +269,7 @@ public class ConsoleView {
 	}
 	
 	private void createRoom() {
-		if (comp.getViewRoom().getTypeList().isEmpty()) {
+		if (comp.getViewFacilities().getTypeList().isEmpty()) {
 			System.out.println("There are no room types, use <createRoomType>.");
 			return;
 		}
@@ -234,7 +282,7 @@ public class ConsoleView {
 				System.out.println("Incorrect format.");
 			} // Do not update if incorrect format
 
-			if (comp.getViewRoom().getRoomType(roomNumber) != null) {
+			if (comp.getViewFacilities().getRoomType(roomNumber) != null) {
 				System.out.println("Room number already exists, choose another number.");
 			}
 		}
@@ -242,7 +290,7 @@ public class ConsoleView {
 		System.out.print("Input the room type: ");
 		String stype = scanner.next();
 
-		if (!comp.getViewRoom().getTypeList().contains(stype)) {
+		if (!comp.getViewFacilities().getTypeList().contains(stype)) {
 			System.out.println("This type does not exist, first use <createRoomType>.");
 			return;
 		}
