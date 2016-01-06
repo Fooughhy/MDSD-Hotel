@@ -58,7 +58,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
-					// TODO: Add functionality
+					addCharges();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
@@ -461,5 +461,23 @@ public class ConsolView {
 		}
 		hotel.setLoggedInUser(temp);
 		return temp;
+	}
+	
+	public void addCharges(){
+		
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id to the room that shall be charged: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		System.out.println("Enter amount that the guest shall be charged");
+		int amount = s.nextInt();
+		booking.addCost(amount);
+		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
 	}
 }
