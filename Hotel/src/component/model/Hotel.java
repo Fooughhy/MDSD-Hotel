@@ -431,6 +431,7 @@ public class Hotel {
 		
 		for(KeyCard k : list){
 			k.setRoom(null);
+			unassignedKeyCardList.add(k);
 		}
 	}
 	
