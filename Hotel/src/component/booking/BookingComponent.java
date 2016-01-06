@@ -5,8 +5,9 @@ import java.util.Date;
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
 import component.interfaces.Discounts;
+import component.interfaces.GuestInterface;
 
-public class BookingComponent implements BookingInterface, CheckInOut {
+public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
 
 	@Override
 	public boolean checkIn(int bookingNr) {
@@ -88,6 +89,48 @@ public class BookingComponent implements BookingInterface, CheckInOut {
 
 	@Override
 	public int[] checkCost(int bookingNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isGuest(String passportNr) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean createGuest(String passportNr, String fName, String lName, String email, String phone) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean changeEmail(String passportNr, String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean changePhone(String passportNr, String phone) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getName(String passportNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getEmail(String passportNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPhone(String passportNr) {
 		// TODO Auto-generated method stub
 		return null;
 	}
