@@ -34,103 +34,106 @@ public class ConsolView {
 		System.out.println("Creating a Hotel");
 		this.hotel = new Hotel();
 		System.out.println("Hotel created");
-		this.user = loggin();
-		System.out.println("User logged in");
-		String command;
-		while (true) {
-			System.out.print(user.getUsername() + ":");
-			command = s.next();
+		while (true) { // to make sure this is whereyou end up if you logg out.
+			this.user = loggin();
+			System.out.println("User logged in");
+			String command;
+			while (true) {
+				System.out.print(user.getUsername() + ":");
+				command = s.next();
 
-			if (command.equals("addRoom")){ // admin
-				addRoom();
+				if (command.equals("addRoom")) { // admin
+					if (user.getUserType() == UserType.Admin) {
+						addRoom();
+					} else {
+						System.out.println("This account (" + user.getUserType()
+								+ ") has not the right clearance to run this command.");
+					}
+				} else if (command.equals("bookRoom")) { // HM & R
+					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
+						bookRoom();
+					} else {
+						System.out.println("This account (" + user.getUserType()
+								+ ") has not the right clearance to run this command.");
+					}
+				} else if (command.equals("addGuest")) { // MH & R
+					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
+						addGuest();
+					} else {
+						System.out.println("This account (" + user.getUserType()
+								+ ") has not the right clearance to run this command.");
+					}
+				} else if (command.equals("checkIn")) { // HM & R
+					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
+						checkIn();
+					} else {
+						System.out.println("This account (" + user.getUserType()
+								+ ") has not the right clearance to run this command.");
+					}
+				} else if (command.equals("logout")) { // all users.
+					break;
+				} else if (command.equals("checkOut")) { // HM & R
+
+				} else if (command.equals("bookAmenities")) { // HM & R
+
+				} else if (command.equals("printReceipt")) { // MH & R
+
+				} else if (command.equals("addChargesToBooking")) { // HM & R
+
+				} else if (command.equals("getAvailableRoomTypes")) { // HM & R
+
+				} else if (command.equals("addingStayInformation")) { // HM & R
+
+				} else if (command.equals("viewGuestInformation")) { // HM & R
+
+				} else if (command.equals("lastCleanedDate")) { // HM & R
+
+				} else if (command.equals("cancelBooking")) { // HM & R
+
+				} else if (command.equals("assignExtraKeyCard")) { // HM & R
+					assignKeyCard(null);
+				} else if (command.equals("checkPaymentStatus")) { // HM & R
+
+				} else if (command.equals("checkNumberOfGuests")) { // HM & R
+
+				} else if (command.equals("viewKeyCard")) { // HM & admin
+
+				} else if (command.equals("createMasterKeyCard")) { // admin
+
+				} else if (command.equals("editRoom")) { // admin
+
+				} else if (command.equals("createUser")) { // admin
+
+				} else if (command.equals("markRoomAsCleaned")) { // C
+
+				}
 			}
-			else if (command.equals("bookRoom")){ //HM & R
-				bookRoom();
-			}
-			else if (command.equals("addGuest")){ //MH & R
-				addGuest();
-			}
-			else if (command.equals("checkIn")){ //HM & R
-				checkIn();
-			}
-	        else if (command.equals("checkOut")){ //HM & R
-	        	
-            }
-	        else if (command.equals("bookAmenities")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("printReceipt")){ //MH & R
-	        	
-	        }
-	        else if (command.equals("addChargesToBooking")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("getAvailableRoomTypes")){ //HM & R
-	        	
-	        }
-	        else if (command.equals("addingStayInformation")){ //HM & R
-	        	
-	        }
-	        else if (command.equals("viewGuestInformation")){ //HM & R 
-	        	
-	        }
-	        else if (command.equals("lastCleanedDate")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("cancelBooking")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("assignExtraKeyCard")){ // HM & R
-	        	assignKeyCard(null);
-	        }
-	        else if (command.equals("checkPaymentStatus")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("checkNumberOfGuests")){ // HM & R
-	        	
-	        }
-	        else if (command.equals("viewKeyCard")){ // HM & admin
-	        	
-	        }
-	        else if (command.equals("createMasterKeyCard")){ //admin
-	        	
-	        }
-	        else if (command.equals("editRoom")){ // admin
-	        	
-	        }
-	        else if (command.equals("createUser")){ // admin
-	        	
-	        }
-	        else if (command.equals("markRoomAsCleaned")){ //C	
-	        	
-	        }
 		}
 	}
 
-	
 	private void assignKeyCard(String roomNr) {
 		// TODO: Implement
 		if (roomNr == null) {
 			// ask for input
 		}
 	}
-	
+
 	private void checkIn() {
 		System.out.print("Provide Booking Id: ");
 		String id = s.next();
 		Booking booking = hotel.getBookingById(Integer.parseInt(id));
-		
+
 		hotel.specifyRoomForBooking(booking);
-		
+
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
-		
+
 		System.out.println("The following rooms were assigned for booking ID: " + booking.getBookingId() + " between "
 				+ ft.format(booking.getStartDate()) + " and " + ft.format(booking.getEndDate()) + ".");
 		for (int i = 0; i < booking.getBookedRooms().length; i++) {
 			System.out.println("Room number: " + booking.getBookedRooms()[i].getRoomNumber());
 		}
-		
-		//TODO: add key cards for room
+
+		// TODO: add key cards for room
 		assignKeyCard(booking.getBookedRooms()[0].getRoomNumber());
 	}
 
@@ -156,9 +159,9 @@ public class ConsolView {
 	private void bookRoom() {
 		Date startDate = new Date();
 		Date endDate = new Date();
-		
+
 		Set<RoomType> available = new HashSet<RoomType>();
-		
+
 		boolean notOk = true;
 		while (notOk) {
 			System.out.print("enter start date (yyyy-mm-dd):");
@@ -166,18 +169,16 @@ public class ConsolView {
 			System.out.print("enter end date (yyyy-mm-dd):");
 			String eDate = s.next();
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	
-	
+
 			try {
 				startDate = format.parse(sDate);
 				endDate = format.parse(eDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-	
+
 			// Start must be at least 1 day before end date.
 			notOk = startDate.getTime() >= endDate.getTime();
-			
 
 			try {
 				available.addAll(hotel.getAvailableRoomTypes(startDate, endDate));
@@ -189,20 +190,20 @@ public class ConsolView {
 				}
 				notOk = true;
 			}
-			
+
 		}
-		
+
 		// Set check in and out hours
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
 		cal.set(Calendar.HOUR_OF_DAY, 15);
 		startDate = cal.getTime();
-		
+
 		cal = Calendar.getInstance();
 		cal.setTime(endDate);
 		cal.set(Calendar.HOUR_OF_DAY, 12);
 		endDate = cal.getTime();
-		
+
 		System.out.println("Select a room type, the available types are: ");
 		for (RoomType type : available) {
 			System.out.println(type.getRoomTypeName());
@@ -230,20 +231,20 @@ public class ConsolView {
 		System.out.println("Booking process completed for booking with ID:" + book.getBookingId());
 	}
 
-	private void addRoom() {		
+	private void addRoom() {
 		boolean nrNotOk = true;
 		String roomNumber = null;
 		while (nrNotOk) {
 			System.out.print("Input the room number: ");
-			 roomNumber = s.next();
-			
+			roomNumber = s.next();
+
 			if (hotel.getRoomByNumber(roomNumber) == null) {
 				nrNotOk = false;
 			} else {
 				System.out.println("Room number already exists, remove the old room or choose another number.");
 			}
 		}
-		
+
 		RoomType type = null;
 		while (type == null) {
 			System.out.print("Input the room type: ");
@@ -284,8 +285,7 @@ public class ConsolView {
 			else if (temp.getPassword().equals(pass))
 				rdyToGo = true;
 		}
-		
-
+		hotel.setLoggedInUser(temp);
 		return temp;
 	}
 }

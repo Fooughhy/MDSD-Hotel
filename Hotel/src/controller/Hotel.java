@@ -34,7 +34,7 @@ public class Hotel {
 	private List<AmenitiesBooking> amenitiesBookingList;
 	private List<Booking> bookingList;
 	
-	private User loggedInUsers;
+	private User loggedInUser;
 	
 	// The last check out date of all rooms
 	private Map<RoomType, Map<Room, Date>> rooms;
@@ -288,6 +288,11 @@ public class Hotel {
 		return false;
 	}
 */
+	
+	public void setLoggedInUser(User user){
+		this.loggedInUser=user;
+	}
+	
 	public Set<RoomType> getRoomTypeList() {
 		return roomTypeList;
 	}
