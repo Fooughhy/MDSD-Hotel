@@ -5,6 +5,7 @@ import component.model.Booking.BookingStatus;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
@@ -107,7 +108,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public String[] availableTypes(Date from, Date to) {
+	public Set<String> availableTypes(Date from, Date to) {
 		// TODO Auto-generated method stub
 		return null;
 	}
