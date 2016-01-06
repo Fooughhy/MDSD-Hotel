@@ -27,6 +27,7 @@ public class ConsolView {
 
 	private Hotel hotel;
 	private User user;
+	private int totalNumbOfGuests = 0;
 	Scanner s;
 
 	public ConsolView() {
@@ -58,23 +59,23 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
-					// TODO: Add functionality
+					addCharges();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
 					getAvailableRoomTypes();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
-					// TODO: Add functionality
+					viewGuestInformation();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
 					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
-					// TODO: Add functionality
+					cancelBooking();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "assignExtraKeyCard")) {
 					assignKeyCard(null);
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkPaymentStatus")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkNumberOfGuests")) {
-					// TODO: Add functionality
+					amountOfGuests();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin, UserType.HotelManager}, command, "viewKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoom")) {
@@ -147,6 +148,21 @@ public class ConsolView {
 		} else {
 			System.out.println("Room was already clean or not checked out.");
 		}	
+	}
+	
+	public void cancelBooking(){
+		System.out.println("insert the booking number: ");
+		String bookingNumber = s.next();
+		int nr;
+		try{
+			nr=Integer.parseInt(bookingNumber);
+		}catch(Exception e){
+			System.out.println("Wrong typ of booking number.");
+			return;
+		}
+		Booking temp = hotel.getBookingById(nr);
+		hotel.removeBooking(temp);
+		System.out.println("booking removed.");
 	}
 
 	private void createUser(){
@@ -275,7 +291,10 @@ public class ConsolView {
 				System.out.println("No booking exists with this ID");
 			}
 		}
-
+		
+		System.out.println("Enter the amout of guests that will stay in the room: ");
+		int amountOfGuests = s.nextInt();
+		totalNumbOfGuests = totalNumbOfGuests + amountOfGuests;
 		switch (booking.getStatus()) {
 		case BOOKED:
 			break;
@@ -539,5 +558,38 @@ public class ConsolView {
 				}
 			}
 		}
+	}
+	private void addCharges(){
+		
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id to the room that shall be charged: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		System.out.println("Enter amount that the guest shall be charged");
+		int amount = s.nextInt();
+		booking.addCost(amount);
+		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
+	}
+	public void viewGuestInformation(){
+		System.out.println("Enter the pasport number: ");
+		String pass = s.next();
+		Guest guest = hotel.findGuestByPassport(pass);
+		if(guest==null){
+			System.out.println("Could not find guest.");
+		}
+		else{
+			System.out.println("Name: " + guest.getGuestName());
+			System.out.println("Phone Number: " + guest.getGuestPhoneNumber());
+			System.out.println("Passport number: " + guest.getGuestPassPortNumber());
+		}
+	}
+	public void amountOfGuests(){
+		System.out.println("Currently there are " + totalNumbOfGuests + " staying at the hotel.");
 	}
 }
