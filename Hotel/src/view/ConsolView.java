@@ -102,12 +102,26 @@ public class ConsolView {
 	        	
 	        }
 	        else if (command.equals("markRoomAsCleaned")){ //C	
-	        	
+	        	markRoomAsClean();
 	        }
 		}
 	}
 
 	
+	private void markRoomAsClean() {
+		Room room = null;
+		while (room == null) {
+			System.out.print("Provide a Room Number: ");
+			String nr = s.next();
+			room = hotel.getRoomByNumber(nr);
+			if (room == null) {
+				System.out.print("Room does not exist.");
+			}
+		}
+		room.setClean();
+	}
+
+
 	private void assignKeyCard(String roomNr) {
 		// TODO: Implement
 		if (roomNr == null) {
