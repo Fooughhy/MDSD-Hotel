@@ -66,7 +66,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
-					// TODO: Add functionality
+					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "assignExtraKeyCard")) {
@@ -107,6 +107,23 @@ public class ConsolView {
 		}
 		return false;
 	}
+
+	private void lastCleaned() {
+		Room room = null;
+		while (room == null) {
+			System.out.print("Provide a Room Number: ");
+			String nr = s.next();
+			room = hotel.getRoomByNumber(nr);
+			if (room == null) {
+				System.out.print("Room does not exist.");
+			}
+		}
+		
+		Date lastCleaned = room.getLastcleaned();
+		
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
+		System.out.println("Room " + room.getRoomNumber() + " was last cleaned at " + ft.format(lastCleaned));
+	}
 	
 	private void markRoomAsClean() {
 		Room room = null;
@@ -118,7 +135,12 @@ public class ConsolView {
 				System.out.print("Room does not exist.");
 			}
 		}
-		room.setClean(Calendar.getInstance().getTime());
+		
+		Date now = Calendar.getInstance().getTime();
+		room.setClean(now);
+		
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
+		System.out.println("Room " + room.getRoomNumber() + " set to cleaned at " + ft.format(now));
 	}
 
 	private void createUser(){
