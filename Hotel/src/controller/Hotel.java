@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -17,6 +19,7 @@ import model.Amenity;
 import model.Booking;
 import model.Guest;
 import model.HotelFullException;
+import model.KeyCard;
 import model.Room;
 import model.RoomType;
 import model.User;
@@ -31,6 +34,8 @@ public class Hotel {
 	private List<Amenity> amenitiesList;
 	private List<User> userList;
 	private Set<RoomType> roomTypeList;
+	private List<KeyCard> keyCardList;
+	private Queue<KeyCard> unassignedKeyCardList;
 	
 	private List<AmenitiesBooking> amenitiesBookingList;
 	private List<Booking> bookingList;
@@ -52,6 +57,8 @@ public class Hotel {
 		guestList = new ArrayList<Guest>();
 		amenitiesList = new ArrayList<Amenity>();
 		userList = new ArrayList<User>();
+		keyCardList = new ArrayList<KeyCard>();
+		unassignedKeyCardList = new PriorityQueue<KeyCard>();
 		loggedInUsers = new ArrayList<User>();
 		roomTypeList = new HashSet<RoomType>();
 		amenitiesBookingList = new ArrayList<AmenitiesBooking>();
@@ -220,10 +227,7 @@ public class Hotel {
 		return userList.remove(user);
 	}
 	
-	public User getUserByUsername(String username){
-		System.out.println(userList.size());
-		System.out.println(userList.get(0).getUsername());
-		
+	public User getUserByUsername(String username){		
 		for(User temp : userList){
 			if(temp.getUsername().equals(username))
 				return temp;
@@ -323,5 +327,9 @@ public class Hotel {
 
 	public Room getRoomByNumber(String roomNumber) {
 		return roomMap.get(roomNumber);
+	}
+	
+	public boolean assignKeyCardToRoom(Room room){
+		return true;
 	}
 }

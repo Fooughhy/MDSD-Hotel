@@ -111,7 +111,31 @@ public class ConsolView {
 	private void assignKeyCard(String roomNr) {
 		// TODO: Implement
 		if (roomNr == null) {
-			// ask for input
+			while(true){
+				System.out.println("What room would you like to assign a keycard to?");
+				String input = s.next();
+				
+				try{
+					int nr = Integer.parseInt(input);
+					if(nr >= 1){
+						Room r = hotel.getRoomByNumber(input);
+						if(r != null){
+							if(hotel.assignKeyCardToRoom(r)){
+								System.out.println("A new keycard was assigned to room " + nr);
+							}
+							else{
+								System.out.println("Unable to find a room with that roomnumber, please try again!");
+							}
+						}
+					}
+					else{
+						System.out.println("Invalid roomnumber, please input a roomnumber greater than 1!");
+					}
+				}
+				catch(NumberFormatException e){
+					System.out.println("Invalid input-type! Please use only numbers!");
+				}
+			}
 		}
 	}
 	
