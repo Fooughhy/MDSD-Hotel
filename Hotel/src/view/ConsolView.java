@@ -43,22 +43,22 @@ public class ConsolView {
 
 			if (command.equals("addRoom")){ // admin
 				addRoom();
-				}
+			}
 			else if (command.equals("bookRoom")){ //HM & R
 				bookRoom();
-				}
+			}
 			else if (command.equals("addGuest")){ //MH & R
 				addGuest();
-				}
+			}
 			else if (command.equals("checkIn")){ //HM & R
 				checkIn();
 			}
-	        else if (command.equals("bookAmenities")){ // HM & R
-	        	
-	        }
 	        else if (command.equals("checkOut")){ //HM & R
 	        	
             }
+	        else if (command.equals("bookAmenities")){ // HM & R
+	        	
+	        }
 	        else if (command.equals("printReceipt")){ //MH & R
 	        	
 	        }
@@ -81,7 +81,7 @@ public class ConsolView {
 	        	
 	        }
 	        else if (command.equals("assignExtraKeyCard")){ // HM & R
-	        	
+	        	assignKeyCard(null);
 	        }
 	        else if (command.equals("checkPaymentStatus")){ // HM & R
 	        	
@@ -107,6 +107,14 @@ public class ConsolView {
 		}
 	}
 
+	
+	private void assignKeyCard(String roomNr) {
+		// TODO: Implement
+		if (roomNr == null) {
+			// ask for input
+		}
+	}
+	
 	private void checkIn() {
 		System.out.print("Provide Booking Id: ");
 		String id = s.next();
@@ -121,6 +129,9 @@ public class ConsolView {
 		for (int i = 0; i < booking.getBookedRooms().length; i++) {
 			System.out.println("Room number: " + booking.getBookedRooms()[i].getRoomNumber());
 		}
+		
+		//TODO: add key cards for room
+		assignKeyCard(booking.getBookedRooms()[0].getRoomNumber());
 	}
 
 	private Guest addGuest() {
