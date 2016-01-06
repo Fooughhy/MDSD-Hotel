@@ -13,6 +13,7 @@ import java.util.Set;
 
 import access.UserType;
 import component.HotelSystemComponent;
+import model.Booking;
 import access.User;
 
 public class ConsoleView {
@@ -117,14 +118,66 @@ public class ConsoleView {
 		}
 	}
 	
-	
-	
 	private void checkIn() {
+		long bookingNr = -1;
+		while (bookingNr < 0) {
+			System.out.print("Provide Booking Id: ");
+			
+			try {
+				bookingNr = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+			
+			
+			if (comp.getBookingInterface().displayBookingInfo(bookingNr) == null) {
+				System.out.println("No booking exists with this ID");
+				bookingNr = -1;
+			}
+		}
+		
+		System.out.print("Input the passport number: ");
+		String passportNr = scanner.next();
+		
+		comp.getBookingInterface().getBookings(passportNr).contains(bookingNr);
+		
+		comp.getCheckInOut().checkIn(bookingNr);
+		
+		// print room-nr and key-nr
 		
 	}
 
 	private void checkOut() {
+		int bookingNr = -1;
+		while (bookingNr < 0) {
+			System.out.print("Provide Booking Id: ");
+			
+			try {
+				bookingNr = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+			
+			
+			if (comp.getBookingInterface().displayBookingInfo(bookingNr) == null) {
+				System.out.println("No booking exists with this ID");
+				bookingNr = -1;
+			}
+		}
 		
+		comp.getCheckInOut().checkOut(bookingNr);
+		// auto mark room for cleaning
+		// key cards auto removed
+
+		int price[] = comp.getBookingInterface().checkCost(bookingNr);
+		int totalCost = price[0] - price[1];
+		
+		System.out.println("Cost for the stay: " +  totalCost + " Kr.");
+
+		System.out.println("Enter verification number from external system:");
+		String ver = scanner.next();
+		
+		comp.getBilling().payCredit(ver);
 	}
 
 	private void bookRoom() {
@@ -204,36 +257,21 @@ public class ConsoleView {
 			}
 		}
 		
-		String passportNr = null;
-		while (passportNr == null) {
-			System.out.print("Input the passport number: ");
-			passportNr = scanner.next();
-		}
+		System.out.print("Input the passport number: ");
+		String passportNr = scanner.next();
 		
 		if (!comp.getGuestInterface().isGuest(passportNr)) {
-			String fName = null;
-			while (fName == null) {
-				System.out.print("Input the first name: ");
-				fName = scanner.next();
-			}
-			
-			String lName = null;
-			while (lName == null) {
-				System.out.print("Input the last name: ");
-				lName = scanner.next();
-			}
-			
-			String email = null;
-			while (email == null) {
-				System.out.print("Input the email: ");
-				email = scanner.next();
-			}
-			
-			String phone = null;
-			while (phone == null) {
-				System.out.print("Input the phone number: ");
-				phone = scanner.next();
-			}
+			System.out.print("Input the first name: ");
+			String fName = scanner.next();
+		
+			System.out.print("Input the last name: ");
+			String lName = scanner.next();
+		
+			System.out.print("Input the email: ");
+			String email = scanner.next();
+		
+			System.out.print("Input the phone number: ");
+			String phone = scanner.next();
 			
 			comp.getGuestInterface().createGuest(passportNr, fName, lName, email, phone);
 		}

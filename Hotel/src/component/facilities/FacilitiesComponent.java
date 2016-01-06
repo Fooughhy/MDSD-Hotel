@@ -49,18 +49,6 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public boolean registerKeyCard(int cardId, int roomNr) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean unregisterKeyCard(int cardId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean cleanRoom(Date when, int roomNr) {
 		// TODO Auto-generated method stub
 		return false;

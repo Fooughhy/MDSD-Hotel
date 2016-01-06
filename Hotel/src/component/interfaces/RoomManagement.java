@@ -3,21 +3,6 @@ package component.interfaces;
 import java.util.Date;
 
 public interface RoomManagement {
-
-	/**
-	 * Register a key card to a room.
-	 * @param cardId The Id of the key card.
-	 * @param roomNr The number of the room.
-	 * @return True if successfully registered.
-	 */
-	public boolean registerKeyCard(int cardId, int roomNr);
-	
-	/**
-	 * Unregister a key card from its registered room.
-	 * @param cardId The Id of the key card.
-	 * @return
-	 */
-	public boolean unregisterKeyCard(int cardId);
 	
 	/**
 	 * Set the flag that the room has been cleaned.
