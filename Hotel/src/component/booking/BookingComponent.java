@@ -25,7 +25,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 	
 	@Override
-	public Map<String, Long> checkIn(long bookingNr, String passportNr) {
+	public Map<String, Long> checkIn(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		hotel.specifyRoomForBooking(booking);
 		Map<String, Long> map = new TreeMap<String, Long>();
@@ -40,7 +40,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public boolean checkOut(int bookingNr, String passportNr) {
+	public boolean checkOut(int bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
 		clearKeyCards(bookingNr);
