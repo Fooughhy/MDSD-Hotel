@@ -232,25 +232,35 @@ public class ConsolView {
 			System.out.println("Booking is not yet checked in.");
 			return;
 		case OUT:
-			System.out.println("Booking is alreayd checked out.");
+			System.out.println("Booking is already checked out.");
 			return;
 		case IN:
 			break;
 		}
-
+		
+		System.out.println("Checked out the following rooms: ");
 		
 		Room[] rooms = booking.getBookedRooms();
+		
+		int totalCost = 0;
 		
 		for (int i = 0; i < rooms.length; i++) {
 			// remove keys
 			hotel.removeAllKeyCardsFromRoom(rooms[i].getRoomNumber());
 			// set not cleaned
 			rooms[i].setDirty(booking.getEndDate());
+			
+			totalCost += rooms[i].getCostOfRoom();
+			
+			System.out.println("Room " + rooms[i].getRoomNumber() + " for cost " + rooms[i].getCostOfRoom() + " KR.");
 		}
 		
 		booking.updateStatus(Booking.BookingStatus.OUT);
 		
 		// handle payment
+		//TODO: Discounts!
+		
+		System.out.println("For total cost: " + totalCost + " KR.");
 	}
 	
 	private void checkIn() {
