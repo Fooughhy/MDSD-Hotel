@@ -52,42 +52,58 @@ public class ConsolView {
 				}
 			else if (command.equals("checkin")){ //HM & R
 				checkIn();
-				}
-		        else if (commmand.equals("bookAmenities")){ // HM & R
-		        }
-		        else if (commmand.equals("checkOut")){ //HM & R
-                        }
-		        else if (commmand.equals("printRecipt")){ //MH & R
-		        }
-		        else if (commmand.equals("addChargesToBooking")){ // HM & R
-		        }
-		        else if (commmand.equals("getAvailableRoomTypes")){ //HM & R
-		        }
-		        else if (commmand.equals("addingStayInformation")){ //HM & R
-		        }
-		        else if (commmand.equals("viewGuesetInformation")){ //HM & R 
-		        }
-		        else if (commmand.equals("lastCleanedDate")){ // HM & R
-		        }
-		        else if (commmand.equals("cancelBooking")){ // HM & R
-		        }
-		        else if (commmand.equals("assignExtraKeyCard")){ // HM & R
-		        }
-		        else if (commmand.equals("checkPaymentStatus")){ // HM & R
-		        }
-		        else if (commmand.equals("checkNumberOfGuest")){ // HM & R
-		        }
-		        else if (commmand.equals("viewKeyCard")){ // HM & admin
-		        }
-
-		        else if (commmand.equals("createMasterKeyCard")){ //admin
-		        }
-		        else if (commmand.equals("editRoom")){ // admin
-		        }
-		        else if (commmand.equals("createUser")){ // admin
-		        }
-		        else if (commmand.equals("markRoomAsCleaned")){ //C	
-		        }
+			}
+	        else if (command.equals("bookAmenities")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("checkOut")){ //HM & R
+	        	
+            }
+	        else if (command.equals("printRecipt")){ //MH & R
+	        	
+	        }
+	        else if (command.equals("addChargesToBooking")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("getAvailableRoomTypes")){ //HM & R
+	        	
+	        }
+	        else if (command.equals("addingStayInformation")){ //HM & R
+	        	
+	        }
+	        else if (command.equals("viewGuesetInformation")){ //HM & R 
+	        	
+	        }
+	        else if (command.equals("lastCleanedDate")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("cancelBooking")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("assignExtraKeyCard")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("checkPaymentStatus")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("checkNumberOfGuest")){ // HM & R
+	        	
+	        }
+	        else if (command.equals("viewKeyCard")){ // HM & admin
+	        	
+	        }
+	        else if (command.equals("createMasterKeyCard")){ //admin
+	        	
+	        }
+	        else if (command.equals("editRoom")){ // admin
+	        	
+	        }
+	        else if (command.equals("createUser")){ // admin
+	        	
+	        }
+	        else if (command.equals("markRoomAsCleaned")){ //C	
+	        	
+	        }
 		}
 	}
 
