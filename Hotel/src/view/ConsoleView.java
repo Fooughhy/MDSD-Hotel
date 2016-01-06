@@ -1,9 +1,15 @@
 package view;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import access.UserType;
 import component.HotelSystemComponent;
@@ -71,21 +77,17 @@ public class ConsoleView {
 						// CODE;
 					} else if ("availableAmenity".equals(command)) {
 						// CODE;
-					} else if ("addRoom".equals(command)) {
-						// CODE;
-					} else if ("cancelRoom".equals(command)) {
-						// CODE;
 					} else if ("bookRoom".equals(command)) {
+						bookRoom();
+					} else if ("cancelRoom".equals(command)) {
 						// CODE;
 					} else if ("checkCost".equals(command) || "printReceipt".equals(command)) {
 						// CODE;
 						// comp.getDiscounts();
-					} else if ("removeRoom".equals(command)) {
-						// CODE;
 					} else if ("checkIn".equals(command)) {
-						// CODE;
+						checkIn();
 					} else if ("checkOut".equals(command)) {
-						// CODE;
+						checkOut();
 						// billing is used inside checkout
 						// comp.getBilling()
 					} else if ("createGuest".equals(command)) {
@@ -117,6 +119,130 @@ public class ConsoleView {
 	
 	
 	
+	private void checkIn() {
+		
+	}
+
+	private void checkOut() {
+		
+	}
+
+	private void bookRoom() {
+		Date startDate = new Date();
+		Date endDate = new Date();
+
+		Set<String> available = new HashSet<String>();
+
+		while (available.isEmpty()) {
+			System.out.print("enter start date (yyyy-mm-dd):");
+			String sDate = scanner.next();
+			System.out.print("enter end date (yyyy-mm-dd):");
+			String eDate = scanner.next();
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+			try {
+				startDate = format.parse(sDate);
+				endDate = format.parse(eDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			// Start must be at least 1 day before end date.
+			if (startDate.getTime() >= endDate.getTime()) {
+				System.out.println("Start must be at least 1 day before End.");
+				continue;
+			}
+
+			available.addAll(comp.getBookingInterface().availableTypes(startDate, endDate));
+				
+			if (available.isEmpty()) {
+				// Hotel is full some day.
+				SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+			
+				Calendar day = Calendar.getInstance();
+				day.setTime(startDate);
+				
+				
+				System.out.println("Hotel full for the following dates");
+				while (day.before(endDate)) {
+					if (comp.getBookingInterface().isFullyBooked(day.getTime())) {
+						System.out.println(ft.format(day));
+					}					
+					day.add(Calendar.DAY_OF_MONTH, 1);
+				}
+			}
+		}
+
+		// Set check-in and check-out hours
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startDate);
+		cal.set(Calendar.HOUR_OF_DAY, 15);
+		startDate = cal.getTime();
+
+		cal = Calendar.getInstance();
+		cal.setTime(endDate);
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		endDate = cal.getTime();
+
+		System.out.println("Select a room type, the available types are: ");
+		for (String type : available) {
+			System.out.println(type);
+		}
+
+		String validRoomType = null;
+		while (validRoomType == null) {
+			System.out.println("Enter your RoomType: ");
+			String rType = scanner.next();
+			for (String type : available) {
+				if (type.equals(rType)) {
+					validRoomType = type;
+					break;
+				}
+			}
+			if (validRoomType == null) {
+				System.out.println("Room type not valid!");
+			}
+		}
+		
+		String passportNr = null;
+		while (passportNr == null) {
+			System.out.print("Input the passport number: ");
+			passportNr = scanner.next();
+		}
+		
+		if (!comp.getGuestInterface().isGuest(passportNr)) {
+			String fName = null;
+			while (fName == null) {
+				System.out.print("Input the first name: ");
+				fName = scanner.next();
+			}
+			
+			String lName = null;
+			while (lName == null) {
+				System.out.print("Input the last name: ");
+				lName = scanner.next();
+			}
+			
+			String email = null;
+			while (email == null) {
+				System.out.print("Input the email: ");
+				email = scanner.next();
+			}
+			
+			String phone = null;
+			while (phone == null) {
+				System.out.print("Input the phone number: ");
+				phone = scanner.next();
+			}
+			
+			comp.getGuestInterface().createGuest(passportNr, fName, lName, email, phone);
+		}
+		
+		int id = comp.getBookingInterface().createBooking(passportNr, startDate, endDate, validRoomType);
+		
+		System.out.println("Booking process completed for booking with ID:" + id);
+	}
+
 	private void createAmenity() {
 		String name = null;
 		while (name == null) {
@@ -205,7 +331,7 @@ public class ConsoleView {
 			}
 		}
 		
-		if (comp.getViewFacilities().getRooms(roomType).length > 0) {
+		if (!comp.getViewFacilities().getRooms(roomType).isEmpty()) {
 			System.out.println("There are rooms of this type, remove them first.");
 			return;
 		}
