@@ -24,7 +24,8 @@ public class ConsolView {
 	public static void main(String[] args) {
 		new ConsolView();
 	}
-
+	//Testing 
+	
 	private Hotel hotel;
 	private User user;
 	Scanner s;
@@ -152,7 +153,7 @@ public class ConsolView {
 		String un = s.next();
 		System.out.println("insert password: ");
 		String pass = s.next();
-		boolean correctNumber = false;
+		boolean correctNumber = false; 
 		int number = 0;
 		while(number==0){
 			System.out.println("please choose clearence level\n"+
@@ -461,5 +462,9 @@ public class ConsolView {
 		}
 		hotel.setLoggedInUser(temp);
 		return temp;
+	}
+	
+	public void addCharges(){
+		
 	}
 }
