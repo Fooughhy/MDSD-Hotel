@@ -23,11 +23,10 @@ public class Booking {
 	private Date endDate;
 	private int totalCost;
 	
-	public Booking(RoomType[] rooms, Guest guest, User receptionist, Date startDay, Date endDay){
+	public Booking(RoomType[] rooms, Guest guest, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
 		reservedRoomTypes = rooms;
 		bookingGuest = guest;
-		bookingReceptionist = receptionist;
 		startDate = startDay;
 		endDate = endDay;
 	}

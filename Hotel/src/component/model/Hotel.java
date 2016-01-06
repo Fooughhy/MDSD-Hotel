@@ -175,8 +175,8 @@ public class Hotel {
 		}
 	}
 	
-	public Booking createBooking(User user, Guest guest, RoomType[] rooms, Date startDate, Date endDate){
-		Booking booking = new Booking(rooms, guest, user, startDate, endDate);
+	public Booking createBooking(Guest guest, RoomType[] rooms, Date startDate, Date endDate){
+		Booking booking = new Booking(rooms, guest, startDate, endDate);
 		bookingList.add(booking);
 		
 		setRoomTypeBooked(rooms, startDate, endDate);
