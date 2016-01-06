@@ -137,10 +137,14 @@ public class ConsolView {
 		}
 		
 		Date now = Calendar.getInstance().getTime();
-		room.setClean(now);
+		boolean res = room.setClean(now);
 		
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
-		System.out.println("Room " + room.getRoomNumber() + " set to cleaned at " + ft.format(now));
+		if (res) {
+			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
+			System.out.println("Room " + room.getRoomNumber() + " set to cleaned at " + ft.format(now));
+		} else {
+			System.out.println("Room was already clean or not checked out.");
+		}	
 	}
 
 	private void createUser(){

@@ -51,12 +51,15 @@ public class Room {
 	/**
 	 * Set room to clean, call after cleaning.
 	 * @date The Date of the cleaning.
+	 * @return True if the room was cleaned.
 	 */
-	public void setClean(Date date) {
+	public boolean setClean(Date date) {
 		if (!clean && date.after(lastcheckout)) {
 			clean = true;
 			lastcleaned = date;
+			return true;
 		}
+		return false;
 	}
 	
 	/**
