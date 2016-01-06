@@ -34,7 +34,7 @@ public interface BookingInterface {
 	 * @param bookingNr The Id of the booking.
 	 * @return A human readable string.
 	 */
-	public String displayBookingInfo(int bookingNr);
+	public String displayBookingInfo(long bookingNr);
 	
 	/**
 	 * Checks if a day is fully booked for a room type.

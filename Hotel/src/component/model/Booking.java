@@ -17,17 +17,16 @@ public class Booking {
 	private Guest bookingGuest;
 	private User bookingReceptionist;
 	
-	private RoomType[] reservedRoomTypes;
+	private RoomType reservedRoomTypes;
 	private Room[] bookedRooms;
 	private Date startDate;
 	private Date endDate;
 	private int totalCost;
 	
-	public Booking(RoomType[] rooms, Guest guest, User receptionist, Date startDay, Date endDay){
+	public Booking(RoomType rooms, Guest guest, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
 		reservedRoomTypes = rooms;
 		bookingGuest = guest;
-		bookingReceptionist = receptionist;
 		startDate = startDay;
 		endDate = endDay;
 	}
@@ -90,11 +89,11 @@ public class Booking {
 		return bookedRooms;
 	}
 
-	public void setReservedRoomTypes(RoomType[] reservedTypes){
+	public void setReservedRoomTypes(RoomType reservedTypes){
 		reservedRoomTypes = reservedTypes;
 	}
 	
-	public RoomType[] getReservedRoomTypes(){
+	public RoomType getReservedRoomTypes(){
 		return reservedRoomTypes;
 	}
 	
@@ -125,24 +124,16 @@ public class Booking {
 		if(o instanceof Booking){
 			Booking other = (Booking) o;
 			
-			result = bookingGuest.equals(other.bookingGuest) && bookingReceptionist.equals(other.bookingReceptionist) && //the equals on the list fucked up.
+			result = bookingGuest.equals(other.bookingGuest) && //the equals on the list fucked up.
 					 startDate.equals(other.startDate) && endDate.equals(other.endDate) &&/* bookedRooms.equals(other.bookedRooms) &&*/ bookingId == other.bookingId;
 		}
 		
 		return result;
 	}
 	
-	private String listAllRoomTypesAsStrings(){
-		String temp ="";
-		for(RoomType room : reservedRoomTypes){
-			temp +=(" "+room.getRoomTypeName());
-		}
-		return temp;
-	}
-	
 	@Override
 	public String toString(){
 		return "Booking ID: "+this.bookingId+"\nGuest: "+this.bookingGuest.getGuestName()
-		+"\nRoom: "+listAllRoomTypesAsStrings();
+		+"\nRoom: "+reservedRoomTypes.getRoomTypeName();
 	}
 }

@@ -7,9 +7,12 @@ import component.model.Hotel;
 
 public class KeyCard {
 	private Room room;
+	private long currentUniqueId;
+	
+	private static long uniqueKeyCardId = 0;
 	
 	public KeyCard(){
-		;
+		currentUniqueId = uniqueKeyCardId++;
 	}
 	
 	public KeyCard(Room room){
@@ -20,9 +23,19 @@ public class KeyCard {
 		return room;
 	}
 	
+	/**
+	 * Set which room this keycard should be able to open
+	 * @param room The Room object of the room which this keycard is able to open
+	 * @return True if the room was successfully changed, false otherwise
+	 */
 	public boolean setRoom(Room room){
 		this.room = room;
+		currentUniqueId = uniqueKeyCardId++;
 		return true;
+	}
+	
+	public long getUniqueId(){
+		return currentUniqueId;
 	}
 	
 	/**

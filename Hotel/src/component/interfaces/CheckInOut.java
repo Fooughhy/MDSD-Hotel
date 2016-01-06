@@ -1,5 +1,7 @@
 package component.interfaces;
 
+import java.util.Map;
+
 public interface CheckInOut {
 
 	/**
@@ -7,7 +9,7 @@ public interface CheckInOut {
 	 * @param bookingNr The booking number.
 	 * @return True if the check in was successful.
 	 */
-	public boolean checkIn(int bookingNr);
+	public Map<String, Long> checkIn(long bookingNr);
 	
 	/**
 	 * Check out a guest via the booking number.

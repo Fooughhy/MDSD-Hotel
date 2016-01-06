@@ -109,12 +109,10 @@ public class Hotel {
 		endCal.set(Calendar.HOUR_OF_DAY, 0);
 		while(startCal.before(endCal)){
 			Date d = startCal.getTime();
-			RoomType[] rooms = booking.getReservedRoomTypes(); 
-			for(int i = 0; i<rooms.length;i++){
-				//bookedRooms.get(d).put(rooms[i], 0);
-				bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1); //TODO dose not work.
-				// after a room once has been canceld, it can be booked unlimited times.
-			}
+			RoomType rooms = booking.getReservedRoomTypes(); 
+			//bookedRooms.get(d).put(rooms, 0);
+			bookedRooms.get(d).put(rooms, bookedRooms.get(d).get(rooms) + 1); //TODO dose not work.
+			// after a room once has been canceld, it can be booked unlimited times.
 			startCal.add(Calendar.DAY_OF_MONTH, 1);
 		}
 		System.out.println("hash map: "+bookedRooms);
@@ -175,8 +173,8 @@ public class Hotel {
 		}
 	}
 	
-	public Booking createBooking(User user, Guest guest, RoomType[] rooms, Date startDate, Date endDate){
-		Booking booking = new Booking(rooms, guest, user, startDate, endDate);
+	public Booking createBooking(Guest guest, RoomType rooms, Date startDate, Date endDate){
+		Booking booking = new Booking(rooms, guest, startDate, endDate);
 		bookingList.add(booking);
 		
 		setRoomTypeBooked(rooms, startDate, endDate);
@@ -184,7 +182,7 @@ public class Hotel {
 		return booking;
 	}
 
-	private void setRoomTypeBooked(RoomType[] rooms, Date start, Date end) {
+	private void setRoomTypeBooked(RoomType rooms, Date start, Date end) {
 		Calendar startCal = Calendar.getInstance();
 		Calendar endCal = Calendar.getInstance();
 		startCal.setTime(start);
@@ -199,13 +197,13 @@ public class Hotel {
 		    	bookedRooms.put(d, new HashMap<RoomType, Integer>());
 		    }
 		    
-		    for (int i = 0; i < rooms.length; i++) {
-				if (bookedRooms.get(d).get(rooms[i]) == null) {
-					bookedRooms.get(d).put(rooms[i], 1);
+		    //for (int i = 0; i < rooms.length; i++) {
+				if (bookedRooms.get(d).get(rooms) == null) {
+					bookedRooms.get(d).put(rooms, 1);
 				} else {
-					bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1);
+					bookedRooms.get(d).put(rooms, bookedRooms.get(d).get(rooms) + 1);
 				}
-			}
+			//}
 			
 			startCal.add(Calendar.DAY_OF_MONTH, 1);
 		}
@@ -232,11 +230,11 @@ public class Hotel {
 			return;
 		}
 		
-		RoomType[] types = booking.getReservedRoomTypes();
-		Room[] bookedRooms = new Room[types.length];
+		RoomType types = booking.getReservedRoomTypes();
+		Room[] bookedRooms = new Room[1]; //TODO is something wrong maybe its here... "Room[1]"
 		
 		for (int i = 0; i < bookedRooms.length; i++) {
-			Map<Room, Date> roomsOfType = rooms.get(types[i]);
+			Map<Room, Date> roomsOfType = rooms.get(types);
 			Set<Room> roomNrs = roomsOfType.keySet();
 			for (Room nr : roomNrs) {
 				if  (roomsOfType.get(nr).before(booking.getStartDate())) { // room is checked out or was never checked in before.
@@ -405,9 +403,9 @@ public class Hotel {
 		return available;
 	}
 	
-	public Booking getBookingById(int id) {
+	public Booking getBookingById(long bookingNr) {
 		for (Booking b : bookingList) {
-			if (b.getBookingId() == id) {
+			if (b.getBookingId() == bookingNr) {
 				return b;
 			}
 		}
@@ -418,12 +416,14 @@ public class Hotel {
 		return roomMap.get(roomNumber);
 	}
 	
-	public KeyCard addKeyCardToRoom(Room room){
+	public Long addKeyCardToRoom(Room room){
 		KeyCard k = unassignedKeyCardList.poll();
+		
 		if(k != null){
 			k.setRoom(room);
 		}
-		return k;
+		
+		return k.getUniqueId();
 	}
 	
 	public void removeAllKeyCardsFromRoom(String roomNr){

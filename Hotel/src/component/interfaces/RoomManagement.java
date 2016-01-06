@@ -10,7 +10,7 @@ public interface RoomManagement {
 	 * @param roomNr What room is to be set to clean.
 	 * @return True if successful.
 	 */
-	public boolean cleanRoom(Date when, int roomNr);
+	public boolean cleanRoom(Date when, String roomNr);
 	
 	/**
 	 * Set a flag that the room requires cleaning.
@@ -18,13 +18,13 @@ public interface RoomManagement {
 	 * @param roomNr What room is to be set to unclean.
 	 * @return True if successful.
 	 */
-	public boolean setRoomUnclean(Date when, int roomNr);
+	public boolean setRoomUnclean(Date when, String roomNr);
 	
 	/**
 	 * Check if the room is clean and checked out.
 	 * @param roomNr What room is to be checked.
 	 * @return True if the room is available for check in.
 	 */
-	public boolean checkRoomStatus(int roomNr);
+	public boolean checkRoomStatus(String roomNr);
 	
 }
