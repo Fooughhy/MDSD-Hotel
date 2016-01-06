@@ -432,7 +432,7 @@ public class ConsolView {
 				type = typ;
 			}
 		}
-		System.out.println("please insert the cost of the room per night: ");
+		System.out.println("please insert the cost of the room per night (Kr): ");
 		String cost = s.next();
 		int c=1000;
 		try{
