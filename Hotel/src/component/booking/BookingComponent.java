@@ -5,6 +5,7 @@ import component.model.Booking.BookingStatus;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
@@ -110,7 +111,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public String[] availableTypes(Date from, Date to) {
+	public Set<String> availableTypes(Date from, Date to) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -134,45 +135,59 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public boolean createGuest(String passportNr, String fName, String lName, String email, String phone) {
-		// TODO Auto-generated method stub
-		return false;
+		hotel.addGuest(new Guest(fName, phone, passportNr,lName,email));
+		return true;
 	}
 
 	@Override
 	public boolean changeEmail(String passportNr, String email) {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			hotel.getGuest(passportNr).setEmail(email);
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean changePhone(String passportNr, String phone) {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			hotel.getGuest(passportNr).setGuestPhoneNumber(phone);
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public String getName(String passportNr) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return hotel.getGuest(passportNr).getGuestName();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public String getEmail(String passportNr) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return hotel.getGuest(passportNr).getEmail();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public String getPhone(String passportNr) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return hotel.getGuest(passportNr).getGuestPhoneNumber();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
 	public String requestPayment(int sum) {
 		return "Payment completed!";
 	}
-
-	
-	
 }

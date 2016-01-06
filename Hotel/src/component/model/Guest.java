@@ -1,12 +1,27 @@
 package component.model;
 
 public class Guest {
-	private String guestName, guestPhoneNumber, guestPassPortNumber;
+	private String guestName, guestPhoneNumber, guestPassPortNumber, guestLastName, guestEmail;
 	
-	public Guest(String name, String phoneNumber, String passportNumber){
+	public Guest(String name, String phoneNumber, String passportNumber,String lastName,String email){
 		guestName = name;
 		guestPhoneNumber = phoneNumber;
 		guestPassPortNumber = passportNumber;
+		guestLastName=lastName;
+		guestEmail=email;
+	}
+	
+	public String getLastName(){
+		return guestLastName;
+	}
+	public String getEmail(){
+		return guestEmail;
+	}
+	public void setEmail(String email){
+		this.guestEmail=email;
+	}
+	public void setLastName(String name){
+		this.guestLastName=name;
 	}
 
 	public String getGuestName() {

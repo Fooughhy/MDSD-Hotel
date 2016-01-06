@@ -1,6 +1,7 @@
 package component.interfaces;
 
 import java.util.Date;
+import java.util.Set;
 
 public interface BookingInterface {
 
@@ -55,7 +56,7 @@ public interface BookingInterface {
 	 * @param to The end date.
 	 * @return A list of names for the room types.
 	 */
-	public String[] availableTypes(Date from, Date to);
+	public Set<String> availableTypes(Date from, Date to);
 	
 	/**
 	 * Adds an extra room to a booking.
