@@ -4,9 +4,12 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import access.UserType;
 import component.HotelSystemComponent;
+import model.Room;
+import model.RoomType;
 import access.User;
 
 public class ConsoleView {
@@ -44,15 +47,15 @@ public class ConsoleView {
 				}
 				if (getAccess().equals(UserType.Admin)) {
 					if ("createRoomType".equals(command)) {
-						// CODE;
+						createRoomType();
 					} else if ("createRoom".equals(command)) {
-						// CODE;
+						createRoom();
 					} else if ("changeRoomPrice".equals(command)) {
-						// CODE;
+						changeRoomPrice();
 					} else if ("removeRoom".equals(command)) {
-						// CODE;
+						removeRoom();
 					} else if ("removeRoomType".equals(command)) {
-						// CODE;
+						removeRoomType();
 					} else if ("createAmenity".equals(command)) {
 						// CODE;
 					} else if ("removeAmenity".equals(command)) {
@@ -113,6 +116,140 @@ public class ConsoleView {
 				}
 			}
 		}
+	}
+	
+	private void removeRoom() {
+		if (comp.getViewRoom().getRooms().length < 1) {
+			System.out.println("There are no rooms, use <createRoom>.");
+			return;
+		}
+		int roomNumber = 0;
+		while (roomNumber < 1) {
+			System.out.print("Input the room number: ");
+			try {
+				roomNumber = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+
+			if (comp.getViewRoom().getRoomType(roomNumber) == null) {
+				System.out.println("Room number does not exists, choose another number.");
+			}
+		}
+
+		boolean result = comp.getAdminRoomManagement().removeRoom(roomNumber);
+		
+		System.out.println("Room number " + roomNumber + " was " + (result ? "" : "NOT") +  " removed.");
+	}
+
+	private void removeRoomType() {
+		if (comp.getViewRoom().getTypeList().isEmpty()) {
+			System.out.println("There are no room types, use <createRoomType>.");
+			return;
+		}
+		String roomType = null;
+		while (roomType == null) {
+			System.out.print("Input the room type: ");
+			roomType = scanner.next();
+
+			if (!comp.getViewRoom().getTypeList().contains(roomType)) {
+				System.out.println("Room type does not exists.");
+			}
+		}
+		
+		if (comp.getViewRoom().getRooms(roomType).length > 0) {
+			System.out.println("There are rooms of this type, remove them first.");
+			return;
+		}
+		
+		if (comp.getAdminRoomManagement().removeRoomType(roomType)) {
+			System.out.println("RoomType: <" + roomType + "> removed.");
+		}
+	}
+
+	private void createRoomType() {
+		String roomType = null;
+		while (roomType == null) {
+			System.out.print("Input the room type: ");
+			roomType = scanner.next();
+
+			if (comp.getViewRoom().getTypeList().contains(roomType)) {
+				System.out.println("Room type already exists, choose another name.");
+			}
+		}
+		
+		int roomPrice = -1;
+		while (roomPrice < 0) {
+			System.out.print("Input the room number: ");
+			try {
+				roomPrice = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+		}
+		
+		comp.getAdminRoomManagement().createRoomType(roomType, roomPrice);
+	}
+	
+	private void changeRoomPrice() {
+		if (comp.getViewRoom().getTypeList().isEmpty()) {
+			System.out.println("There are no room types, use <createRoomType>.");
+			return;
+		}
+		
+		String roomType = null;
+		while (roomType == null) {
+			System.out.print("Input the room type: ");
+			roomType = scanner.next();
+
+			if (!comp.getViewRoom().getTypeList().contains(roomType)) {
+				System.out.println("Room type does not exists, choose another type.");
+			}
+		}
+		
+		int roomPrice = -1;
+		while (roomPrice < 0) {
+			System.out.print("Input the room number: ");
+			try {
+				roomPrice = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+		}
+		
+		comp.getAdminRoomManagement().changeRoomPrice(roomType, roomPrice);
+	}
+	
+	private void createRoom() {
+		if (comp.getViewRoom().getTypeList().isEmpty()) {
+			System.out.println("There are no room types, use <createRoomType>.");
+			return;
+		}
+		int roomNumber = 0;
+		while (roomNumber < 1) {
+			System.out.print("Input the room number: ");
+			try {
+				roomNumber = Integer.parseInt(scanner.next());
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format.");
+			} // Do not update if incorrect format
+
+			if (comp.getViewRoom().getRoomType(roomNumber) != null) {
+				System.out.println("Room number already exists, choose another number.");
+			}
+		}
+
+		System.out.print("Input the room type: ");
+		String stype = scanner.next();
+
+		if (!comp.getViewRoom().getTypeList().contains(stype)) {
+			System.out.println("This type does not exist, first use <createRoomType>.");
+			return;
+		}
+		
+		comp.getAdminRoomManagement().createRoom(stype, roomNumber);
+		
+		System.out.println("Room number " + roomNumber + " is now created.");
 	}
 
 	private UserType getAccess() {

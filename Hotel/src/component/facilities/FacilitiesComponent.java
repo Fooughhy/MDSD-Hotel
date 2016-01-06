@@ -1,6 +1,7 @@
 package component.facilities;
 
 import java.util.Date;
+import java.util.Set;
 
 import component.interfaces.AdminRoomManagement;
 import component.interfaces.AmenitiesBooking;
@@ -127,6 +128,24 @@ public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, Ameni
 
 	@Override
 	public Room getRoomByNumber(int roomNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] getRooms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] getRooms(String roomType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> getTypeList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
