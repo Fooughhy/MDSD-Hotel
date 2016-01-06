@@ -126,8 +126,8 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public String getRoomType(String roomNr) {
-		return hotel.getRoomByNumber(roomNr).getRoomType().getRoomTypeName();
+	public String getRoomType(String roomType) {
+		return hotel.getRoomType(roomType).getRoomTypeName();
 	}
 
 	@Override

@@ -391,7 +391,7 @@ public class ConsoleView {
 		
 		int roomPrice = -1;
 		while (roomPrice < 0) {
-			System.out.print("Input the room number: ");
+			System.out.print("Input the room price: ");
 			try {
 				roomPrice = Integer.parseInt(scanner.next());
 			} catch (NumberFormatException e) {
