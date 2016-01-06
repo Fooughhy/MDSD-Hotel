@@ -70,6 +70,4 @@ public class HotelSystemComponent {
 	public ViewRoom getViewRoom() {
 		return facilities;
 	}
-	
-	// TODO: fill in all
 }
