@@ -416,12 +416,14 @@ public class Hotel {
 		return roomMap.get(roomNumber);
 	}
 	
-	public KeyCard addKeyCardToRoom(Room room){
+	public Long addKeyCardToRoom(Room room){
 		KeyCard k = unassignedKeyCardList.poll();
+		
 		if(k != null){
 			k.setRoom(room);
 		}
-		return k;
+		
+		return k.getUniqueId();
 	}
 	
 	public void removeAllKeyCardsFromRoom(String roomNr){

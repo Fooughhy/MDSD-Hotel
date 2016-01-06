@@ -33,7 +33,7 @@ public interface AdminRoomManagement {
 	 * @param number the room number.
 	 * @return True if the room was successfully created.
 	 */
-	public boolean createRoom(String type, int number);
+	public boolean createRoom(String type, String number);
 	
 	/**
 	 * Removes a room from the system.
@@ -41,13 +41,4 @@ public interface AdminRoomManagement {
 	 * @return 
 	 */
 	public boolean removeRoom(int number);
-	
-	/*
-	 * "Properties" of a room not implemented.
-	 */
-	
-	/**
-	 * 
-	 */
-	public Room getRoomByNumber(int roomNr);
 }

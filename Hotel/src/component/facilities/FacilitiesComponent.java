@@ -9,11 +9,10 @@ import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewFacilities;
 import component.model.Hotel;
-import component.model.Room;
 
 public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
 	
-	Hotel hotel;
+	private Hotel hotel;
 	
 	public FacilitiesComponent(Hotel hotel){
 		this.hotel = hotel;
@@ -37,7 +36,7 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public boolean createRoom(String type, int number) {
+	public boolean createRoom(String type, String number) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -49,7 +48,7 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public boolean registerKeyCard(int cardId, int roomNr) {
+	public boolean registerKeyCard(int cardId, String roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -61,19 +60,19 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public boolean cleanRoom(Date when, int roomNr) {
+	public boolean cleanRoom(Date when, String roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setRoomUnclean(Date when, int roomNr) {
+	public boolean setRoomUnclean(Date when, String roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean checkRoomStatus(int roomNr) {
+	public boolean checkRoomStatus(String roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -127,13 +126,7 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public String getRoomType(int roomNr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Room getRoomByNumber(int roomNr) {
+	public String getRoomType(String roomNr) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -173,6 +166,4 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

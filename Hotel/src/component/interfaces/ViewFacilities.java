@@ -22,7 +22,7 @@ public interface ViewFacilities {
 	 * @param roomNr The room number.
 	 * @return The name of the type, null if the room does not exist.
 	 */
-	public String getRoomType(int roomNr);
+	public String getRoomType(String roomNr);
 
 	/**
 	 * Return the set of types specified for the hotel.

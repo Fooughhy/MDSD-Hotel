@@ -4,35 +4,38 @@ import component.model.*;
 import component.model.Booking.BookingStatus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
 import component.interfaces.GuestInterface;
-import component.interfaces.PVerification;
 
-public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface, PVerification {
+public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
 	
-	Hotel hotel;
+	private Hotel hotel;
 	
 	public BookingComponent(Hotel hotel){
 		this.hotel = hotel;
 	}
 	
 	@Override
-	public boolean checkIn(int bookingNr) {
+	public Map<String, Long> checkIn(int bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		hotel.specifyRoomForBooking(booking);
+		Map<String, Long> map = new TreeMap<String, Long>();
 		
 		for(Room room : booking.getBookedRooms()){
-			hotel.addKeyCardToRoom(room);
+			map.put(room.getRoomNumber(), hotel.addKeyCardToRoom(room));
 		}
 		
 		booking.updateStatus(BookingStatus.IN);
 		
-		return true;
+		return map;
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		
 		for(Room room : booking.getBookedRooms()){
 			hotel.removeAllKeyCardsFromRoom(room.getRoomNumber());
+			room.setDirty(Calendar.getInstance().getTime());
 		}
 		
 		booking.updateStatus(BookingStatus.OUT);
@@ -190,10 +194,5 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		}catch(Exception e){
 			return null;
 		}
-	}
-
-	@Override
-	public String requestPayment(int sum) {
-		return "Payment completed!";
 	}
 }

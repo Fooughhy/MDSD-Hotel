@@ -10,7 +10,7 @@ import component.model.Hotel;
 
 public class PaymentSystemComponent implements PVerification, DiscountManagement, Billing, Discounts {
 	
-	Hotel hotel;
+	private Hotel hotel;
 	
 	public PaymentSystemComponent(Hotel hotel){
 		this.hotel = hotel;

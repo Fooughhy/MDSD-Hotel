@@ -120,7 +120,7 @@ public class ConsoleView {
 	
 	
 	private void checkIn() {
-		
+		;
 	}
 
 	private void checkOut() {
@@ -306,7 +306,7 @@ public class ConsoleView {
 				System.out.println("Incorrect format.");
 			} // Do not update if incorrect format
 
-			if (comp.getViewFacilities().getRoomType(roomNumber) == null) {
+			if (comp.getViewFacilities().getRoomType(String.valueOf(roomNumber)) == null) {
 				System.out.println("Room number does not exists, choose another number.");
 			}
 		}
@@ -408,7 +408,7 @@ public class ConsoleView {
 				System.out.println("Incorrect format.");
 			} // Do not update if incorrect format
 
-			if (comp.getViewFacilities().getRoomType(roomNumber) != null) {
+			if (comp.getViewFacilities().getRoomType(String.valueOf(roomNumber)) != null) {
 				System.out.println("Room number already exists, choose another number.");
 			}
 		}
@@ -421,7 +421,7 @@ public class ConsoleView {
 			return;
 		}
 		
-		comp.getAdminRoomManagement().createRoom(stype, roomNumber);
+		comp.getAdminRoomManagement().createRoom(stype, String.valueOf(roomNumber));
 		
 		System.out.println("Room number " + roomNumber + " is now created.");
 	}
@@ -459,7 +459,7 @@ public class ConsoleView {
 		System.out.println("What is the number of the cleaned room?");
 		int roomNr = Integer.parseInt(scanner.next());
 		
-		comp.getRoomManagement().cleanRoom(Calendar.getInstance().getTime(), roomNr);
+		comp.getRoomManagement().cleanRoom(Calendar.getInstance().getTime(), String.valueOf(roomNr));
 		
 		System.out.println("Room " + roomNr + " has now been set to cleaned!");
 	}
