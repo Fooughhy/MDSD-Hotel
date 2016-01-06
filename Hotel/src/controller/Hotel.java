@@ -110,7 +110,8 @@ public class Hotel {
 			Date d = startCal.getTime();
 			RoomType[] rooms = booking.getReservedRoomTypes(); 
 			for(int i = 0; i<rooms.length;i++){
-				bookedRooms.get(d).put(rooms[i], 0);
+				//bookedRooms.get(d).put(rooms[i], 0);
+				bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1); //TODO NOT TESTED!!!
 			}
 			startCal.add(Calendar.DAY_OF_MONTH, 1);
 		}
