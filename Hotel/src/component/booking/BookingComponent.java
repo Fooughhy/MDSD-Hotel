@@ -1,6 +1,7 @@
 package component.booking;
 
 import component.model.*;
+import component.model.Booking.BookingStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -15,13 +16,30 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	
 	@Override
 	public boolean checkIn(int bookingNr) {
-		// TODO Auto-generated method stub
-		return false;
+		Booking booking = hotel.getBookingById(bookingNr);
+		hotel.specifyRoomForBooking(booking);
+		
+		for(Room room : booking.getBookedRooms()){
+			hotel.addKeyCardToRoom(room);
+		}
+		
+		booking.updateStatus(BookingStatus.IN);
+		
+		return true;
 	}
 
 	@Override
 	public boolean checkOut(int bookingNr) {
-		// TODO Auto-generated method stub
+		Booking booking = hotel.getBookingById(bookingNr);
+		
+		for(Room room : booking.getBookedRooms()){
+			hotel.removeAllKeyCardsFromRoom(room.getRoomNumber());
+		}
+		
+		booking.updateStatus(BookingStatus.OUT);
+		
+		// TODO: Payment
+		
 		return false;
 	}
 
