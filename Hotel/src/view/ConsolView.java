@@ -45,157 +45,96 @@ public class ConsolView {
 				if (command.equals("addRoom")) { // admin
 					if (user.getUserType() == UserType.Admin) {
 						addRoom();
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("bookRoom")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
 						bookRoom();
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("addGuest")) { // MH & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
 						addGuest();
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("checkIn")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
 						checkIn();
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("logout")) { // all users.
 					break;
 				} else if (command.equals("checkOut")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
-
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("bookAmenities")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("printReceipt")) { // MH & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("addChargesToBooking")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
-
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("getAvailableRoomTypes")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("addingStayInformation")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("viewGuestInformation")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("lastCleanedDate")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("cancelBooking")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("assignExtraKeyCard")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
 						assignKeyCard(null);
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("checkPaymentStatus")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("checkNumberOfGuests")) { // HM & R
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("viewKeyCard")) { // HM & admin
 					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Admin) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("createMasterKeyCard")) { // admin
 					if (user.getUserType() == UserType.Admin) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("editRoom")) { // admin
 					if (user.getUserType() == UserType.Admin) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("createUser")) { // admin
 					if (user.getUserType() == UserType.Admin) {
-						
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+						// TODO: Add functionality
+					} else { printAccessError(user.getUserType()); }
 				} else if (command.equals("markRoomAsCleaned")) { // C
 					if (user.getUserType() == UserType.Cleaner) {
 						markRoomAsClean();
-					} else {
-						System.out.println("This account (" + user.getUserType()
-								+ ") has not the right clearance to run this command.");
-					}
+					} else { printAccessError(user.getUserType()); }
 				}
 			}
 		}
+	}
+	
+	private void printAccessError(UserType type) {
+		System.out.println("Account type <" + type + "> does not have permissions for this command.");
 	}
 
 	
