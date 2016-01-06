@@ -50,7 +50,7 @@ public class ConsolView {
 			else if (command.equals("addGuest")){ //MH & R
 				addGuest();
 				}
-			else if (command.equals("checkin")){ //HM & R
+			else if (command.equals("checkIn")){ //HM & R
 				checkIn();
 			}
 	        else if (command.equals("bookAmenities")){ // HM & R
@@ -59,7 +59,7 @@ public class ConsolView {
 	        else if (command.equals("checkOut")){ //HM & R
 	        	
             }
-	        else if (command.equals("printRecipt")){ //MH & R
+	        else if (command.equals("printReceipt")){ //MH & R
 	        	
 	        }
 	        else if (command.equals("addChargesToBooking")){ // HM & R
@@ -71,7 +71,7 @@ public class ConsolView {
 	        else if (command.equals("addingStayInformation")){ //HM & R
 	        	
 	        }
-	        else if (command.equals("viewGuesetInformation")){ //HM & R 
+	        else if (command.equals("viewGuestInformation")){ //HM & R 
 	        	
 	        }
 	        else if (command.equals("lastCleanedDate")){ // HM & R
@@ -86,7 +86,7 @@ public class ConsolView {
 	        else if (command.equals("checkPaymentStatus")){ // HM & R
 	        	
 	        }
-	        else if (command.equals("checkNumberOfGuest")){ // HM & R
+	        else if (command.equals("checkNumberOfGuests")){ // HM & R
 	        	
 	        }
 	        else if (command.equals("viewKeyCard")){ // HM & admin
