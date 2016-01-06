@@ -62,6 +62,14 @@ public class Hotel {
 		setupBookedRooms();
 	}
 	
+	public Set<Room> getRooms(){
+		Set<Room> temp = new HashSet<Room>();
+		for(Map.Entry<String,Room> entry : roomMap.entrySet()) {
+			  temp.add(entry.getValue());
+		}
+		return temp;
+	}
+	
 	/**
 	 * Returns the guest with the given passport number.
 	 * @param ppn The guest's passport number.
