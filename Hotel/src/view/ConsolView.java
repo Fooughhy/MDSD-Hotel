@@ -216,29 +216,65 @@ public class ConsolView {
 		}
 	}
 
-	private void checkOut() {		
-		System.out.print("Provide Booking Id: ");
-		String id = s.next();
-		Booking booking = hotel.getBookingById(Integer.parseInt(id));
+	private void checkOut() {
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		switch (booking.getStatus()) {
+		case BOOKED:
+			System.out.println("Booking is not yet checked in.");
+			return;
+		case OUT:
+			System.out.println("Booking is alreayd checked out.");
+			return;
+		case IN:
+			break;
+		}
+
 		
 		Room[] rooms = booking.getBookedRooms();
 		
-		// remove keys
-		
-		
-		// set not cleaned
 		for (int i = 0; i < rooms.length; i++) {
+			// remove keys
+			hotel.removeAllKeyCardsFromRoom(rooms[i].getRoomNumber());
+			// set not cleaned
 			rooms[i].setDirty(booking.getEndDate());
 		}
+		
+		booking.updateStatus(Booking.BookingStatus.OUT);
 		
 		// handle payment
 	}
 	
 	private void checkIn() {
-		System.out.print("Provide Booking Id: ");
-		String id = s.next();
-		Booking booking = hotel.getBookingById(Integer.parseInt(id));
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
 
+		switch (booking.getStatus()) {
+		case BOOKED:
+			break;
+		case OUT:
+			System.out.println("Booking is already checked out.");
+			return;
+		case IN:
+			System.out.println("Booking is already checked in.");
+			return;
+		}
+		
 		hotel.specifyRoomForBooking(booking);
 
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm");
@@ -249,8 +285,9 @@ public class ConsolView {
 			System.out.println("Room number: " + booking.getBookedRooms()[i].getRoomNumber());
 		}
 
-		// TODO: add key cards for room
 		assignKeyCard(booking.getBookedRooms()[0].getRoomNumber());
+		
+		booking.updateStatus(Booking.BookingStatus.IN);
 	}
 
 	private Guest addGuest() {
