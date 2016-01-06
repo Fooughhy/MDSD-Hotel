@@ -1,6 +1,7 @@
 package component.interfaces;
 
 import java.util.Date;
+import java.util.List;
 
 public interface BookingInterface {
 
@@ -25,7 +26,7 @@ public interface BookingInterface {
 	 * @param passportNr The passport number of the guest.
 	 * @return All the booking Id:s of the guest.
 	 */
-	public int[] getBookings(String passportNr);
+	public List<Long> getBookings(String passportNr);
 	
 	/**
 	 * Displays a booking as a String.

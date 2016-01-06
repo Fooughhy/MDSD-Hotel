@@ -3,6 +3,7 @@ package component.booking;
 import component.model.*;
 import component.model.Booking.BookingStatus;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,9 +84,15 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public int[] getBookings(String passportNr) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Long> getBookings(String passportNr) {
+		Guest guest = hotel.findGuestByPassport(passportNr);
+		List<Long> temp = new ArrayList<>();
+		for(Booking booking : hotel.findBookingsByGuest(guest)){
+			temp.add(booking.getBookingId());
+		}
+		return temp;
+		
+		
 	}
 
 	@Override
