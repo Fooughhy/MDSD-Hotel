@@ -37,104 +37,75 @@ public class ConsolView {
 		while (true) { // to make sure this is whereyou end up if you logg out.
 			this.user = loggin();
 			System.out.println("User logged in");
+			UserType userType = user.getUserType();
 			String command;
 			while (true) {
 				System.out.print(user.getUsername() + ":");
 				command = s.next();
 
-				if (command.equals("addRoom")) { // admin
-					if (user.getUserType() == UserType.Admin) {
-						addRoom();
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("bookRoom")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						bookRoom();
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("addGuest")) { // MH & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						addGuest();
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("checkIn")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						checkIn();
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("logout")) { // all users.
+				if (command.equals("logout")) { // admin
 					break;
-				} else if (command.equals("checkOut")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("bookAmenities")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("printReceipt")) { // MH & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("addChargesToBooking")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("getAvailableRoomTypes")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("addingStayInformation")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("viewGuestInformation")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("lastCleanedDate")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("cancelBooking")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("assignExtraKeyCard")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						assignKeyCard(null);
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("checkPaymentStatus")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("checkNumberOfGuests")) { // HM & R
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Receptionist) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("viewKeyCard")) { // HM & admin
-					if (user.getUserType() == UserType.HotelManager || user.getUserType() == UserType.Admin) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("createMasterKeyCard")) { // admin
-					if (user.getUserType() == UserType.Admin) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("editRoom")) { // admin
-					if (user.getUserType() == UserType.Admin) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("createUser")) { // admin
-					if (user.getUserType() == UserType.Admin) {
-						// TODO: Add functionality
-					} else { printAccessError(user.getUserType()); }
-				} else if (command.equals("markRoomAsCleaned")) { // C
-					if (user.getUserType() == UserType.Cleaner) {
-						markRoomAsClean();
-					} else { printAccessError(user.getUserType()); }
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookRoom")) {
+					bookRoom();
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addGuest")) {
+					addGuest();
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkIn")) {
+					checkIn();
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkOut")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookAmenities")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "assignExtraKeyCard")) {
+					assignKeyCard(null);
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkPaymentStatus")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkNumberOfGuests")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin, UserType.HotelManager}, command, "viewKeyCard")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoom")) {
+					addRoom();
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createMasterKeyCard")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "editRoom")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createUser")) {
+					// TODO: Add functionality
+				} else if (checkCommand(userType, new UserType[]{UserType.Cleaner}, command, "markRoomAsCleaned")) {
+					markRoomAsClean();
 				}
 			}
 		}
 	}
 	
-	private void printAccessError(UserType type) {
-		System.out.println("Account type <" + type + "> does not have permissions for this command.");
+	private boolean checkCommand(UserType loggedIn, UserType[] access, String commandIn, String commandReq) {
+		boolean accessOk = false;
+		if (commandIn.equals(commandReq)) {
+			for (int i = 0; i < access.length; i++) {
+				accessOk = accessOk || loggedIn == access[i];
+			}
+			if (accessOk) {
+				return true;
+			} else {
+				System.out.println("Account type <" + loggedIn + "> does not have permissions for this command.");
+				return false;
+			}
+		}
+		return false;
 	}
 
 	
