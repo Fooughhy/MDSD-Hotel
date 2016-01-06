@@ -17,7 +17,7 @@ public class PaymentSystemComponent implements PVerification, DiscountManagement
 	}
 	
 	@Override
-	public void payCredit(String verificationNr) {
+	public void payCredit(int bookingNr, String verificationNr) {
 		// TODO Auto-generated method stub
 		
 	}
