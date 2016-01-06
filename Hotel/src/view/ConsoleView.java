@@ -13,7 +13,6 @@ import java.util.Set;
 
 import access.UserType;
 import component.HotelSystemComponent;
-import model.Booking;
 import access.User;
 
 public class ConsoleView {
@@ -43,7 +42,7 @@ public class ConsoleView {
 		while (true) { // login loop
 			login();
 			while (true) { // program loop
-				System.out.print(currentUser.getUsername() + ":");
+				System.out.println(currentUser.getUsername() + ": ");
 				String command = scanner.next();
 
 				if (command.equals("logout")) {

@@ -23,10 +23,6 @@ import model.UserType;
 
 public class ConsolView {
 
-	public static void main(String[] args) {
-		new ConsolView();
-	}
-
 	private Hotel hotel;
 	private User user;
 	private int totalNumbOfGuests = 0;
