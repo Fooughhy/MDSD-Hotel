@@ -43,7 +43,7 @@ public class ConsolView {
 				System.out.print(user.getUsername() + ":");
 				command = s.next();
 
-				if (command.equals("logout")) { // admin
+				if (command.equals("logout")) {
 					break;
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookRoom")) {
 					bookRoom();
