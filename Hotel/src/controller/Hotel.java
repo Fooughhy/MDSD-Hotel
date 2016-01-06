@@ -25,7 +25,6 @@ import view.View;
 
 public class Hotel {
 	
-	private View view;
 	private Map<String,Room> roomMap;
 	private List<Guest> guestList;
 	private List<Amenity> amenitiesList;
@@ -46,7 +45,6 @@ public class Hotel {
 	private Map<Date, Map<RoomType, Integer>> bookedRooms;
 	
 	public Hotel(){
-		view = new View();
 		
 		roomMap = new TreeMap<String,Room>();
 		guestList = new ArrayList<Guest>();
