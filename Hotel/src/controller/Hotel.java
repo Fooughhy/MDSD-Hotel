@@ -92,6 +92,17 @@ public class Hotel {
 		guestList.add(guest);
 	}
 	
+	/*
+	 * removes a booking from the bookinList.
+	 * @param the booking that are going to be removed.
+	 */
+	public void removeBooking(Booking booking){
+		/*bookingList.remove(booking);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		bookedRooms.remove(booking.getStartDate());*/
+	}
+	
 	/**
 	 * Provides a list with all of one Guest's Bookings.
 	 * @return

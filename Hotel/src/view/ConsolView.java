@@ -69,7 +69,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
 					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
-					// TODO: Add functionality
+					cancelBooking();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "assignExtraKeyCard")) {
 					assignKeyCard(null);
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkPaymentStatus")) {
@@ -146,6 +146,21 @@ public class ConsolView {
 		} else {
 			System.out.println("Room was already clean or not checked out.");
 		}	
+	}
+	
+	public void cancelBooking(){
+		System.out.println("insert the booking number: ");
+		String bookingNumber = s.next();
+		int nr;
+		try{
+			nr=Integer.parseInt(bookingNumber);
+		}catch(Exception e){
+			System.out.println("Wrong typ of booking number.");
+			return;
+		}
+		Booking temp = hotel.getBookingById(nr);
+		hotel.removeBooking(temp);
+		System.out.println("booking removed.");
 	}
 
 	private void createUser(){
