@@ -98,7 +98,7 @@ public class ConsolView {
 			for (int i = 0; i < access.length; i++) {
 				accessOk = accessOk || loggedIn == access[i];
 			}
-			if (accessOk) {
+			if (true || accessOk) { // TODO: now all users have access to everything
 				return true;
 			} else {
 				System.out.println("Account type <" + loggedIn + "> does not have permissions for this command.");
