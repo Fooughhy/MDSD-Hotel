@@ -64,7 +64,8 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
-					// TODO: Add functionality
+					
+					viewGuestInformation();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
 					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
@@ -479,5 +480,16 @@ public class ConsolView {
 		int amount = s.nextInt();
 		booking.addCost(amount);
 		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
+	}
+	public void viewGuestInformation(){
+		System.out.println("Enter the pasport number: ");
+		String pass = s.next();
+		Guest temp = hotel.findGuestByPassport(pass);
+		if(temp==null){
+			System.out.println("Could not find guest.");
+		}
+		else{
+			System.out.println("Name: "+temp.getGuestName()+"\nPhoneNumber: "+temp.getGuestPhoneNumber());
+		}
 	}
 }
