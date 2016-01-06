@@ -265,6 +265,14 @@ public class Hotel {
 		return userList.remove(user);
 	}
 	
+	public Deque<KeyCard> getUnassignedKeyCards(){
+		return unassignedKeyCardList;
+	}
+	
+	public List<KeyCard> getKeyCards(){
+		return keyCardList;
+	}
+	
 	public User getUserByUsername(String username){		
 		for(User temp : userList){
 			if(temp.getUsername().equals(username))
@@ -373,7 +381,7 @@ public class Hotel {
 		return roomMap.get(roomNumber);
 	}
 	
-	public KeyCard assignKeyCardToRoom(Room room){
+	public KeyCard addKeyCardToRoom(Room room){
 		KeyCard k = unassignedKeyCardList.poll();
 		if(k != null){
 			k.setRoom(room);
@@ -381,7 +389,18 @@ public class Hotel {
 		return k;
 	}
 	
+	public void removeAllKeyCardsFromRoom(String roomNr){
+		List<KeyCard> list = KeyCard.cardForRoom(getKeyCards(), roomNr, this);
+		
+		for(KeyCard k : list){
+			k.setRoom(null);
+		}
+	}
+	
 	public boolean addKeyCard(KeyCard card){
-		return unassignedKeyCardList.add(card) && keyCardList.add(card);
+		if(card != null)
+			return unassignedKeyCardList.add(card) && keyCardList.add(card);
+		else
+			return false;
 	}
 }

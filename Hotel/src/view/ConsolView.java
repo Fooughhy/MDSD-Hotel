@@ -193,7 +193,7 @@ public class ConsolView {
 					if(nr >= 1){
 						Room r = hotel.getRoomByNumber(input);
 						if(r != null){
-							if(hotel.assignKeyCardToRoom(r) != null){
+							if(hotel.addKeyCardToRoom(r) != null){
 								System.out.println("A new keycard was assigned to room " + nr);
 								return;
 							}
