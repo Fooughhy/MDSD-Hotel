@@ -75,7 +75,7 @@ public class ConsoleView {
 						// CODE;
 					} else if ("cancelRoom".equals(command)) {
 						// CODE;
-					} else if ("createRoom".equals(command)) {
+					} else if ("bookRoom".equals(command)) {
 						// CODE;
 					} else if ("checkCost".equals(command) || "printReceipt".equals(command)) {
 						// CODE;
