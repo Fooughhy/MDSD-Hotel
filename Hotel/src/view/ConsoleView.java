@@ -283,7 +283,6 @@ public class ConsoleView {
 	
 	private void cleanRoom(){
 		System.out.println("What is the number of the cleaned room?");
-		Scanner scanner = new Scanner(System.in);
 		int roomNr = Integer.parseInt(scanner.next());
 		
 		comp.getRoomManagement().cleanRoom(Calendar.getInstance().getTime(), roomNr);
