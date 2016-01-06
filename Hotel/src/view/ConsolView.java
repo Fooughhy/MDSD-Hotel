@@ -65,7 +65,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
-					viewGuestInfo();
+					viewGuestInformation();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
 					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
@@ -484,25 +484,22 @@ public class ConsolView {
 		booking.addCost(amount);
 		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
 	}
-	
+	public void viewGuestInformation(){
+		System.out.println("Enter the pasport number: ");
+		String pass = s.next();
+		Guest guest = hotel.findGuestByPassport(pass);
+		if(guest==null){
+			System.out.println("Could not find guest.");
+		}
+		else{
+			System.out.println("Name: " + guest.getGuestName());
+			System.out.println("Phone Number: " + guest.getGuestPhoneNumber());
+			System.out.println("Passport number: " + guest.getGuestPassPortNumber());
+		}
+	}
 	public void amountOfGuests(){
 		System.out.println("Currently there are " + totalNumbOfGuests + " staying at the hotel.");
 	}
 	
-	private void viewGuestInfo(){
-		Booking booking = null;
-		while (booking == null) {
-			System.out.print("Provide Booking Id for the guest you want info about: ");
-			String id = s.next();
-			booking = hotel.getBookingById(Integer.parseInt(id));
-			if (booking == null) {
-				System.out.println("No booking exists with this ID");
-			}
-		}
-		
-		Guest guest = booking.getBookingGuest();
-		System.out.println("Name: " + guest.getGuestName());
-		System.out.println("Phone Number: " + guest.getGuestPhoneNumber());
-		System.out.println("Passport number: " + guest.getGuestPassPortNumber());
-	}
+
 }
