@@ -1,5 +1,7 @@
 package component.booking;
 
+import component.model.*;
+
 import java.util.Date;
 
 import component.interfaces.BookingInterface;
@@ -8,7 +10,9 @@ import component.interfaces.Discounts;
 import component.interfaces.GuestInterface;
 
 public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
-
+	
+	Hotel hotel = new Hotel();
+	
 	@Override
 	public boolean checkIn(int bookingNr) {
 		// TODO Auto-generated method stub
@@ -35,14 +39,14 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public int createBooking(String passportNr, Date from, Date to, String roomType) {
-		// TODO Auto-generated method stub
-		return 0;
+		Guest guest = hotel.getGuest(passportNr);
+		model.RoomType rt = hotel.getRoomType(roomType);
+		hotel.createBooking(user, guest, rt, from, to);
 	}
 
 	@Override
 	public void cancelBooking(int bookingNr) {
-		// TODO Auto-generated method stub
-		
+		removeBooking(hotel.getBookingById(bookingNr));
 	}
 
 	@Override
