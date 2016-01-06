@@ -34,7 +34,7 @@ public class ConsolView {
 		System.out.println("Creating a Hotel");
 		this.hotel = new Hotel();
 		System.out.println("Hotel created");
-		while (true) { // to make sure this is whereyou end up if you logg out.
+		while (true) { // to make sure this is where you end up if you logout.
 			this.user = loggin();
 			System.out.println("User logged in");
 			UserType userType = user.getUserType();
@@ -84,7 +84,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "editRoom")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createUser")) {
-					// TODO: Add functionality
+					createUser();
 				} else if (checkCommand(userType, new UserType[]{UserType.Cleaner}, command, "markRoomAsCleaned")) {
 					markRoomAsClean();
 				}
@@ -137,7 +137,7 @@ public class ConsolView {
 			}catch(NumberFormatException e){
 				System.out.println("wrong number inserted.");
 			}
-			if(number>4 || number>1){
+			if(number>4 || number<1){
 				number=0;
 				System.out.println("wrong number.");
 			}
