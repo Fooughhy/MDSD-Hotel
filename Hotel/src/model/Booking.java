@@ -19,6 +19,7 @@ public class Booking {
 	private Room[] bookedRooms;
 	private Date startDate;
 	private Date endDate;
+	private  int totalCost;
 	
 	public Booking(RoomType[] rooms, Guest guest, User receptionist, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
@@ -54,6 +55,13 @@ public class Booking {
 	
 	private static synchronized long getNewUniqueBoookingId(){
 		return latestBookingId++;
+	}
+	
+	public void addCost(int amount){
+		this.totalCost += amount;
+	}
+	public int getTotalCost(){
+		return this.totalCost;
 	}
 	
 	public long getBookingId(){

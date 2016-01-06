@@ -8,11 +8,22 @@ public class Room {
 	private boolean clean = true;
 	private Date lastcleaned;
 	private Date lastcheckout;
+	private int costOfRoom;
 	
 
 	public Room(String number, RoomType RoomType){
 		roomNumber = number;
 		roomType = RoomType;
+		//cost of room sets to 1000 if nothing else is stated
+		costOfRoom=1000;
+	}
+	
+	public void setCostOfRoom(int cost){
+		this.costOfRoom=cost;
+	}
+	
+	public int getCostOfRoom(){
+		return this.costOfRoom;
 	}
 	
 	public String getRoomNumber() {

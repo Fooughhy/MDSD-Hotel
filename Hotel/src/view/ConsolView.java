@@ -288,6 +288,8 @@ public class ConsolView {
 		assignKeyCard(booking.getBookedRooms()[0].getRoomNumber());
 		
 		booking.updateStatus(Booking.BookingStatus.IN);
+		
+		//booking.addCost();
 	}
 
 	private Guest addGuest() {
@@ -418,7 +420,14 @@ public class ConsolView {
 				type = typ;
 			}
 		}
-
+		System.out.println("please insert the cost of the room per night: ");
+		String cost = s.next();
+		int c=1000;
+		try{
+			c=Integer.parseInt(cost);
+		}catch(Exception e){
+			System.out.println("something went wrong setting cost to 1000kr");
+		}
 		hotel.addRoom(new Room(roomNumber, type));
 		System.out.println("Room number " + roomNumber + " is now created.");
 	}
