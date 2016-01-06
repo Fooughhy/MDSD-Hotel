@@ -3,10 +3,12 @@ package view;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -35,6 +37,25 @@ public class ConsolView {
 		System.out.println("Creating a Hotel");
 		this.hotel = new Hotel();
 		System.out.println("Hotel created");
+		
+		// Test Test! Adding rooms for easy testing!
+		ArrayList<RoomType> list = new ArrayList<>();
+		
+		RoomType r = new RoomType("Single");
+		list.add(r);
+		hotel.addRoomType(r);
+		r = new RoomType("Double");
+		list.add(r);
+		hotel.addRoomType(r);
+		
+		Random random = new Random();
+		
+		for(int i = 0; i < 30; i++){
+			Room room = new Room(""+i, list.get(random.nextInt(2)));
+			hotel.addRoom(room);
+		}
+		// Test Test! Adding rooms for easy testing!
+		
 		while (true) { // to make sure this is where you end up if you logout.
 			this.user = loggin();
 			System.out.println("User logged in");
