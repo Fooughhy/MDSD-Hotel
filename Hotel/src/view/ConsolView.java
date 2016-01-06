@@ -41,14 +41,53 @@ public class ConsolView {
 			System.out.print(user.getUsername() + ":");
 			command = s.next();
 
-			if (command.equals("addRoom"))
+			if (command.equals("addRoom")){ // admin
 				addRoom();
-			else if (command.equals("bookRoom"))
+				}
+			else if (command.equals("bookRoom")){ //HM & R
 				bookRoom();
-			else if (command.equals("addGuest"))
+				}
+			else if (command.equals("addGuest")){ //MH & R
 				addGuest();
-			else if (command.equals("checkin"))
+				}
+			else if (command.equals("checkin")){ //HM & R
 				checkIn();
+				}
+		        else if (commmand.equals("bookAmenities")){ // HM & R
+		        }
+		        else if (commmand.equals("checkOut")){ //HM & R
+                        }
+		        else if (commmand.equals("printRecipt")){ //MH & R
+		        }
+		        else if (commmand.equals("addChargesToBooking")){ // HM & R
+		        }
+		        else if (commmand.equals("getAvailableRoomTypes")){ //HM & R
+		        }
+		        else if (commmand.equals("addingStayInformation")){ //HM & R
+		        }
+		        else if (commmand.equals("viewGuesetInformation")){ //HM & R 
+		        }
+		        else if (commmand.equals("lastCleanedDate")){ // HM & R
+		        }
+		        else if (commmand.equals("cancelBooking")){ // HM & R
+		        }
+		        else if (commmand.equals("assignExtraKeyCard")){ // HM & R
+		        }
+		        else if (commmand.equals("checkPaymentStatus")){ // HM & R
+		        }
+		        else if (commmand.equals("checkNumberOfGuest")){ // HM & R
+		        }
+		        else if (commmand.equals("viewKeyCard")){ // HM & admin
+		        }
+
+		        else if (commmand.equals("createMasterKeyCard")){ //admin
+		        }
+		        else if (commmand.equals("editRoom")){ // admin
+		        }
+		        else if (commmand.equals("createUser")){ // admin
+		        }
+		        else if (commmand.equals("markRoomAsCleaned")){ //C	
+		        }
 		}
 	}
 
