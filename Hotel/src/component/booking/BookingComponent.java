@@ -27,8 +27,12 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public boolean createKeyCard(int bookingNr) {
-		// TODO Auto-generated method stub
-		return false;
+		Booking booking = hotel.getBookingById(bookingNr);
+		Room[] rooms = booking.getBookedRooms();
+		for(Room room : rooms){
+			hotel.addKeyCard(new KeyCard(room));
+		}
+		return true;
 	}
 
 	@Override
@@ -68,8 +72,8 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public String displayBookingInfo(int bookingNr) {
-		// TODO Auto-generated method stub
-		return null;
+		Booking booking = hotel.getBookingById(bookingNr);
+		return booking.toString();
 	}
 
 	@Override

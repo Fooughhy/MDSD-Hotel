@@ -131,4 +131,18 @@ public class Booking {
 		
 		return result;
 	}
+	
+	private String listAllRoomTypesAsStrings(){
+		String temp ="";
+		for(RoomType room : reservedRoomTypes){
+			temp +=(" "+room.getRoomTypeName());
+		}
+		return temp;
+	}
+	
+	@Override
+	public String toString(){
+		return "Booking ID: "+this.bookingId+"\nGuest: "+this.bookingGuest.getGuestName()
+		+"\nRoom: "+listAllRoomTypesAsStrings();
+	}
 }
