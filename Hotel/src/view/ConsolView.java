@@ -60,7 +60,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
-					// TODO: Add functionality
+					getAvailableRoomTypes();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
@@ -79,6 +79,8 @@ public class ConsolView {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoom")) {
 					addRoom();
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoomType")) {
+					addRoomType();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createMasterKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "editRoom")) {
@@ -443,6 +445,21 @@ public class ConsolView {
 		hotel.addRoom(new Room(roomNumber, type,c));
 		System.out.println("Room number " + roomNumber + " is now created.");
 	}
+	
+	/*
+	 * This method will add a new RoomType object to the system, 
+	 * making it possible to use this RoomType in Rooms.
+	 * @returns a RoomTye object where its name was input by the admin
+	 */
+	private RoomType addRoomType(){
+		System.out.println("What should be the name of the roomtype?");
+		String name = s.next();
+		RoomType roomtype = new RoomType(name);
+		hotel.addRoomType(roomtype);
+		System.out.println("A RoomType with the name " + name + " was created!");
+		
+		return roomtype;
+	}
 
 	private User loggin() {
 		User temp = null;
@@ -461,5 +478,66 @@ public class ConsolView {
 		}
 		hotel.setLoggedInUser(temp);
 		return temp;
+	}
+	
+	private Set<RoomType> getAvailableRoomTypes(){
+		while(true){
+			System.out.println("What dates would you like to stay with us? (Format is DD/MM/YYYY)");
+			System.out.println("From: ");
+			String input = s.next();
+			SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+			Date c = null;
+			
+			if(input.equals("abort")){
+				return null;
+			}
+			
+			try {
+				c = format.parse(input);
+			} catch (ParseException e1) {
+				System.out.println("Please input a valid date according to said format!");
+			}
+			
+			Set<RoomType> rooms = null;
+			
+			if(c != null){
+				while(true){
+					System.out.println("To: ");
+					input = s.next();
+					Date c2 = null;
+					
+					if(input.equals("abort")){
+						return null;
+					}
+					
+					try {
+						c2 = format.parse(input);
+					} catch (ParseException e1) {
+						System.out.println("Please input a valid date according to said format!");
+					}
+					
+					if(c2 != null && c2.after(c)){
+						try{
+							rooms = hotel.getAvailableRoomTypes(c, c2);
+						}
+						catch(HotelFullException e){
+							System.out.println("The hotel is comletely full during this time, please input another set of dates!");
+							break;
+						}
+						
+						if(rooms != null){
+							System.out.println("These are the roomtypes available for said dates: ");
+							for(RoomType type: rooms){
+								System.out.println("* " + type.getRoomTypeName());
+							}
+							return rooms;
+						}
+					}
+					else if(!c2.after(c)){
+						System.out.println("Your last date needs to be AFTER your first date of the stay!");
+					}
+				}
+			}
+		}
 	}
 }
