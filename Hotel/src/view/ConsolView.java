@@ -57,7 +57,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookAmenities")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
-					// TODO: Add functionality
+					printReceipt();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
 					addCharges();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
@@ -591,5 +591,33 @@ public class ConsolView {
 	}
 	public void amountOfGuests(){
 		System.out.println("Currently there are " + totalNumbOfGuests + " staying at the hotel.");
+	}
+	
+	private void printReceipt(){
+		int costOfRooms = 0;
+		
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id to the room that shall be charged: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		
+		System.out.println("Receipt for Hotel");
+		System.out.println("Name of guest: " + booking.getBookingGuest().getGuestName());
+		System.out.println("Stay date: \nFrom: " + booking.getStartDate().toString() + "\nTo: " + booking.getEndDate().toString());
+		for(Room room:booking.getBookedRooms()){
+			System.out.println("Room-Type: " + room.getRoomType().getRoomTypeName() +  "\nRoom-Number: " + room.getRoomNumber() + "\nPrice: " + room.getCostOfRoom());
+			costOfRooms = costOfRooms + room.getCostOfRoom();
+		}
+		
+		int extraCost = booking.getTotalCost() - costOfRooms;
+		System.out.println("Extra-costs during stay: " + extraCost);
+		System.out.println("Total price for stay: " + booking.getTotalCost());
+	
 	}
 }
