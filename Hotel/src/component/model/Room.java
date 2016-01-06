@@ -8,21 +8,21 @@ public class Room {
 	private boolean clean = true;
 	private Date lastcleaned;
 	private Date lastcheckout;
-	private int costOfRoom;
+	//private int costOfRoom;
 	
 
 	public Room(String number, RoomType RoomType){
 		roomNumber = number;
 		roomType = RoomType;
 		//cost of room sets to 1000 if nothing else is stated
-		costOfRoom=1000;
+		//costOfRoom=1000;
 	}
 	public Room(String number, RoomType RoomType, int cost){
 		roomNumber = number;
 		roomType = RoomType;
-		costOfRoom=cost;
+		//costOfRoom=cost;
 	}
-	
+	/*
 	public void setCostOfRoom(int cost){
 		this.costOfRoom=cost;
 	}
@@ -30,6 +30,7 @@ public class Room {
 	public int getCostOfRoom(){
 		return this.costOfRoom;
 	}
+	*/
 	
 	public String getRoomNumber() {
 		return roomNumber;
@@ -60,8 +61,16 @@ public class Room {
 		return result;
 	}
 
-	public Date getLastcleaned() {
+	public Date getLastCleaned() {
 		return lastcleaned;
+	}
+	
+	/**
+	 * Check clean status of room.
+	 * @return True if the room is clean, otherwise false
+	 */
+	public boolean getStatus(){
+		return clean;
 	}
 	
 	/**
@@ -82,8 +91,12 @@ public class Room {
 	 * Set room to dirty, call after check out.
 	 * @date the Date of the checkout.
 	 */
-	public void setDirty(Date date) {
-		clean = false;
-		lastcheckout = date;
+	public boolean setDirty(Date date) {
+		if(clean){
+			clean = false;
+			lastcheckout = date;
+			return true;
+		}
+		return false;
 	}
 }

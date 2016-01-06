@@ -181,6 +181,10 @@ public class Hotel {
 		
 		return booking;
 	}
+	
+	public List<Booking> getBookingsList(){
+		return bookingList;
+	}
 
 	private void setRoomTypeBooked(RoomType rooms, Date start, Date end) {
 		Calendar startCal = Calendar.getInstance();
@@ -255,9 +259,10 @@ public class Hotel {
 		guestList.add(new Guest(name,phoneNumber,passPort,lastName,email));
 	}
 	
-	public void addRoom(Room room){
-		roomMap.put(room.getRoomNumber(),room);
+	public boolean addRoom(Room room){
+		Room returns = roomMap.put(room.getRoomNumber(),room);
 		setupBookedRooms();
+		return returns != null;
 	}
 	
 	public void removeRoom(Room room){

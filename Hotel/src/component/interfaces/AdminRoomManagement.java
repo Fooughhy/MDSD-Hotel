@@ -40,5 +40,5 @@ public interface AdminRoomManagement {
 	 * @param number The room number.
 	 * @return 
 	 */
-	public boolean removeRoom(int number);
+	public boolean removeRoom(String number);
 }
