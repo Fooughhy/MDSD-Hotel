@@ -1,8 +1,10 @@
 package controller;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,19 +30,18 @@ import view.View;
 
 public class Hotel {
 	
-	private View view;
 	private Map<String,Room> roomMap;
 	private List<Guest> guestList;
 	private List<Amenity> amenitiesList;
 	private List<User> userList;
 	private Set<RoomType> roomTypeList;
 	private List<KeyCard> keyCardList;
-	private Queue<KeyCard> unassignedKeyCardList;
+	private Deque<KeyCard> unassignedKeyCardList;
 	
 	private List<AmenitiesBooking> amenitiesBookingList;
 	private List<Booking> bookingList;
 	
-	private List<User> loggedInUsers;
+	private User loggedInUser;
 	
 	// The last check out date of all rooms
 	private Map<RoomType, Map<Room, Date>> rooms;
@@ -51,15 +52,14 @@ public class Hotel {
 	private Map<Date, Map<RoomType, Integer>> bookedRooms;
 	
 	public Hotel(){
-		view = new View();
 		
 		roomMap = new TreeMap<String,Room>();
 		guestList = new ArrayList<Guest>();
 		amenitiesList = new ArrayList<Amenity>();
 		userList = new ArrayList<User>();
 		keyCardList = new ArrayList<KeyCard>();
-		unassignedKeyCardList = new PriorityQueue<KeyCard>();
-		loggedInUsers = new ArrayList<User>();
+		unassignedKeyCardList = new ArrayDeque<KeyCard>();
+		//loggedInUsers = new ArrayList<User>();
 		roomTypeList = new HashSet<RoomType>();
 		amenitiesBookingList = new ArrayList<AmenitiesBooking>();
 		bookingList = new ArrayList<Booking>();
@@ -68,6 +68,44 @@ public class Hotel {
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
 		setupBookedRooms();
+	}
+	
+	/**
+	 * Returns the guest with the given passport number.
+	 * @param ppn The guest's passport number.
+	 * @return The Guest object
+	 */
+	public Guest findGuestByPassport(String ppn) {
+		for (Guest guest : guestList) {
+			if (guest.getGuestPassPortNumber().equals(ppn)) {
+				return guest;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Adds the guest to the Hotel system.
+	 * @param guest The Guest to add.
+	 */
+	public void addGuest(Guest guest) {
+		guestList.add(guest);
+	}
+	
+	/**
+	 * Provides a list with all of one Guest's Bookings.
+	 * @return
+	 */
+	public List<Booking> findBookingsByGuest(Guest guest) {
+		List<Booking> byGuest = new LinkedList<Booking>();
+				
+		for (Booking booking : bookingList) {
+			if (booking.getBookingGuest().equals(guest)) {
+				byGuest.add(booking);
+			}
+		}
+		
+		return byGuest;
 	}
 	
 	/**
@@ -236,7 +274,8 @@ public class Hotel {
 		return null;
 	}
 	
-	public boolean logInUser(User user, String username, String password){
+	// Tom removed this.
+	/*public boolean logInUser(User user, String username, String password){
 		if(!loggedInUsers.contains(user) && userList.contains(user)){
 			if(user.logIn(username, password)){
 				return loggedInUsers.add(user);
@@ -254,7 +293,12 @@ public class Hotel {
 		
 		return false;
 	}
-
+*/
+	
+	public void setLoggedInUser(User user){
+		this.loggedInUser=user;
+	}
+	
 	public Set<RoomType> getRoomTypeList() {
 		return roomTypeList;
 	}
@@ -329,7 +373,13 @@ public class Hotel {
 		return roomMap.get(roomNumber);
 	}
 	
-	public boolean assignKeyCardToRoom(Room room){
-		return true;
+	public KeyCard assignKeyCardToRoom(Room room){
+		return unassignedKeyCardList.poll();
+	}
+	
+	public KeyCard addKeyCard(){
+		KeyCard k = new KeyCard();
+		unassignedKeyCardList.add(new KeyCard());
+		return k;
 	}
 }
