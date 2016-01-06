@@ -205,7 +205,7 @@ public class ConsoleView {
 			}
 		}
 		
-		if (comp.getViewFacilities().getRooms(roomType).length > 0) {
+		if (comp.getViewFacilities().getRooms(roomType).size() > 0) {
 			System.out.println("There are rooms of this type, remove them first.");
 			return;
 		}

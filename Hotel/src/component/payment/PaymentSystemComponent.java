@@ -6,9 +6,16 @@ import component.interfaces.Billing;
 import component.interfaces.DiscountManagement;
 import component.interfaces.Discounts;
 import component.interfaces.PVerification;
+import component.model.Hotel;
 
 public class PaymentSystemComponent implements PVerification, DiscountManagement, Billing, Discounts {
-
+	
+	Hotel hotel;
+	
+	public PaymentSystemComponent(Hotel hotel){
+		this.hotel = hotel;
+	}
+	
 	@Override
 	public void payCredit(String verificationNr) {
 		// TODO Auto-generated method stub

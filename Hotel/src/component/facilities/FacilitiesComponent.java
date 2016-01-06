@@ -8,13 +8,19 @@ import component.interfaces.AmenitiesBooking;
 import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewFacilities;
+import component.model.Hotel;
 import component.model.Room;
 
 public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
-
+	
+	Hotel hotel;
+	
+	public FacilitiesComponent(Hotel hotel){
+		this.hotel = hotel;
+	}
+	
 	@Override
 	public boolean createRoomType(String type, int basePrice) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -133,13 +139,13 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public int[] getRooms() {
+	public Set<Integer> getRooms() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int[] getRooms(String roomType) {
+	public Set<Integer> getRooms(String roomType) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -151,7 +157,7 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 	}
 
 	@Override
-	public String[] getAmenities() {
+	public Set<String> getAmenities() {
 		// TODO Auto-generated method stub
 		return null;
 	}

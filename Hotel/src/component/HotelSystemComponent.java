@@ -13,6 +13,7 @@ import component.interfaces.Discounts;
 import component.interfaces.GuestInterface;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewFacilities;
+import component.model.Hotel;
 import component.payment.PaymentSystemComponent;
 
 public class HotelSystemComponent {
@@ -22,9 +23,10 @@ public class HotelSystemComponent {
 	private PaymentSystemComponent payment;
 	
 	public HotelSystemComponent() {
-		booking = new BookingComponent();
-		facilities = new FacilitiesComponent();
-		payment = new PaymentSystemComponent();
+		Hotel hotel = new Hotel();
+		booking = new BookingComponent(hotel);
+		facilities = new FacilitiesComponent(hotel);
+		payment = new PaymentSystemComponent(hotel);
 	}
 	
 	public AdminRoomManagement getAdminRoomManagement() {
