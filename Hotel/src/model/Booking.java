@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class Booking {
 
+	public enum BookingStatus {
+		BOOKED, IN, OUT;
+	}
+	private BookingStatus status = BookingStatus.BOOKED;
+	
 	private static long latestBookingId;
 	private final long bookingId;
 
@@ -23,6 +28,29 @@ public class Booking {
 		bookingReceptionist = receptionist;
 		startDate = startDay;
 		endDate = endDay;
+	}
+	
+	/**
+	 * Set the status of this booking. Status can only change in the order
+	 * BOOKED -> IN -> OUT
+	 * @param newStatus The new status
+	 * @return True if status was changed.
+	 */
+	public boolean updateStatus(BookingStatus newStatus) {
+		switch (status) {
+		case BOOKED:
+			if (newStatus == BookingStatus.IN) status = BookingStatus.IN;
+			return true;
+		case IN:
+			if (newStatus == BookingStatus.OUT) status = BookingStatus.OUT;
+			return true;
+		default:
+			return false;
+		}
+	}
+	
+	public BookingStatus getStatus() {
+		return status;
 	}
 	
 	private static synchronized long getNewUniqueBoookingId(){
