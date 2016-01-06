@@ -29,6 +29,14 @@ public class Booking {
 		return latestBookingId++;
 	}
 	
+	private static long daysBetween(Date one, Date two){
+		long difference = (one.getTime()-two.getTime())/86400000; return Math.abs(difference); 
+	}
+	
+	public int getBookedNights(){
+		return (int) daysBetween(startDate,endDate);
+	}
+	
 	public void addCost(int amount){
 		this.totalCost += amount;
 	}

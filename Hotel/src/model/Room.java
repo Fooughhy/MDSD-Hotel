@@ -17,6 +17,11 @@ public class Room {
 		//cost of room sets to 1000 if nothing else is stated
 		costOfRoom=1000;
 	}
+	public Room(String number, RoomType RoomType, int cost){
+		roomNumber = number;
+		roomType = RoomType;
+		costOfRoom=cost;
+	}
 	
 	public void setCostOfRoom(int cost){
 		this.costOfRoom=cost;

@@ -251,7 +251,12 @@ public class ConsolView {
 
 		// TODO: add key cards for room
 		assignKeyCard(booking.getBookedRooms()[0].getRoomNumber());
-		//booking.addCost();
+		int stayCost =0; 
+		for(int i = 0;i<booking.getBookedRooms().length;i++){
+			stayCost += (booking.getBookedNights()+1) * booking.getBookedRooms()[0].getCostOfRoom();
+		}
+		booking.addCost(stayCost);
+		System.out.println(booking.getTotalCost());
 	}
 
 	private Guest addGuest() {
@@ -390,7 +395,7 @@ public class ConsolView {
 		}catch(Exception e){
 			System.out.println("something went wrong setting cost to 1000kr");
 		}
-		hotel.addRoom(new Room(roomNumber, type));
+		hotel.addRoom(new Room(roomNumber, type,c));
 		System.out.println("Room number " + roomNumber + " is now created.");
 	}
 
