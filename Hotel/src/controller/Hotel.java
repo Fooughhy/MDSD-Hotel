@@ -64,6 +64,44 @@ public class Hotel {
 	}
 	
 	/**
+	 * Returns the guest with the given passport number.
+	 * @param ppn The guest's passport number.
+	 * @return The Guest object
+	 */
+	public Guest findGuestByPassport(String ppn) {
+		for (Guest guest : guestList) {
+			if (guest.getGuestPassPortNumber().equals(ppn)) {
+				return guest;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Adds the guest to the Hotel system.
+	 * @param guest The Guest to add.
+	 */
+	public void addGuest(Guest guest) {
+		guestList.add(guest);
+	}
+	
+	/**
+	 * Provides a list with all of one Guest's Bookings.
+	 * @return
+	 */
+	public List<Booking> findBookingsByGuest(Guest guest) {
+		List<Booking> byGuest = new LinkedList<Booking>();
+				
+		for (Booking booking : bookingList) {
+			if (booking.getBookingGuest().equals(guest)) {
+				byGuest.add(booking);
+			}
+		}
+		
+		return byGuest;
+	}
+	
+	/**
 	 * Sets up a map between RoomTypes and the rooms of the type.
 	 * Each room has stored the last check out date of the room.
 	 * This is used to only check in rooms that has been checked out.

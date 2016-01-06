@@ -135,15 +135,22 @@ public class ConsolView {
 	}
 
 	private Guest addGuest() {
-		// TODO add security clearance
-		System.out.print("Guest name: ");
-		String name = s.next();
-		System.out.print("Phone number: ");
-		String phoneNumber = s.next();
-		System.out.print("passport number: ");
+		System.out.print("Passport Number: ");
 		String passPortNumber = s.next();
-		System.out.println("creating guest");
-		return new Guest(name, phoneNumber, passPortNumber);
+		
+		Guest found = hotel.findGuestByPassport(passPortNumber);
+		
+		if (found != null) {
+			return found;
+		} else {
+			System.out.print("Guest Name: ");
+			String name = s.next();
+			System.out.print("Phone Number: ");
+			String phoneNumber = s.next();
+			Guest toAdd = new Guest(name, phoneNumber, passPortNumber);
+			hotel.addGuest(toAdd);
+			return toAdd;
+		}
 	}
 
 	private void bookRoom() {
@@ -215,11 +222,10 @@ public class ConsolView {
 				System.out.println("RoomType not valid!");
 			}
 		}
-
-		Guest guest = addGuest();
-		System.out.println("guest created BUT NOT SAVED!!");
-
 		RoomType[] types = new RoomType[] { validRoomType };
+		
+		Guest guest = addGuest();
+		
 		Booking book = hotel.createBooking(this.user, guest, types, startDate, endDate);
 		System.out.println("Booking process completed for booking with ID:" + book.getBookingId());
 	}
