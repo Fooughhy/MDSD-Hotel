@@ -224,12 +224,7 @@ public class ConsolView {
 		System.out.println("Booking process completed for booking with ID:" + book.getBookingId());
 	}
 
-	private void addRoom() {
-		if (user.getUserType() != UserType.Admin) {
-			System.out.println("nope!");
-			return;
-		}
-		
+	private void addRoom() {		
 		boolean nrNotOk = true;
 		String roomNumber = null;
 		while (nrNotOk) {
