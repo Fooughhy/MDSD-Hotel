@@ -349,7 +349,7 @@ public class ConsoleView {
 			}
 		}
 
-		boolean result = comp.getAdminRoomManagement().removeRoom(roomNumber);
+		boolean result = comp.getAdminRoomManagement().removeRoom(String.valueOf(roomNumber));
 		
 		System.out.println("Room number " + roomNumber + " was " + (result ? "" : "NOT") +  " removed.");
 	}
