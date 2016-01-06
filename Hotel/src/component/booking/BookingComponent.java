@@ -42,10 +42,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	public boolean checkOut(int bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
-		for(Room room : booking.getBookedRooms()){
-			hotel.removeAllKeyCardsFromRoom(room.getRoomNumber());
-			room.setDirty(Calendar.getInstance().getTime());
-		}
+		clearKeyCards(bookingNr);
 		
 		booking.updateStatus(BookingStatus.OUT);
 		
@@ -67,11 +64,8 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		Booking booking = hotel.getBookingById(bookingNr);
 		
 		for(Room room : booking.getBookedRooms()){
-			List<KeyCard> cards = KeyCard.cardForRoom(hotel.getKeyCards(), room.getRoomNumber(), hotel);
-			for(KeyCard card : cards){
-				card.setRoom(null);
-				hotel.getUnassignedKeyCards().add(card);
-			}
+			hotel.removeAllKeyCardsFromRoom(room.getRoomNumber());
+			room.setDirty(Calendar.getInstance().getTime());
 		}
 		
 		return true;
