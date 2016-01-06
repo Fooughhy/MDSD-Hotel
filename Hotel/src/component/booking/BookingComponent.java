@@ -6,7 +6,6 @@ import java.util.Date;
 
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
-import component.interfaces.Discounts;
 import component.interfaces.GuestInterface;
 
 public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
