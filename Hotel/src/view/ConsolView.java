@@ -152,7 +152,7 @@ public class ConsolView {
 		String un = s.next();
 		System.out.println("insert password: ");
 		String pass = s.next();
-		Boolean correctNumber = false;
+		boolean correctNumber = false;
 		int number = 0;
 		while(number==0){
 			System.out.println("please choose clearence level\n"+
