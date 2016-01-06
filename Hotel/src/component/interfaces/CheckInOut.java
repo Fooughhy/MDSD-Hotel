@@ -9,14 +9,14 @@ public interface CheckInOut {
 	 * @param bookingNr The booking number.
 	 * @return True if the check in was successful.
 	 */
-	public Map<String, Long> checkIn(long bookingNr);
+	public Map<String, Long> checkIn(long bookingNr, String passportNr);
 	
 	/**
 	 * Check out a guest via the booking number.
 	 * @param bookingNr The booking number.
 	 * @return True if the check out was successful.
 	 */
-	public boolean checkOut(int bookingNr);
+	public boolean checkOut(int bookingNr, String passportNr);
 	
 	/**
 	 * Create a key card for all rooms in a booking.
