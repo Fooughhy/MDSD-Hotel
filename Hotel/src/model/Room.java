@@ -4,6 +4,7 @@ package model;
 public class Room {
 	private String roomNumber;
 	private RoomType roomType;
+	private boolean clean = true;
 
 	public Room(String number, RoomType RoomType){
 		roomNumber = number;
@@ -37,5 +38,19 @@ public class Room {
 		}
 		
 		return result;
+	}
+
+	/**
+	 * Set room to clean, call after cleaning.
+	 */
+	public void setClean() {
+		clean = true;
+	}
+	
+	/**
+	 * Set room to dirty, call after check out.
+	 */
+	public void setDirty() {
+		clean = false;
 	}
 }
