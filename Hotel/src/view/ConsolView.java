@@ -106,7 +106,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createMasterKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "editRoom")) {
-					// TODO: Add functionality
+					editRoom();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createUser")) {
 					createUser();
 				} else if (checkCommand(userType, new UserType[]{UserType.Cleaner}, command, "markRoomAsCleaned")) {
@@ -640,5 +640,37 @@ public class ConsolView {
 		System.out.println("Extra-costs during stay: " + extraCost);
 		System.out.println("Total price for stay: " + booking.getTotalCost());
 	
+	}
+	
+	private void editRoom(){
+		
+		Room room = null;
+		while(room==null){
+			System.out.println("Which room do you want to edit? Please enter the room number: ");
+			String roomNumber = s.next();
+			room = hotel.getRoomByNumber(roomNumber);
+			if(room == null){
+				System.out.println("There exists no room with that number at this hotel.");
+			}
+		}
+		
+		System.out.println("What do you want to do with the room? \nPress 1: To change Room-Type "
+				+ "\nPress 2: To change cost of room");
+		int alt = s.nextInt();
+		String roomTName;
+		switch(alt){
+		case 1: 
+			System.out.println("What should the roomtype be set to?");
+			 roomTName = s.next();
+			 room.getRoomType().setRoomTypeName(roomTName);
+			 System.out.println("RoomType set to " + roomTName);
+			 break;
+			 
+		case 2:
+			System.out.println("What should the cost of the room be set to?");
+			int newCost = s.nextInt();
+			room.setCostOfRoom(newCost);
+			System.out.println("The price of the room is now " + newCost);
+		}
 	}
 }
