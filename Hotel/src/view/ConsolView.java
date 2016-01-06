@@ -107,7 +107,6 @@ public class ConsolView {
 		}
 		return false;
 	}
-
 	
 	private void markRoomAsClean() {
 		Room room = null;
@@ -119,7 +118,7 @@ public class ConsolView {
 				System.out.print("Room does not exist.");
 			}
 		}
-		room.setClean();
+		room.setClean(Calendar.getInstance().getTime());
 	}
 
 	private void createUser(){
