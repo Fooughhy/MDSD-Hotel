@@ -27,6 +27,7 @@ public class ConsolView {
 
 	private Hotel hotel;
 	private User user;
+	private int totalNumbOfGuests = 0;
 	Scanner s;
 
 	public ConsolView() {
@@ -74,7 +75,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkPaymentStatus")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkNumberOfGuests")) {
-					// TODO: Add functionality
+					amountOfGuests();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin, UserType.HotelManager}, command, "viewKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoom")) {
@@ -273,7 +274,10 @@ public class ConsolView {
 				System.out.println("No booking exists with this ID");
 			}
 		}
-
+		
+		System.out.println("Enter the amout of guests that will stay in the room: ");
+		int amountOfGuests = s.nextInt();
+		totalNumbOfGuests = totalNumbOfGuests + amountOfGuests;
 		switch (booking.getStatus()) {
 		case BOOKED:
 			break;
@@ -463,7 +467,7 @@ public class ConsolView {
 		return temp;
 	}
 	
-	public void addCharges(){
+	private void addCharges(){
 		
 		Booking booking = null;
 		while (booking == null) {
@@ -479,5 +483,9 @@ public class ConsolView {
 		int amount = s.nextInt();
 		booking.addCost(amount);
 		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
+	}
+	
+	public void amountOfGuests(){
+		System.out.println("Currently there are " + totalNumbOfGuests + " staying at the hotel.");
 	}
 }
