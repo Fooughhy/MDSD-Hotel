@@ -59,6 +59,10 @@ public class Hotel {
 		
 		userList.add(new User("admin", "admin", UserType.Admin));
 		
+		for(int i = 0; i <= 50; i++){
+			addKeyCard(new KeyCard());
+		}
+		
 		setupBookedRooms();
 	}
 	

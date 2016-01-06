@@ -100,7 +100,18 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	@Override
 	public String displayBookingInfo(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
-		return booking.toString();
+		
+		if(booking != null){
+			System.out.println("Booking ID: " + booking.getBookingId());
+			System.out.println("Checkin date: " + booking.getStartDate());
+			System.out.println("Checkout date: " + booking.getEndDate());
+			System.out.println("Number of nights: " + booking.getBookedNights());
+			System.out.println("Booked room number: " + booking.getBookedRooms()[0]);
+			
+			return booking.toString();
+		}
+		
+		return null;
 	}
 
 	@Override

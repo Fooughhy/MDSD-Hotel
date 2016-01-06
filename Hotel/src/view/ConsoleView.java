@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class ConsoleView {
 		users.add(receptionist);
 		users.add(manager);
 		users.add(cleaner);
-
+		
 		comp = new HotelSystemComponent();
 
 		scanner = new Scanner(System.in);
@@ -140,9 +141,15 @@ public class ConsoleView {
 		
 		comp.getBookingInterface().getBookings(passportNr).contains(bookingNr);
 		
-		comp.getCheckInOut().checkIn(bookingNr);
+		// TODO:Print roomNr and keycardId nicely!!!!!!!!!!
 		
-		// print room-nr and key-nr
+		/*
+		Map<String, Long> map = comp.getCheckInOut().checkIn(bookingNr);
+		
+		for(map){
+			
+		}
+		*/
 		
 	}
 
