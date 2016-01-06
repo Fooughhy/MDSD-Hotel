@@ -1,6 +1,8 @@
 package component.facilities;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import component.interfaces.AdminRoomManagement;
@@ -9,6 +11,8 @@ import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewFacilities;
 import component.model.Hotel;
+import component.model.RoomType;
+import model.Room;
 
 public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
 	
@@ -116,26 +120,35 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 
 	@Override
 	public String getRoomType(String roomNr) {
-		// TODO Auto-generated method stub
-		return null;
+		return hotel.getRoomByNumber(roomNr).getRoomType().getRoomTypeName();
 	}
 
 	@Override
-	public Set<Integer> getRooms() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<String> getRooms() {
+		Set<String> temp = new HashSet<String>();
+		for(component.model.Room room : hotel.getRooms()){
+			temp.add(room.getRoomNumber());
+		}
+		return temp;
 	}
 
 	@Override
-	public Set<Integer> getRooms(String roomType) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<String> getRooms(String roomType) {
+		Set<String> temp = new HashSet<String>();
+		for(component.model.Room room : hotel.getRooms()){
+			if(room.getRoomType().equals(roomType))
+				temp.add(room.getRoomNumber());
+		}
+		return temp;
 	}
 
 	@Override
 	public Set<String> getTypeList() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> temp=new HashSet<String>();
+		for(RoomType roomType : hotel.getRoomTypeList()){
+			temp.add(roomType.getRoomTypeName());
+		}
+		return temp;
 	}
 
 	@Override

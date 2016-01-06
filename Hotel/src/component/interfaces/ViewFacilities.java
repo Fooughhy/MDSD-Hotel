@@ -8,14 +8,14 @@ public interface ViewFacilities {
 	 * Returns the room numbers of all rooms.
 	 * @return An array of all room numbers.
 	 */
-	public Set<Integer> getRooms();
+	public Set<String> getRooms();
 	
 	/**
 	 * Returns the room numbers of all rooms of one type.
 	 * @param roomType The type of room.
 	 * @return An array of all room numbers of type roomType.
 	 */
-	public Set<Integer> getRooms(String roomType);
+	public Set<String> getRooms(String roomType);
 	
 	/**
 	 * Return the name of the room type for a room.
