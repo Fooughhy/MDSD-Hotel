@@ -111,7 +111,8 @@ public class Hotel {
 			RoomType[] rooms = booking.getReservedRoomTypes(); 
 			for(int i = 0; i<rooms.length;i++){
 				//bookedRooms.get(d).put(rooms[i], 0);
-				bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1); //TODO NOT TESTED!!!
+				bookedRooms.get(d).put(rooms[i], bookedRooms.get(d).get(rooms[i]) + 1); //TODO dose not work.
+				// after a room once has been canceld, it can be booked unlimited times.
 			}
 			startCal.add(Calendar.DAY_OF_MONTH, 1);
 		}
