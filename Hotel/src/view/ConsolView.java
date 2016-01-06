@@ -3,10 +3,12 @@ package view;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class ConsolView {
 
 	private Hotel hotel;
 	private User user;
+	private int totalNumbOfGuests = 0;
 	Scanner s;
 
 	public ConsolView() {
@@ -34,6 +37,25 @@ public class ConsolView {
 		System.out.println("Creating a Hotel");
 		this.hotel = new Hotel();
 		System.out.println("Hotel created");
+		
+		// Test Test! Adding rooms for easy testing!
+		ArrayList<RoomType> list = new ArrayList<>();
+		
+		RoomType r = new RoomType("Single");
+		list.add(r);
+		hotel.addRoomType(r);
+		r = new RoomType("Double");
+		list.add(r);
+		hotel.addRoomType(r);
+		
+		Random random = new Random();
+		
+		for(int i = 0; i < 30; i++){
+			Room room = new Room(""+i, list.get(random.nextInt(2)));
+			hotel.addRoom(room);
+		}
+		// Test Test! Adding rooms for easy testing!
+		
 		while (true) { // to make sure this is where you end up if you logout.
 			this.user = loggin();
 			System.out.println("User logged in");
@@ -56,33 +78,35 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookAmenities")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
-					// TODO: Add functionality
+					printReceipt();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addChargesToBooking")) {
-					// TODO: Add functionality
+					addCharges();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "getAvailableRoomTypes")) {
-					// TODO: Add functionality
+					getAvailableRoomTypes();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "addingStayInformation")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "viewGuestInformation")) {
-					// TODO: Add functionality
+					viewGuestInformation();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "lastCleanedDate")) {
 					lastCleaned();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "cancelBooking")) {
-					// TODO: Add functionality
+					cancelBooking();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "assignExtraKeyCard")) {
 					assignKeyCard(null);
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkPaymentStatus")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkNumberOfGuests")) {
-					// TODO: Add functionality
+					amountOfGuests();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin, UserType.HotelManager}, command, "viewKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoom")) {
 					addRoom();
+				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "addRoomType")) {
+					addRoomType();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createMasterKeyCard")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "editRoom")) {
-					// TODO: Add functionality
+					editRoom();
 				} else if (checkCommand(userType, new UserType[]{UserType.Admin}, command, "createUser")) {
 					createUser();
 				} else if (checkCommand(userType, new UserType[]{UserType.Cleaner}, command, "markRoomAsCleaned")) {
@@ -145,6 +169,21 @@ public class ConsolView {
 		} else {
 			System.out.println("Room was already clean or not checked out.");
 		}	
+	}
+	
+	public void cancelBooking(){
+		System.out.println("insert the booking number: ");
+		String bookingNumber = s.next();
+		int nr;
+		try{
+			nr=Integer.parseInt(bookingNumber);
+		}catch(Exception e){
+			System.out.println("Wrong typ of booking number.");
+			return;
+		}
+		Booking temp = hotel.getBookingById(nr);
+		hotel.removeBooking(temp);
+		System.out.println("booking removed.");
 	}
 
 	private void createUser(){
@@ -273,7 +312,10 @@ public class ConsolView {
 				System.out.println("No booking exists with this ID");
 			}
 		}
-
+		
+		System.out.println("Enter the amout of guests that will stay in the room: ");
+		int amountOfGuests = s.nextInt();
+		totalNumbOfGuests = totalNumbOfGuests + amountOfGuests;
 		switch (booking.getStatus()) {
 		case BOOKED:
 			break;
@@ -443,6 +485,21 @@ public class ConsolView {
 		hotel.addRoom(new Room(roomNumber, type,c));
 		System.out.println("Room number " + roomNumber + " is now created.");
 	}
+	
+	/*
+	 * This method will add a new RoomType object to the system, 
+	 * making it possible to use this RoomType in Rooms.
+	 * @returns a RoomTye object where its name was input by the admin
+	 */
+	private RoomType addRoomType(){
+		System.out.println("What should be the name of the roomtype?");
+		String name = s.next();
+		RoomType roomtype = new RoomType(name);
+		hotel.addRoomType(roomtype);
+		System.out.println("A RoomType with the name " + name + " was created!");
+		
+		return roomtype;
+	}
 
 	private User loggin() {
 		User temp = null;
@@ -461,5 +518,159 @@ public class ConsolView {
 		}
 		hotel.setLoggedInUser(temp);
 		return temp;
+	}
+	
+	private Set<RoomType> getAvailableRoomTypes(){
+		while(true){
+			System.out.println("What dates would you like to stay with us? (Format is DD/MM/YYYY)");
+			System.out.println("From: ");
+			String input = s.next();
+			SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+			Date c = null;
+			
+			if(input.equals("abort")){
+				return null;
+			}
+			
+			try {
+				c = format.parse(input);
+			} catch (ParseException e1) {
+				System.out.println("Please input a valid date according to said format!");
+			}
+			
+			Set<RoomType> rooms = null;
+			
+			if(c != null){
+				while(true){
+					System.out.println("To: ");
+					input = s.next();
+					Date c2 = null;
+					
+					if(input.equals("abort")){
+						return null;
+					}
+					
+					try {
+						c2 = format.parse(input);
+					} catch (ParseException e1) {
+						System.out.println("Please input a valid date according to said format!");
+					}
+					
+					if(c2 != null && c2.after(c)){
+						try{
+							rooms = hotel.getAvailableRoomTypes(c, c2);
+						}
+						catch(HotelFullException e){
+							System.out.println("The hotel is comletely full during this time, please input another set of dates!");
+							break;
+						}
+						
+						if(rooms != null){
+							System.out.println("These are the roomtypes available for said dates: ");
+							for(RoomType type: rooms){
+								System.out.println("* " + type.getRoomTypeName());
+							}
+							return rooms;
+						}
+					}
+					else if(!c2.after(c)){
+						System.out.println("Your last date needs to be AFTER your first date of the stay!");
+					}
+				}
+			}
+		}
+	}
+	private void addCharges(){
+		
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id to the room that shall be charged: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		System.out.println("Enter amount that the guest shall be charged");
+		int amount = s.nextInt();
+		booking.addCost(amount);
+		System.out.println("Booking with ID " + booking.getBookingId() + " has been charged with " + amount);
+	}
+	public void viewGuestInformation(){
+		System.out.println("Enter the pasport number: ");
+		String pass = s.next();
+		Guest guest = hotel.findGuestByPassport(pass);
+		if(guest==null){
+			System.out.println("Could not find guest.");
+		}
+		else{
+			System.out.println("Name: " + guest.getGuestName());
+			System.out.println("Phone Number: " + guest.getGuestPhoneNumber());
+			System.out.println("Passport number: " + guest.getGuestPassPortNumber());
+		}
+	}
+	public void amountOfGuests(){
+		System.out.println("Currently there are " + totalNumbOfGuests + " staying at the hotel.");
+	}
+	
+	private void printReceipt(){
+		int costOfRooms = 0;
+		
+		Booking booking = null;
+		while (booking == null) {
+			System.out.print("Provide Booking Id to the room that shall be charged: ");
+			String id = s.next();
+			booking = hotel.getBookingById(Integer.parseInt(id));
+			if (booking == null) {
+				System.out.println("No booking exists with this ID");
+			}
+		}
+		
+		
+		System.out.println("Receipt for Hotel");
+		System.out.println("Name of guest: " + booking.getBookingGuest().getGuestName());
+		System.out.println("Stay date: \nFrom: " + booking.getStartDate().toString() + "\nTo: " + booking.getEndDate().toString());
+		for(Room room:booking.getBookedRooms()){
+			System.out.println("Room-Type: " + room.getRoomType().getRoomTypeName() +  "\nRoom-Number: " + room.getRoomNumber() + "\nPrice: " + room.getCostOfRoom());
+			costOfRooms = costOfRooms + room.getCostOfRoom();
+		}
+		
+		int extraCost = booking.getTotalCost() - costOfRooms;
+		System.out.println("Extra-costs during stay: " + extraCost);
+		System.out.println("Total price for stay: " + booking.getTotalCost());
+	
+	}
+	
+	private void editRoom(){
+		
+		Room room = null;
+		while(room==null){
+			System.out.println("Which room do you want to edit? Please enter the room number: ");
+			String roomNumber = s.next();
+			room = hotel.getRoomByNumber(roomNumber);
+			if(room == null){
+				System.out.println("There exists no room with that number at this hotel.");
+			}
+		}
+		
+		System.out.println("What do you want to do with the room? \nPress 1: To change Room-Type "
+				+ "\nPress 2: To change cost of room");
+		int alt = s.nextInt();
+		String roomTName;
+		switch(alt){
+		case 1: 
+			System.out.println("What should the roomtype be set to?");
+			 roomTName = s.next();
+			 room.getRoomType().setRoomTypeName(roomTName);
+			 System.out.println("RoomType set to " + roomTName);
+			 break;
+			 
+		case 2:
+			System.out.println("What should the cost of the room be set to?");
+			int newCost = s.nextInt();
+			room.setCostOfRoom(newCost);
+			System.out.println("The price of the room is now " + newCost);
+		}
 	}
 }

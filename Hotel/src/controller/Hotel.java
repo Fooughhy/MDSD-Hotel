@@ -92,6 +92,31 @@ public class Hotel {
 		guestList.add(guest);
 	}
 	
+	/*
+	 * removes a booking from the bookinList.
+	 * @param the booking that are going to be removed.
+	 */
+	public void removeBooking(Booking booking){
+		System.out.println("number of booked rooms: "+bookingList.size());
+		bookingList.remove(booking);
+		
+		Calendar startCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+		startCal.setTime(booking.getStartDate());
+		startCal.set(Calendar.HOUR_OF_DAY, 0);
+		endCal.setTime(booking.getEndDate());
+		endCal.set(Calendar.HOUR_OF_DAY, 0);
+		while(startCal.before(endCal)){
+			Date d = startCal.getTime();
+			RoomType[] rooms = booking.getReservedRoomTypes(); 
+			for(int i = 0; i<rooms.length;i++){
+				bookedRooms.get(d).put(rooms[i], 0);
+			}
+			startCal.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		System.out.println("hash map: "+bookedRooms);
+	}
+	
 	/**
 	 * Provides a list with all of one Guest's Bookings.
 	 * @return
