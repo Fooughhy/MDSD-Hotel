@@ -49,7 +49,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		
 		booking.updateStatus(BookingStatus.OUT);
 		
-		return false;
+		return true;
 	}
 
 	@Override
