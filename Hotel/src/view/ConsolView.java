@@ -52,7 +52,7 @@ public class ConsolView {
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkIn")) {
 					checkIn();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "checkOut")) {
-					// TODO: Add functionality
+					checkOut();
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "bookAmenities")) {
 					// TODO: Add functionality
 				} else if (checkCommand(userType, new UserType[]{UserType.Receptionist, UserType.HotelManager}, command, "printReceipt")) {
@@ -216,6 +216,24 @@ public class ConsolView {
 		}
 	}
 
+	private void checkOut() {		
+		System.out.print("Provide Booking Id: ");
+		String id = s.next();
+		Booking booking = hotel.getBookingById(Integer.parseInt(id));
+		
+		Room[] rooms = booking.getBookedRooms();
+		
+		// remove keys
+		
+		
+		// set not cleaned
+		for (int i = 0; i < rooms.length; i++) {
+			rooms[i].setDirty(booking.getEndDate());
+		}
+		
+		// handle payment
+	}
+	
 	private void checkIn() {
 		System.out.print("Provide Booking Id: ");
 		String id = s.next();
