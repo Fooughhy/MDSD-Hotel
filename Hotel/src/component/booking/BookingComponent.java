@@ -77,8 +77,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	public int createBooking(String passportNr, Date from, Date to, String roomType) {
 		Guest guest = hotel.getGuest(passportNr);
 		RoomType rt = hotel.getRoomType(roomType);
-		// TODO: get logged in user
-		//hotel.createBooking(user, guest, rt, from, to);
+		hotel.createBooking(guest, rt, from, to);
 		return 0;
 	}
 
