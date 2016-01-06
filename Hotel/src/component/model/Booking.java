@@ -124,7 +124,7 @@ public class Booking {
 		if(o instanceof Booking){
 			Booking other = (Booking) o;
 			
-			result = bookingGuest.equals(other.bookingGuest) && bookingReceptionist.equals(other.bookingReceptionist) && //the equals on the list fucked up.
+			result = bookingGuest.equals(other.bookingGuest) && //the equals on the list fucked up.
 					 startDate.equals(other.startDate) && endDate.equals(other.endDate) &&/* bookedRooms.equals(other.bookedRooms) &&*/ bookingId == other.bookingId;
 		}
 		
