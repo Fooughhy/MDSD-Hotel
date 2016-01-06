@@ -63,7 +63,7 @@ public interface BookingInterface {
 	 * @param roomType The room type to add.
 	 * @return True if the room was added. False if it was not.
 	 */
-	public boolean addRoom(int bookingNr, String roomType);
+	//public boolean addRoom(int bookingNr, String roomType);
 	
 	/**
 	 * Removes an extra room from a booking.
@@ -71,15 +71,15 @@ public interface BookingInterface {
 	 * @param roomType The room type to remove.
 	 * @return True if the room was removed. False if it was not.
 	 */
-	public boolean removeRoom(int bookingNr, String roomType);
+	//public boolean removeRoom(int bookingNr, String roomType);
 	
 	/**
 	 * Checks the cost of the booking.
 	 * <P>
-	 * 3 fields: Costs, Discount, Final-Cost
+	 * 2 fields: Cost, Discount
 	 * 
 	 * @param bookingNr The booking to check.
-	 * @return An array with 3 fields, the total costs, the total discounts, and the final cost.
+	 * @return An array with 2 fields, the total costs and the total discounts.
 	 */
 	public int[] checkCost(int bookingNr);
 	

@@ -94,28 +94,21 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		return null;
 	}
 
-	@Override
-	public boolean addRoom(int bookingNr, String roomType) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeRoom(int bookingNr, String roomType) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public int[] checkCost(int bookingNr) {
-		// TODO Auto-generated method stub
-		return null;
+		int cost =hotel.getBookingById(bookingNr).getTotalCost();
+		//cost-discount.
+		int[] temp={cost,0}; // where the 0 is the discount
+		return temp;
 	}
 
 	@Override
 	public boolean isGuest(String passportNr) {
-		// TODO Auto-generated method stub
-		return false;
+		Guest guest = hotel.getGuest(passportNr);
+		if(guest == null)
+			return false;
+		return true;
 	}
 
 	@Override
