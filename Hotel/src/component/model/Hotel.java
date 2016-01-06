@@ -253,8 +253,8 @@ public class Hotel {
 		booking.setBookedRooms(bookedRooms);
 	}
 
-	public void createGuest(String name, String phoneNumber, String passPort){
-		guestList.add(new Guest(name,phoneNumber,passPort));
+	public void createGuest(String name, String phoneNumber, String passPort,String lastName,String email){
+		guestList.add(new Guest(name,phoneNumber,passPort,lastName,email));
 	}
 	
 	public void addRoom(Room room){
