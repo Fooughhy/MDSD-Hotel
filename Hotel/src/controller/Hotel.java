@@ -374,12 +374,14 @@ public class Hotel {
 	}
 	
 	public KeyCard assignKeyCardToRoom(Room room){
-		return unassignedKeyCardList.poll();
+		KeyCard k = unassignedKeyCardList.poll();
+		if(k != null){
+			k.setRoom(room);
+		}
+		return k;
 	}
 	
-	public KeyCard addKeyCard(){
-		KeyCard k = new KeyCard();
-		unassignedKeyCardList.add(new KeyCard());
-		return k;
+	public boolean addKeyCard(KeyCard card){
+		return unassignedKeyCardList.add(card) && keyCardList.add(card);
 	}
 }
