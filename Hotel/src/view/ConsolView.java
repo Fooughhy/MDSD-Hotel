@@ -151,7 +151,40 @@ public class ConsolView {
 		room.setClean();
 	}
 
-
+	private void createUser(){
+		System.out.println("insert username: ");
+		String un = s.next();
+		System.out.println("insert password: ");
+		String pass = s.next();
+		Boolean correctNumber = false;
+		int number = 0;
+		while(number==0){
+			System.out.println("please choose clearence level\n"+
+			"System Admin(1) HotelManager(2) Recpetionsist(3) Cleaner(4)");
+			String nr = s.next();
+			try{
+				number=Integer.parseInt(nr);
+			}catch(NumberFormatException e){
+				System.out.println("wrong number inserted.");
+			}
+			if(number>4 || number>1){
+				number=0;
+				System.out.println("wrong number.");
+			}
+		}
+		UserType ut=UserType.Admin; // added just so it would be init
+		if(number==1)
+			ut = UserType.Admin;
+		else if(number == 2)
+			ut = UserType.HotelManager;
+		else if(number == 3)
+			ut = UserType.Receptionist;
+		else if(number == 4)
+			ut = UserType.Cleaner;
+		
+		hotel.addUser(new User(un,pass,ut));
+		System.out.println("user created and saved.");
+	}
 	private void assignKeyCard(String roomNr) {
 		// TODO: Implement
 		if (roomNr == null) {
