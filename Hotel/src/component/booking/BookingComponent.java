@@ -6,6 +6,7 @@ import component.model.Booking.BookingStatus;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -104,20 +105,49 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public boolean isFullyBooked(String roomType, Date day) {
-		// TODO Auto-generated method stub
-		return false;
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		c.setTime(day);
+		Set<RoomType> allTypes;
+		try{
+			allTypes = hotel.getAvailableRoomTypes(day,c.getTime());
+		}catch(HotelFullException e){
+			return true;
+		}
+		if(allTypes.contains(roomType)){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	@Override
 	public boolean isFullyBooked(Date day) {
-		// TODO Auto-generated method stub
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		c.setTime(day);
+		try{
+			hotel.getAvailableRoomTypes(day,c.getTime());
+		}catch(HotelFullException e){
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public Set<String> availableTypes(Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<RoomType> temp;
+		try{
+			temp = hotel.getAvailableRoomTypes(from, to);
+		}catch(HotelFullException e){
+			return null;
+		}
+		Set<String> temp2 = new HashSet<String>();
+		
+		for(RoomType r:temp){
+			temp2.add(r.getRoomTypeName());
+		}
+		return temp2;
 	}
 
 
