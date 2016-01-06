@@ -2,6 +2,8 @@ package component.model;
 
 import java.util.Date;
 
+import access.User;
+
 public class Booking {
 
 	public enum BookingStatus {

@@ -1,5 +1,7 @@
 package component.interfaces;
 
+import component.model.Room;
+
 public interface AdminRoomManagement {
 
 	/**
@@ -43,4 +45,9 @@ public interface AdminRoomManagement {
 	/*
 	 * "Properties" of a room not implemented.
 	 */
+	
+	/**
+	 * 
+	 */
+	public Room getRoomByNumber(int roomNr);
 }

@@ -39,8 +39,10 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	@Override
 	public int createBooking(String passportNr, Date from, Date to, String roomType) {
 		Guest guest = hotel.getGuest(passportNr);
-		model.RoomType rt = hotel.getRoomType(roomType);
-		hotel.createBooking(user, guest, rt, from, to);
+		RoomType rt = hotel.getRoomType(roomType);
+		// TODO: get logged in user
+		//hotel.createBooking(user, guest, rt, from, to);
+		return 0;
 	}
 
 	@Override

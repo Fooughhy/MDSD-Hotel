@@ -7,6 +7,7 @@ import component.interfaces.AmenitiesBooking;
 import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewRoom;
+import component.model.Room;
 
 public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
 
@@ -53,19 +54,19 @@ public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, Ameni
 	}
 
 	@Override
-	public boolean cleanRoom(Date when) {
+	public boolean cleanRoom(Date when, int roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setRoomUnclean(Date when) {
+	public boolean setRoomUnclean(Date when, int roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean checkRoomStatus() {
+	public boolean checkRoomStatus(int roomNr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -120,6 +121,12 @@ public class FacilitiesComponent implements ViewRoom, AmenitiesManagement, Ameni
 
 	@Override
 	public String getRoomType(int roomNr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Room getRoomByNumber(int roomNr) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -107,7 +108,7 @@ public class ConsoleView {
 				}
 				if (getAccess().equals(UserType.Cleaner)) {
 					if ("cleanRoom".equals(command)) {
-						// CODE;
+						cleanRoom();
 					}
 				}
 			}
@@ -141,5 +142,15 @@ public class ConsoleView {
 			}
 		}
 		currentUser = temp;
+	}
+	
+	private void cleanRoom(){
+		System.out.println("What is the number of the cleaned room?");
+		Scanner scanner = new Scanner(System.in);
+		int roomNr = Integer.parseInt(scanner.next());
+		
+		comp.getRoomManagement().cleanRoom(Calendar.getInstance().getTime(), roomNr);
+		
+		System.out.println("Room " + roomNr + " has now been set to cleaned!");
 	}
 }

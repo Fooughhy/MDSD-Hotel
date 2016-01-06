@@ -16,16 +16,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
 
-import model.AmenitiesBooking;
-import model.Amenity;
-import model.Booking;
-import model.Guest;
-import model.HotelFullException;
-import model.KeyCard;
-import model.Room;
-import model.RoomType;
-import model.User;
-import model.UserType;
+import access.User;
+import access.UserType;
 import view.View;
 
 public class Hotel {
