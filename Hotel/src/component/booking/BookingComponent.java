@@ -3,6 +3,7 @@ package component.booking;
 import component.model.*;
 
 import java.util.Date;
+import java.util.List;
 
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
@@ -32,8 +33,17 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public boolean clearKeyCards(int bookingNr) {
-		// TODO Auto-generated method stub
-		return false;
+		Booking booking = hotel.getBookingById(bookingNr);
+		
+		for(Room room : booking.getBookedRooms()){
+			List<KeyCard> cards = KeyCard.cardForRoom(hotel.getKeyCards(), room.getRoomNumber(), hotel);
+			for(KeyCard card : cards){
+				card.setRoom(null);
+				hotel.getUnassignedKeyCards().add(card);
+			}
+		}
+		
+		return true;
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class Booking {
 	private Room[] bookedRooms;
 	private Date startDate;
 	private Date endDate;
-	private  int totalCost;
+	private int totalCost;
 	
 	public Booking(RoomType[] rooms, Guest guest, User receptionist, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
