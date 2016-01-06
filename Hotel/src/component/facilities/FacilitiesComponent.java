@@ -8,13 +8,19 @@ import component.interfaces.AmenitiesBooking;
 import component.interfaces.AmenitiesManagement;
 import component.interfaces.RoomManagement;
 import component.interfaces.ViewFacilities;
+import component.model.Hotel;
 import component.model.Room;
 
 public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement, AmenitiesBooking, RoomManagement, AdminRoomManagement {
-
+	
+	Hotel hotel;
+	
+	public FacilitiesComponent(Hotel hotel){
+		this.hotel = hotel;
+	}
+	
 	@Override
 	public boolean createRoomType(String type, int basePrice) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

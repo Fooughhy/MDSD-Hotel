@@ -11,10 +11,15 @@ import java.util.Set;
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
 import component.interfaces.GuestInterface;
+import component.interfaces.PVerification;
 
-public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
+public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface, PVerification {
 	
-	Hotel hotel = new Hotel();
+	Hotel hotel;
+	
+	public BookingComponent(Hotel hotel){
+		this.hotel = hotel;
+	}
 	
 	@Override
 	public boolean checkIn(int bookingNr) {
@@ -39,8 +44,6 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		}
 		
 		booking.updateStatus(BookingStatus.OUT);
-		
-		// TODO: Payment
 		
 		return false;
 	}
@@ -188,5 +191,10 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		}catch(Exception e){
 			return null;
 		}
+	}
+
+	@Override
+	public String requestPayment(int sum) {
+		return "Payment completed!";
 	}
 }
