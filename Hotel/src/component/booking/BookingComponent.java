@@ -24,7 +24,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		this.hotel = hotel;
 	}
 	
-	@Override
+	//@Override
 	public Map<String, Long> checkIn(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		hotel.specifyRoomForBooking(booking);
@@ -97,7 +97,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		
 	}
 
-	@Override
+	//@Override
 	public String displayBookingInfo(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		return booking.toString();
@@ -218,5 +218,16 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		}catch(Exception e){
 			return null;
 		}
+	}
+
+	/*@Override
+	public boolean checkIn(long bookingNr) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	*/
+	@Override
+	public String displayBookingInfo(int bookingNr) {
+		return hotel.getBookingById(bookingNr).toString();
 	}
 }
