@@ -46,7 +46,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public void cancelBooking(int bookingNr) {
-		removeBooking(hotel.getBookingById(bookingNr));
+		hotel.removeBooking(hotel.getBookingById(bookingNr));
 	}
 
 	@Override
