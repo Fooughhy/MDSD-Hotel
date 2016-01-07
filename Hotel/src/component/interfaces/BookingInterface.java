@@ -20,7 +20,7 @@ public interface BookingInterface {
 	 * Cancels an existing booking.
 	 * @param bookingNr The Id of the booking to cancel.
 	 */
-	public void cancelBooking(int bookingNr);
+	public void cancelBooking(long bookingNr);
 	
 	/**
 	 * Get all bookings for a guest.
@@ -84,5 +84,8 @@ public interface BookingInterface {
 	 * @return An array with 2 fields, the total costs and the total discounts.
 	 */
 	public int[] checkCost(long bookingNr);
+
+
+	void addCharges(long bookingNr, int amount);
 	
 }
