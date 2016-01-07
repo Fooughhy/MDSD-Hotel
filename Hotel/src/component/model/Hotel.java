@@ -327,31 +327,6 @@ public class Hotel {
 		return null;
 	}
 	
-	// Tom removed this.
-	/*public boolean logInUser(User user, String username, String password){
-		if(!loggedInUsers.contains(user) && userList.contains(user)){
-			if(user.logIn(username, password)){
-				return loggedInUsers.add(user);
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean logOutUser(User user){
-		if(loggedInUsers.contains(user)){
-			user.logOut();
-			return loggedInUsers.remove(user);
-		}
-		
-		return false;
-	}
-*/
-	
-	public void setLoggedInUser(User user){
-		this.loggedInUser=user;
-	}
-	
 	public Set<RoomType> getRoomTypeList() {
 		return roomTypeList;
 	}
