@@ -28,7 +28,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	public Map<String, Long> checkIn(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
-		if(booking.getStatus() != BookingStatus.OUT){
+		if(booking.getStatus() == BookingStatus.BOOKED){
 			hotel.specifyRoomForBooking(booking);
 			Map<String, Long> map = new TreeMap<String, Long>();
 			
