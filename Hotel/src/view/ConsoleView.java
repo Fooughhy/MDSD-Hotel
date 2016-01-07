@@ -506,7 +506,7 @@ public class ConsoleView {
 		
 		int roomPrice = -1;
 		while (roomPrice < 0) {
-			System.out.print("Input the room number: ");
+			System.out.print("Input the new room price: ");
 			try {
 				roomPrice = Integer.parseInt(scanner.next());
 			} catch (NumberFormatException e) {
@@ -588,10 +588,11 @@ public class ConsoleView {
 	}
 	
 	private void printReceipt(){
-		while(true){
+		long id = -1;
+		while(id == -1){
 			System.out.println("Please enter the booking-Id to print its receipt!");
 			String s = scanner.next();
-			long id;
+			
 			
 			try{
 				id = Long.parseLong(s);
@@ -600,12 +601,12 @@ public class ConsoleView {
 				System.out.println("Please enter a number!");
 				continue;
 			}
-			
-			int[] cost = comp.getBookingInterface().checkCost(id);
-			
-			comp.getBookingInterface().displayBookingInfo(id);
-			System.out.println("The cost for this booking will be:");
-			System.out.println(cost + " SEK");
 		}
+		
+		int[] cost = comp.getBookingInterface().checkCost(id);
+		
+		comp.getBookingInterface().displayBookingInfo(id);
+		System.out.println("The cost for this booking will be:");
+		System.out.println(cost[0] + " SEK. (Discount = " + cost[1] + " SEK). Final price = " + (cost[0]-cost[1]) + " SEK.");
 	}
 }

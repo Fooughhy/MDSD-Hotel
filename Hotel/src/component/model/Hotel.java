@@ -114,7 +114,7 @@ public class Hotel {
 		endCal.set(Calendar.HOUR_OF_DAY, 0);
 		while(startCal.before(endCal)){
 			Date d = startCal.getTime();
-			RoomType rooms = booking.getReservedRoomTypes(); 
+			RoomType rooms = booking.getReservedRoomType(); 
 			//bookedRooms.get(d).put(rooms, 0);
 			bookedRooms.get(d).put(rooms, bookedRooms.get(d).get(rooms) - 1); //TODO dose not work.
 			// after a room once has been canceld, it can be booked unlimited times.
@@ -239,7 +239,7 @@ public class Hotel {
 			return;
 		}
 		
-		RoomType types = booking.getReservedRoomTypes();
+		RoomType types = booking.getReservedRoomType();
 		Room[] bookedRooms = new Room[1]; //TODO is something wrong maybe its here... "Room[1]"
 		
 		for (int i = 0; i < bookedRooms.length; i++) {

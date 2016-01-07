@@ -118,7 +118,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 			System.out.println("Checkout date: " + booking.getEndDate());
 			System.out.println("Number of nights: " + booking.getBookedNights());
 			if(booking.getStatus() == BookingStatus.BOOKED){
-				System.out.println("Booked room type: " + booking.getReservedRoomTypes().getRoomTypeName());
+				System.out.println("Booked room type: " + booking.getReservedRoomType().getRoomTypeName());
 			}
 			else{
 				System.out.println("Booked room numbers: \n");
@@ -185,9 +185,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	@Override
 	public int[] checkCost(long bookingNr) {
 		
-		// TODO: Något är fel här, för i mina tester blev resultatet alltid 0!!!!
-		
-		int cost =hotel.getBookingById(bookingNr).getTotalCost();
+		int cost = hotel.getBookingById(bookingNr).getTotalCost();
 		//cost-discount.
 		int[] temp={cost,0}; // where the 0 is the discount
 		return temp;

@@ -17,15 +17,15 @@ public class Booking {
 	private Guest bookingGuest;
 	private User bookingReceptionist;
 	
-	private RoomType reservedRoomTypes;
+	private RoomType reservedRoomType;
 	private Room[] bookedRooms;
 	private Date startDate;
 	private Date endDate;
-	private int totalCost;
+	private int addedCost;
 	
-	public Booking(RoomType rooms, Guest guest, Date startDay, Date endDay){
+	public Booking(RoomType room, Guest guest, Date startDay, Date endDay){
 		bookingId = getNewUniqueBoookingId();
-		reservedRoomTypes = rooms;
+		reservedRoomType = room;
 		bookingGuest = guest;
 		startDate = startDay;
 		endDate = endDay;
@@ -67,10 +67,11 @@ public class Booking {
 	}
 	
 	public void addCost(int amount){
-		this.totalCost += amount;
+		this.addedCost += amount;
 	}
+	
 	public int getTotalCost(){
-		return this.totalCost;
+		return getBookedNights() * reservedRoomType.getRoomTypePrice() + addedCost;
 	}
 	
 	public long getBookingId(){
@@ -89,12 +90,12 @@ public class Booking {
 		return bookedRooms;
 	}
 
-	public void setReservedRoomTypes(RoomType reservedTypes){
-		reservedRoomTypes = reservedTypes;
+	public void setReservedRoomType(RoomType reservedTypes){
+		reservedRoomType = reservedTypes;
 	}
 	
-	public RoomType getReservedRoomTypes(){
-		return reservedRoomTypes;
+	public RoomType getReservedRoomType(){
+		return reservedRoomType;
 	}
 	
 	public void setBookedRooms(Room[] bookedRooms) {
@@ -134,6 +135,6 @@ public class Booking {
 	@Override
 	public String toString(){
 		return "Booking ID: "+this.bookingId+"\nGuest: "+this.bookingGuest.getGuestName()
-		+"\nRoom: "+reservedRoomTypes.getRoomTypeName();
+		+"\nRoom: "+reservedRoomType.getRoomTypeName();
 	}
 }
