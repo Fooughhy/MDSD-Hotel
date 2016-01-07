@@ -63,7 +63,7 @@ public class Booking {
 	}
 	
 	public int getBookedNights(){
-		return (int) daysBetween(startDate,endDate);
+		return (int) daysBetween(startDate,endDate) + 1;
 	}
 	
 	public void addCost(int amount){

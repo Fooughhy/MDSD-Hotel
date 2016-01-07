@@ -51,8 +51,11 @@ public class KeyCard {
 		List<KeyCard> cardsForRoom = new LinkedList<KeyCard>();
 		
 		for (KeyCard keyCard : allCards) {
-			if (keyCard.getRoom().equals(room)) {
-				cardsForRoom.add(keyCard);
+			Room r = keyCard.getRoom();
+			if(r != null){
+				if (r.equals(room)) {
+					cardsForRoom.add(keyCard);
+				}
 			}
 		}
 		

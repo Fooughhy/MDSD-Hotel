@@ -26,30 +26,37 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	
 	@Override
 	public Map<String, Long> checkIn(long bookingNr) {
-		System.out.println("DEBUG: BookingNr in checkIn is: " + bookingNr);
 		Booking booking = hotel.getBookingById(bookingNr);
-		System.out.println("DEBUG: BookingNr från booking in checkIn is: " + booking.getBookingId());
-		hotel.specifyRoomForBooking(booking);
-		Map<String, Long> map = new TreeMap<String, Long>();
 		
-		for(Room room : booking.getBookedRooms()){
-			map.put(room.getRoomNumber(), hotel.addKeyCardToRoom(room));
+		if(booking.getStatus() != BookingStatus.OUT){
+			hotel.specifyRoomForBooking(booking);
+			Map<String, Long> map = new TreeMap<String, Long>();
+			
+			for(Room room : booking.getBookedRooms()){
+				map.put(room.getRoomNumber(), hotel.addKeyCardToRoom(room));
+			}
+			
+			booking.updateStatus(BookingStatus.IN);
+			
+			return map;
 		}
 		
-		booking.updateStatus(BookingStatus.IN);
-		
-		return map;
+		return null;
 	}
 
 	@Override
 	public boolean checkOut(int bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
-		clearKeyCards(bookingNr);
+		if(booking.getStatus() == BookingStatus.IN){
+			clearKeyCards(bookingNr);
+			
+			booking.updateStatus(BookingStatus.OUT);
+			
+			return true;
+		}
 		
-		booking.updateStatus(BookingStatus.OUT);
-		
-		return true;
+		return false;
 	}
 
 	@Override
@@ -176,6 +183,9 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public int[] checkCost(long bookingNr) {
+		
+		// TODO: Något är fel här, för i mina tester blev resultatet alltid 0!!!!
+		
 		int cost =hotel.getBookingById(bookingNr).getTotalCost();
 		//cost-discount.
 		int[] temp={cost,0}; // where the 0 is the discount

@@ -193,13 +193,18 @@ public class ConsoleView {
 		
 		Map<String, Long> map = comp.getCheckInOut().checkIn(bookingNr);
 		
-		System.out.println("RoomNr" + ", \t" + "KeyCardId");
-		System.out.println("-------------------");
-		
-		for (String key : map.keySet()) {
-	        System.out.println(key + ", " + map.get(key));
-	    }
-		
+		if(map != null){
+			
+			System.out.println("RoomNr" + "," + "KeyCardId");
+			System.out.println("------------------");
+			
+			for (String key : map.keySet()) {
+		        System.out.println(key + ",     " + map.get(key));
+		    }
+		}
+		else{
+			System.out.println("Unable to checkin a booking that has been checked out!");
+		}
 	}
 
 	private void checkOut() {
@@ -220,19 +225,22 @@ public class ConsoleView {
 			}
 		}
 		
-		comp.getCheckInOut().checkOut(bookingNr);
 		// auto mark room for cleaning
 		// key cards auto removed
-
-		int price[] = comp.getBookingInterface().checkCost(bookingNr);
-		int totalCost = price[0] - price[1];
-		
-		System.out.println("Cost for the stay: " +  totalCost + " Kr.");
-
-		System.out.println("Enter verification number from external system:");
-		String ver = scanner.next();
-		
-		comp.getBilling().payCredit(bookingNr, ver);
+		if(comp.getCheckInOut().checkOut(bookingNr)){
+			int price[] = comp.getBookingInterface().checkCost(bookingNr);
+			int totalCost = price[0] - price[1];
+			
+			System.out.println("Cost for the stay: " +  totalCost + " Kr.");
+	
+			System.out.println("Enter verification number from external system:");
+			String ver = scanner.next();
+			
+			comp.getBilling().payCredit(bookingNr, ver);
+		}
+		else{
+			System.out.println("Unable to check in a booking that has been checked out!");
+		}
 	}
 
 	private void bookRoom() {
