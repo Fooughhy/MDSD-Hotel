@@ -83,7 +83,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public void cancelBooking(int bookingNr) {
+	public void cancelBooking(long bookingNr) {
 		hotel.removeBooking(hotel.getBookingById(bookingNr));
 	}
 
@@ -247,4 +247,8 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		return false;
 	}
 	*/
+	@Override
+	public void addCharges(long bookingNr,int amount){
+		hotel.getBookingById(bookingNr).addCost(amount);
+	}
 }

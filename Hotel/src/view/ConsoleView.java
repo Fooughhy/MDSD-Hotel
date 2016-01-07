@@ -81,7 +81,7 @@ public class ConsoleView {
 					} else if ("bookRoom".equals(command)) {
 						bookRoom();
 					} else if ("cancelBooking".equals(command)) {
-						// CODE;
+						cancelBooking();
 					} else if ("checkCost".equals(command) || "printReceipt".equals(command)) {
 						// CODE;
 						// comp.getDiscounts();
@@ -98,7 +98,7 @@ public class ConsoleView {
 					} else if ("changePhone".equals(command)) {
 						// CODE;
 					} else if ("addCharges".equals(command)) {
-						// TODO: add in components
+						addCharges();
 					} else if ("viewGuest".equals(command)) {
 						// CODE;
 					} else if ("lastCleaned".equals(command)) {
@@ -118,6 +118,29 @@ public class ConsoleView {
 		}
 	}
 	
+	private void addCharges() {
+		System.out.println("enter booking id: ");
+		long nr=0;
+		String bookingId= scanner.next();
+		try{
+			nr=Long.parseLong(bookingId);
+		}catch(NumberFormatException e){
+			System.out.println("something went wrong, no charges added");
+			return;
+		}
+		System.out.println("please enter amount to add(- to remove)");
+		String amount = scanner.next();
+		int a;
+		try{
+			a=Integer.parseInt(bookingId);
+		}catch(NumberFormatException e){
+			System.out.println("something went wrong, no charges added");
+			return;
+		}
+		comp.getBookingInterface().addCharges(nr, a);
+		System.out.println("charges added");
+	}
+
 	private void checkIn() {
 		long bookingNr = -1;
 		while (bookingNr < 0) {
@@ -289,6 +312,19 @@ public class ConsoleView {
 		long id = comp.getBookingInterface().createBooking(passportNr, startDate, endDate, validRoomType);
 		
 		System.out.println("Booking process completed for booking with ID:" + id);
+	}
+	
+	private void cancelBooking(){
+		System.out.println("enter bookingid for the room to cancel: ");
+		String bookingId = scanner.next();
+		long nr=0;
+		try{
+			nr = Long.parseLong(bookingId);
+		}catch(NumberFormatException e){
+			System.out.println("something went wrong, nothing canceld");
+			return;
+		}
+		comp.getBookingInterface().cancelBooking(nr);
 	}
 
 	private void createAmenity() {
