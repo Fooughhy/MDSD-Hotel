@@ -53,6 +53,10 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 			
 			booking.updateStatus(BookingStatus.OUT);
 			
+			for (Room room : booking.getBookedRooms()) {
+				room.setDirty(Calendar.getInstance().getTime());
+			}
+			
 			return true;
 		}
 		

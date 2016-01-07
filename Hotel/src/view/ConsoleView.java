@@ -237,9 +237,12 @@ public class ConsoleView {
 			String ver = scanner.next();
 			
 			comp.getBilling().payCredit(bookingNr, ver);
+			
+			System.out.println("Payment verified.");
+			System.out.println("Room set to require cleaning.");
 		}
 		else{
-			System.out.println("Unable to check in a booking that has been checked out!");
+			System.out.println("Unable to check out a booking that is not checked in!");
 		}
 	}
 
