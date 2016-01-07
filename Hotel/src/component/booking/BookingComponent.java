@@ -154,8 +154,9 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	@Override
 	public boolean isFullyBooked(Date day) {
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DAY_OF_MONTH, 1);
 		c.setTime(day);
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		
 		try{
 			hotel.getAvailableRoomTypes(day,c.getTime());
 		}catch(HotelFullException e){
@@ -170,7 +171,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		try{
 			temp = hotel.getAvailableRoomTypes(from, to);
 		}catch(HotelFullException e){
-			return null;
+			return new HashSet<String>();
 		}
 		Set<String> temp2 = new HashSet<String>();
 		

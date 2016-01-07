@@ -270,10 +270,7 @@ public class ConsoleView {
 			}
 			
 			Set<String> temp = comp.getBookingInterface().availableTypes(startDate, endDate);
-			if(temp==null){
-				System.out.println("no rooms are available theese days");
-				continue;
-			}
+			
 			available.addAll(temp);
 				
 			if (available.isEmpty()) {
@@ -283,11 +280,13 @@ public class ConsoleView {
 				Calendar day = Calendar.getInstance();
 				day.setTime(startDate);
 				
+				Calendar end = Calendar.getInstance();
+				end.setTime(endDate);
 				
-				System.out.println("Hotel full for the following dates");
-				while (day.before(endDate)) {
+				System.out.println("Hotel full for the following dates: ");
+				while (day.before(end)) {
 					if (comp.getBookingInterface().isFullyBooked(day.getTime())) {
-						System.out.println(ft.format(day));
+						System.out.println(ft.format(day.getTime()));
 					}					
 					day.add(Calendar.DAY_OF_MONTH, 1);
 				}
