@@ -38,7 +38,16 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 
 	@Override
 	public boolean removeRoomType(String type) {
-		return hotel.removeRoomType(hotel.getRoomType(type));
+		if (!hotel.getBookingsList().isEmpty()) {
+			return false;
+		}
+		RoomType rType = hotel.getRoomType(type);
+		for (Room room : hotel.getRooms()) {
+			if (room.getRoomType() == rType) {
+				return false;
+			}
+		}
+		return hotel.removeRoomType(rType);
 	}
 
 	@Override
@@ -48,6 +57,9 @@ public class FacilitiesComponent implements ViewFacilities, AmenitiesManagement,
 
 	@Override
 	public boolean removeRoom(String number) {
+		if (!hotel.getBookingsList().isEmpty()) {
+			return false;
+		}
 		hotel.removeRoom(hotel.getRoomByNumber(number));
 		return true;
 	}
