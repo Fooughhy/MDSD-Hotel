@@ -61,9 +61,9 @@ public class ConsoleView {
 					} else if ("removeRoomType".equals(command)) {
 						removeRoomType();
 					} else if ("createAmenity".equals(command)) {
-						createAmenity();
+						//createAmenity();
 					} else if ("removeAmenity".equals(command)) {
-						removeAmenity();
+						//removeAmenity();
 					}
 				}
 				if (getAccess().equals(UserType.HotelManager)) {
