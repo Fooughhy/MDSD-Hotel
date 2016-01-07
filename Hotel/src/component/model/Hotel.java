@@ -234,7 +234,7 @@ public class Hotel {
 	 * 
 	 * @param booking The booking with no rooms given.
 	 */
-	public void specifyRoomForBooking(Booking booking) throws RuntimeException{
+	public void specifyRoomForBooking(Booking booking) {
 		if (booking.getBookedRooms() != null) {
 			return;
 		}
