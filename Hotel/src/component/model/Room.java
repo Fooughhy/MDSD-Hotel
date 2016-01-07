@@ -2,7 +2,7 @@ package component.model;
 
 import java.util.Date;
 
-public class Room {
+public class Room implements Comparable{
 	private String roomNumber;
 	private RoomType roomType;
 	private boolean clean = true;
@@ -98,5 +98,20 @@ public class Room {
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public int compareTo(Object other) {
+		if(other.getClass()!=this.getClass()){
+			return 0;
+		}
+		if(Integer.parseInt(this.getRoomNumber())==Integer.parseInt(((Room) other).getRoomNumber())){
+			return 0;
+		}
+		else if(Integer.parseInt(this.getRoomNumber())>Integer.parseInt(((Room) other).getRoomNumber())){
+			return 1;
+		}
+		else{
+			return -1;
+		}
 	}
 }

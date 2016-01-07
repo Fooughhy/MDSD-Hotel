@@ -425,13 +425,15 @@ public class ConsoleView {
 				roomNumber = Integer.parseInt(scanner.next());
 			} catch (NumberFormatException e) {
 				System.out.println("Incorrect format.");
+				return;
 			} // Do not update if incorrect format
 
 			if (comp.getViewFacilities().getRoomType(String.valueOf(roomNumber)) == null) {
-				System.out.println("Room number does not exists, choose another number.");
+				System.out.println("Room number does not exists");
+				return;
 			}
 		}
-
+		
 		boolean result = comp.getAdminRoomManagement().removeRoom(String.valueOf(roomNumber));
 		
 		System.out.println("Room number " + roomNumber + " was " + (result ? "" : "NOT") +  " removed.");
