@@ -102,9 +102,9 @@ public class ConsoleView {
 					} else if ("viewGuest".equals(command)) {
 						// CODE;
 					} else if ("lastCleaned".equals(command)) {
-						
+						// CODE;
 					} else if ("checkPayment".equals(command)) {
-						
+						// CODE;
 					} else if ("checkAvailableRooms".equals(command)) {
 						checkAvailableRooms();
 					} else if ("checkNumberOfGuests".equals(command)) {
