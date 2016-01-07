@@ -85,6 +85,19 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 	@Override
 	public long createBooking(String passportNr, Date from, Date to, String roomType) {
+		try {
+			boolean wasFull = true;
+			for (RoomType type : hotel.getAvailableRoomTypes(from, to)) {
+				if (type.getRoomTypeName() == roomType) {
+					wasFull = false;
+				}
+			}
+			if (wasFull) {
+				return -1;
+			}
+		} catch (HotelFullException e) {
+			return -1;
+		}
 		Guest guest = hotel.getGuest(passportNr);
 		RoomType rt = hotel.getRoomType(roomType);
 		Booking booking = hotel.createBooking(guest, rt, from, to);
