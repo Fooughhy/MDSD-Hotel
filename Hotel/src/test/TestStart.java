@@ -36,8 +36,26 @@ public class TestStart {
 		
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2016,01,07), new Date(2016,01,14), "double")));
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("234567", new Date(2016,01,07), new Date(2016,01,14), "double")));
+		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("345678", new Date(2016,01,07), new Date(2016,01,14), "double")));
-	
+		
+		/*
+		 * What happens if we try to cancel a booking and then book with another guest
+		 */
+		
+		hc.getBookingInterface().cancelBooking(hc.getBookingInterface().getBookings("123456").get(0));
+		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
+		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("345678", new Date(2016,01,07), new Date(2016,01,14), "double")));
+		
+		/*
+		 * What happens if the start date is later than end date
+		 */
+		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2017,01,07), new Date(2016,01,14), "single")));
+		
+		/*
+		 * test check-in
+		 */
+		
 		
 	
 	}
