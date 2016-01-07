@@ -30,30 +30,37 @@ public class TestStart {
 		/*
 		 *  Test what happens if we try to book a room that is not available 
 		 */
-		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
-		
-		
-		
+		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,15),new Date(2016,01,20)));
+		System.out.println();
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2016,01,07), new Date(2016,01,14), "double")));
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("234567", new Date(2016,01,07), new Date(2016,01,14), "double")));
 		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
+		System.out.println();
+		System.out.println();
 		System.out.println("This room should not be bookable because not enough double rooms:");
+		System.out.println();
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("345678", new Date(2016,01,07), new Date(2016,01,14), "double")));
+		System.out.println();
 		System.out.println("This one should");
+		System.out.println();
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("456789", new Date(2016,01,07), new Date(2016,01,14), "single")));
 		/*
 		 * What happens if we try to cancel a booking and then book with another guest
 		 */
-		
+		System.out.println();
 		System.out.println("Try to cancel a booking, then you should be able to book a double room");
+		System.out.println();
 		hc.getBookingInterface().cancelBooking(hc.getBookingInterface().getBookings("123456").get(0));
 		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
+		System.out.println();
 		System.out.println("Here we are trying to book the double room again ");
+		System.out.println();
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("345678", new Date(2016,01,07), new Date(2016,01,14), "double")));
 		
 		/*
 		 * What happens if the start date is later than end date
 		 */
+		System.out.println();
 		System.out.println("Three different cases where the check-in date is later then the check-out date:");
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2017,01,07), new Date(2016,01,14), "single")));
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2016,02,07), new Date(2016,01,14), "single")));
@@ -62,25 +69,33 @@ public class TestStart {
 		/*
 		 * test check-in a person after it already checked out  
 		 */
-		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
+		System.out.println();
 		System.out.println("Check in the guest:");
+		System.out.println();
 		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("234567").get(0)));
+		System.out.println();
 		System.out.println("Check out the guest");
+		System.out.println();
 		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("234567").get(0)));
+		System.out.println();
 		System.out.println("Try to check in the same guest:");
+		System.out.println();
 		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("234567").get(0)));
 		
 		/*
 		 * Test if rooms is available again after the stay
 		 */
-		
+		System.out.println();
 		System.out.println("Now the stay period for the last bookings are over so all rooms should be available again:");
+		System.out.println();
 		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,15),new Date(2016,01,20)));
 		
 		/*
 		 * Test to check-in someone twice and checkout someone twice
 		 */
+		System.out.println();
 		System.out.println("Check in a guest twice and then check out the guest twice");
+		System.out.println();
 		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("345678").get(0)));
 		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("345678").get(0)));
 		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("345678").get(0)));
@@ -89,7 +104,7 @@ public class TestStart {
 		/*
 		 * Test to check out guest before checking in
 		 */
-		
+		System.out.println();
 		System.out.println("Check out a guest before we have checked it in:");
 		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("456789").get(0)));
 	
