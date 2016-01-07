@@ -80,7 +80,7 @@ public class ConsoleView {
 						// CODE;
 					} else if ("bookRoom".equals(command)) {
 						bookRoom();
-					} else if ("cancelRoom".equals(command)) {
+					} else if ("cancelBooking".equals(command)) {
 						// CODE;
 					} else if ("checkCost".equals(command) || "printReceipt".equals(command)) {
 						// CODE;
@@ -210,8 +210,13 @@ public class ConsoleView {
 				System.out.println("Start must be at least 1 day before End.");
 				continue;
 			}
-
-			available.addAll(comp.getBookingInterface().availableTypes(startDate, endDate));
+			
+			Set<String> temp = comp.getBookingInterface().availableTypes(startDate, endDate);
+			if(temp==null){
+				System.out.println("no rooms are available theese days");
+				continue;
+			}
+			available.addAll(temp);
 				
 			if (available.isEmpty()) {
 				// Hotel is full some day.
@@ -281,7 +286,7 @@ public class ConsoleView {
 			comp.getGuestInterface().createGuest(passportNr, fName, lName, email, phone);
 		}
 		
-		int id = comp.getBookingInterface().createBooking(passportNr, startDate, endDate, validRoomType);
+		long id = comp.getBookingInterface().createBooking(passportNr, startDate, endDate, validRoomType);
 		
 		System.out.println("Booking process completed for booking with ID:" + id);
 	}

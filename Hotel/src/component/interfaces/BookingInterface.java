@@ -14,7 +14,7 @@ public interface BookingInterface {
 	 * @param roomType The type of the initial room to book.
 	 * @return The Id of the booked room.
 	 */
-	public int createBooking(String passportNr, Date from, Date to, String roomType);
+	public long createBooking(String passportNr, Date from, Date to, String roomType);
 	
 	/**
 	 * Cancels an existing booking.

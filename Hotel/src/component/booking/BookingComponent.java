@@ -75,11 +75,11 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public int createBooking(String passportNr, Date from, Date to, String roomType) {
+	public long createBooking(String passportNr, Date from, Date to, String roomType) {
 		Guest guest = hotel.getGuest(passportNr);
 		RoomType rt = hotel.getRoomType(roomType);
-		hotel.createBooking(guest, rt, from, to);
-		return 0;
+		Booking booking = hotel.createBooking(guest, rt, from, to);
+		return booking.getBookingId();
 	}
 
 	@Override
