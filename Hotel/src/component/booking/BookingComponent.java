@@ -26,7 +26,9 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	
 	@Override
 	public Map<String, Long> checkIn(long bookingNr) {
+		System.out.println("DEBUG: BookingNr in checkIn is: " + bookingNr);
 		Booking booking = hotel.getBookingById(bookingNr);
+		System.out.println("DEBUG: BookingNr från booking in checkIn is: " + booking.getBookingId());
 		hotel.specifyRoomForBooking(booking);
 		Map<String, Long> map = new TreeMap<String, Long>();
 		

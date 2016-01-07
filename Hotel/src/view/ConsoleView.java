@@ -193,8 +193,8 @@ public class ConsoleView {
 		
 		Map<String, Long> map = comp.getCheckInOut().checkIn(bookingNr);
 		
-		System.out.println("RoomType" + ", " + "KeyCardId");
-		System.out.println("__________________________________");
+		System.out.println("RoomNr" + ", \t" + "KeyCardId");
+		System.out.println("-------------------");
 		
 		for (String key : map.keySet()) {
 	        System.out.println(key + ", " + map.get(key));
@@ -595,6 +595,10 @@ public class ConsoleView {
 			}
 			
 			int[] cost = comp.getBookingInterface().checkCost(id);
+			
+			comp.getBookingInterface().displayBookingInfo(id);
+			System.out.println("The cost for this booking will be:");
+			System.out.println(cost + " SEK");
 		}
 	}
 }

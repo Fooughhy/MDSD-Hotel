@@ -9,7 +9,7 @@ public class KeyCard {
 	private Room room;
 	private long currentUniqueId;
 	
-	private static long uniqueKeyCardId = 0;
+	private static long uniqueKeyCardId = 1;
 	
 	public KeyCard(){
 		currentUniqueId = uniqueKeyCardId++;
@@ -51,7 +51,7 @@ public class KeyCard {
 		List<KeyCard> cardsForRoom = new LinkedList<KeyCard>();
 		
 		for (KeyCard keyCard : allCards) {
-			if (keyCard.room.equals(room)) {
+			if (keyCard.getRoom().equals(room)) {
 				cardsForRoom.add(keyCard);
 			}
 		}

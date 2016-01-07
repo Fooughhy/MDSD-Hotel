@@ -11,7 +11,7 @@ public class Booking {
 	}
 	private BookingStatus status = BookingStatus.BOOKED;
 	
-	private static long latestBookingId = 0;
+	private static long latestBookingId = 1;
 	private final long bookingId;
 
 	private Guest bookingGuest;
