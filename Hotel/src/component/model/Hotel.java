@@ -396,8 +396,14 @@ public class Hotel {
 					if (bookedRooms.get(d).containsKey(roomType)) { // There is some booking for this type
 						int bookedNr = bookedRooms.get(d).get(roomType);
 						
+						
+						// adding a "hack" to fix nullpointer exception
+						if(rooms.get(roomType)==null){
+							available.remove(roomType);
+							types--;
+						}
 						// If fully booked then remove the room type from options.
-						if (bookedNr == rooms.get(roomType).size()) {
+						else if (bookedNr == rooms.get(roomType).size()) {
 							available.remove(roomType);
 							types--;
 						}

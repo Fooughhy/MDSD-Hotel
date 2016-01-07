@@ -105,6 +105,8 @@ public class ConsoleView {
 						
 					} else if ("checkPayment".equals(command)) {
 						
+					} else if ("checkAvailableRooms".equals(command)) {
+						checkAvailableRooms();
 					} else if ("checkNumberOfGuests".equals(command)) {
 						// for any one day.
 					}
@@ -118,6 +120,31 @@ public class ConsoleView {
 		}
 	}
 	
+	private void checkAvailableRooms() {
+		System.out.print("enter start date (yyyy-mm-dd):");
+		String sDate = scanner.next();
+		System.out.print("enter end date (yyyy-mm-dd):");
+		String eDate = scanner.next();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = null;
+		Date endDate = null;
+		try {
+			startDate = format.parse(sDate);
+			endDate = format.parse(eDate);
+		} catch (ParseException e) {
+			System.out.println("something went wrong");
+			return;
+		}
+		Set<String> temp = comp.getBookingInterface().availableTypes(startDate, endDate);
+		if(temp==null){
+			System.out.println("no roomtypes free");
+		}else{
+			for(String s:temp){
+				System.out.println(s);
+			}
+		}
+	}
+
 	private void addCharges() {
 		System.out.println("enter booking id: ");
 		long nr=0;
