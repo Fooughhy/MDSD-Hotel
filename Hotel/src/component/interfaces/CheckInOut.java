@@ -16,7 +16,7 @@ public interface CheckInOut {
 	 * @param bookingNr The booking number.
 	 * @return True if the check out was successful.
 	 */
-	public boolean checkOut(int bookingNr);
+	public boolean checkOut(long bookingNr);
 	
 	/**
 	 * Create a key card for all rooms in a booking.
@@ -26,7 +26,7 @@ public interface CheckInOut {
 	 * @param bookingNr The booking number.
 	 * @return True if a key card was created.
 	 */
-	public boolean createKeyCard(int bookingNr);
+	public boolean createKeyCard(long bookingNr);
 	
 	/**
 	 * Clear all key cards for all rooms in a booking.
@@ -36,5 +36,5 @@ public interface CheckInOut {
 	 * @param bookingNr The booking number.
 	 * @return True if all key cards were cleared.
 	 */
-	public boolean clearKeyCards(int bookingNr);
+	public boolean clearKeyCards(long bookingNr);
 }

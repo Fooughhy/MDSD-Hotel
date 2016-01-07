@@ -51,7 +51,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public boolean checkOut(int bookingNr) {
+	public boolean checkOut(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
 		if(booking.getStatus() == BookingStatus.IN){
@@ -70,7 +70,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public boolean createKeyCard(int bookingNr) {
+	public boolean createKeyCard(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		Room[] rooms = booking.getBookedRooms();
 		for(Room room : rooms){
@@ -80,7 +80,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 	}
 
 	@Override
-	public boolean clearKeyCards(int bookingNr) {
+	public boolean clearKeyCards(long bookingNr) {
 		Booking booking = hotel.getBookingById(bookingNr);
 		
 		if(booking != null){

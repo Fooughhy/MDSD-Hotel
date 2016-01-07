@@ -51,10 +51,29 @@ public class TestStart {
 		 * What happens if the start date is later than end date
 		 */
 		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2017,01,07), new Date(2016,01,14), "single")));
+		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2016,02,07), new Date(2016,01,14), "single")));
+		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().createBooking("123456", new Date(2016,01,15), new Date(2016,01,14), "single")));
 		
 		/*
-		 * test check-in
+		 * test check-in same person twice without cleaning  
 		 */
+		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
+		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("234567").get(0)));
+		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("234567").get(0)));
+		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("234567").get(0)));
+		
+		/*
+		 * Test if rooms is available again after the stay
+		 */
+		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,15),new Date(2016,01,20)));
+		
+		/*
+		 * Test to check-in someone twice and checkout someone twice
+		 */
+		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("345678").get(0)));
+		System.out.println(hc.getCheckInOut().checkIn(hc.getBookingInterface().getBookings("345678").get(0)));
+		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("345678").get(0)));
+		System.out.println(hc.getCheckInOut().checkOut(hc.getBookingInterface().getBookings("345678").get(0)));
 		
 		
 	
