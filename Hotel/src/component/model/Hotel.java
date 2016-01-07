@@ -110,9 +110,7 @@ public class Hotel {
 	 * @param the booking that are going to be removed.
 	 */
 	public void removeBooking(Booking booking){
-		System.out.println("number of booked rooms: "+bookingList.size());
 		bookingList.remove(booking);
-		
 		Calendar startCal = Calendar.getInstance();
 		Calendar endCal = Calendar.getInstance();
 		startCal.setTime(booking.getStartDate());
@@ -123,11 +121,11 @@ public class Hotel {
 			Date d = startCal.getTime();
 			RoomType rooms = booking.getReservedRoomTypes(); 
 			//bookedRooms.get(d).put(rooms, 0);
-			bookedRooms.get(d).put(rooms, bookedRooms.get(d).get(rooms) + 1); //TODO dose not work.
+			bookedRooms.get(d).put(rooms, bookedRooms.get(d).get(rooms) - 1); //TODO dose not work.
 			// after a room once has been canceld, it can be booked unlimited times.
 			startCal.add(Calendar.DAY_OF_MONTH, 1);
 		}
-		System.out.println("hash map: "+bookedRooms);
+		System.out.println("booking canceld");
 	}
 	
 	/**
