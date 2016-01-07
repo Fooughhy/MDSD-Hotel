@@ -7,12 +7,12 @@ import java.util.Set;
 public interface BookingInterface {
 
 	/**
-	 * Create a new booking.
+	 * Try to create a new booking.
 	 * @param passportNr The guests passport number.
 	 * @param from The start date of the booking.
 	 * @param to The end date of the booking.
 	 * @param roomType The type of the initial room to book.
-	 * @return The Id of the booked room.
+	 * @return The Id of the booked room if OK, otherwise -1.
 	 */
 	public long createBooking(String passportNr, Date from, Date to, String roomType);
 	
