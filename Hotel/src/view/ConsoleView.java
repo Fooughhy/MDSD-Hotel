@@ -429,15 +429,13 @@ public class ConsoleView {
 				roomNumber = Integer.parseInt(scanner.next());
 			} catch (NumberFormatException e) {
 				System.out.println("Incorrect format.");
-				return;
 			} // Do not update if incorrect format
 
 			if (comp.getViewFacilities().getRoomType(String.valueOf(roomNumber)) == null) {
-				System.out.println("Room number does not exists");
-				return;
+				System.out.println("Room number does not exists, choose another number.");
 			}
 		}
-		
+
 		boolean result = comp.getAdminRoomManagement().removeRoom(String.valueOf(roomNumber));
 		
 		System.out.println("Room number " + roomNumber + " was " + (result ? "" : "NOT") +  " removed.");
@@ -446,6 +444,10 @@ public class ConsoleView {
 	private void removeRoomType() {
 		if (comp.getViewFacilities().getTypeList().isEmpty()) {
 			System.out.println("There are no room types, use <createRoomType>.");
+			return;
+		}
+		if (!comp.getBookingInterface().getBookings().isEmpty()) {
+			System.out.println("Can't remove room types when there are bookings.");
 			return;
 		}
 		String roomType = null;
