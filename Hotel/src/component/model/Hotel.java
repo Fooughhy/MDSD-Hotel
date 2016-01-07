@@ -241,7 +241,7 @@ public class Hotel {
 	 * 
 	 * @param booking The booking with no rooms given.
 	 */
-	public void specifyRoomForBooking(Booking booking){
+	public void specifyRoomForBooking(Booking booking) throws RuntimeException{
 		if (booking.getBookedRooms() != null) {
 			return;
 		}
@@ -253,7 +253,7 @@ public class Hotel {
 			Map<Room, Date> roomsOfType = rooms.get(types);
 			Set<Room> roomNrs = roomsOfType.keySet();
 			for (Room nr : roomNrs) {
-				if  (roomsOfType.get(nr).before(booking.getStartDate())) { // room is checked out or was never checked in before.
+				if (roomsOfType.get(nr).before(booking.getStartDate())) { // room is checked out or was never checked in before.
 					bookedRooms[i] = nr;
 					rooms.get(nr.getRoomType()).put(nr, booking.getEndDate()); // set booked room to have later end date.
 					break;

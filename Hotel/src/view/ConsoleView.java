@@ -83,7 +83,7 @@ public class ConsoleView {
 					} else if ("cancelBooking".equals(command)) {
 						// CODE;
 					} else if ("checkCost".equals(command) || "printReceipt".equals(command)) {
-						// CODE;
+						printReceipt();
 						// comp.getDiscounts();
 					} else if ("checkIn".equals(command)) {
 						checkIn();
@@ -515,5 +515,23 @@ public class ConsoleView {
 		comp.getRoomManagement().cleanRoom(Calendar.getInstance().getTime(), String.valueOf(roomNr));
 		
 		System.out.println("Room " + roomNr + " has now been set to cleaned!");
+	}
+	
+	private void printReceipt(){
+		while(true){
+			System.out.println("Please enter the booking-Id to print its receipt!");
+			String s = scanner.next();
+			long id;
+			
+			try{
+				id = Long.parseLong(s);
+			}
+			catch(NumberFormatException e){
+				System.out.println("Please enter a number!");
+				continue;
+			}
+			
+			int[] cost = comp.getBookingInterface().checkCost(id);
+		}
 	}
 }

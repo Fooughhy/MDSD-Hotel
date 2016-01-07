@@ -83,6 +83,6 @@ public interface BookingInterface {
 	 * @param bookingNr The booking to check.
 	 * @return An array with 2 fields, the total costs and the total discounts.
 	 */
-	public int[] checkCost(int bookingNr);
+	public int[] checkCost(long bookingNr);
 	
 }

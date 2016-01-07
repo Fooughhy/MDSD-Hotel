@@ -173,7 +173,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 
 
 	@Override
-	public int[] checkCost(int bookingNr) {
+	public int[] checkCost(long bookingNr) {
 		int cost =hotel.getBookingById(bookingNr).getTotalCost();
 		//cost-discount.
 		int[] temp={cost,0}; // where the 0 is the discount
