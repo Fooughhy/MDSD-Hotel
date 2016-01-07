@@ -1,12 +1,10 @@
 package component.booking;
 
-import component.model.*;
-import component.model.Booking.BookingStatus;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +13,14 @@ import java.util.TreeMap;
 import component.interfaces.BookingInterface;
 import component.interfaces.CheckInOut;
 import component.interfaces.GuestInterface;
+import component.model.Booking;
+import component.model.Booking.BookingStatus;
+import component.model.Guest;
+import component.model.Hotel;
+import component.model.HotelFullException;
+import component.model.KeyCard;
+import component.model.Room;
+import component.model.RoomType;
 
 public class BookingComponent implements BookingInterface, CheckInOut, GuestInterface {
 	
@@ -272,14 +278,17 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 		}
 	}
 
-	/*@Override
-	public boolean checkIn(long bookingNr) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	*/
 	@Override
 	public void addCharges(long bookingNr,int amount){
 		hotel.getBookingById(bookingNr).addCost(amount);
+	}
+
+	@Override
+	public List<Long> getBookings() {
+		List<Long> ids = new LinkedList<Long>();
+		for (Booking book : hotel.getBookingsList()) {
+			ids.add(book.getBookingId());
+		}
+		return ids;
 	}
 }

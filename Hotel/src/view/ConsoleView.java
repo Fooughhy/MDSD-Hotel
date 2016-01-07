@@ -418,6 +418,10 @@ public class ConsoleView {
 			System.out.println("There are no rooms, use <createRoom>.");
 			return;
 		}
+		if (!comp.getBookingInterface().getBookings().isEmpty()) {
+			System.out.println("Can't remove rooms when there are bookings.");
+			return;
+		}
 		int roomNumber = 0;
 		while (roomNumber < 1) {
 			System.out.print("Input the room number: ");

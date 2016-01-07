@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import access.User;
+
 public interface BookingInterface {
 
 	/**
@@ -87,5 +89,11 @@ public interface BookingInterface {
 
 
 	void addCharges(long bookingNr, int amount);
+
+	/**
+	 * Returns all booking Id in the system.
+	 * @return A list of all booking Ids.
+	 */
+	public List<Long> getBookings();
 	
 }
