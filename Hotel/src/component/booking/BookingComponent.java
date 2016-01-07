@@ -120,7 +120,7 @@ public class BookingComponent implements BookingInterface, CheckInOut, GuestInte
 			if(booking.getStatus() == BookingStatus.BOOKED){
 				System.out.println("Booked room type: " + booking.getReservedRoomTypes().getRoomTypeName());
 			}
-			else if(booking.getStatus() == BookingStatus.BOOKED){
+			else{
 				System.out.println("Booked room numbers: \n");
 				for(Room room : booking.getBookedRooms()){
 					System.out.print(room.getRoomNumber() + ", ");

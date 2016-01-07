@@ -4,6 +4,8 @@ import java.util.Date;
 
 import component.HotelSystemComponent;
 
+
+
 public class TestStart {
 
 	HotelSystemComponent hc = new HotelSystemComponent();
@@ -31,8 +33,8 @@ public class TestStart {
 		System.out.println(hc.getBookingInterface().availableTypes(new Date(2016,01,07),new Date(2016,01,14)));
 		hc.getBookingInterface().createBooking("123456", new Date(2016,01,07), new Date(2016,01,14), "double");
 		hc.getBookingInterface().createBooking("234567", new Date(2016,01,07), new Date(2016,01,14), "double");
-		//hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().getBookings("123456").indexOf(0));
-		//System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().getBookings("123456").indexOf(0)));
+		hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().getBookings("123456").indexOf(0));
+		System.out.println(hc.getBookingInterface().displayBookingInfo(hc.getBookingInterface().getBookings("123456").indexOf(0)));
 		hc.getBookingInterface().createBooking("345678",new Date(2016,01,07), new Date(2016,01,14), "double");
 	}
 }
