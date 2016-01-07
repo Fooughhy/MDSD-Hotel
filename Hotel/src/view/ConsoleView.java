@@ -102,9 +102,9 @@ public class ConsoleView {
 					} else if ("viewGuest".equals(command)) {
 						// CODE;
 					} else if ("lastCleaned".equals(command)) {
-
+						
 					} else if ("checkPayment".equals(command)) {
-
+						
 					} else if ("checkNumberOfGuests".equals(command)) {
 						// for any one day.
 					}
@@ -141,15 +141,14 @@ public class ConsoleView {
 		
 		comp.getBookingInterface().getBookings(passportNr).contains(bookingNr);
 		
-		// TODO:Print roomNr and keycardId nicely!!!!!!!!!!
-		
-		/*
 		Map<String, Long> map = comp.getCheckInOut().checkIn(bookingNr);
 		
-		for(map){
-			
-		}
-		*/
+		System.out.println("RoomType" + ", " + "KeyCardId");
+		System.out.println("__________________________________");
+		
+		for (String key : map.keySet()) {
+	        System.out.println(key + ", " + map.get(key));
+	    }
 		
 	}
 
@@ -406,7 +405,12 @@ public class ConsoleView {
 			} // Do not update if incorrect format
 		}
 		
-		comp.getAdminRoomManagement().createRoomType(roomType, roomPrice);
+		if(comp.getAdminRoomManagement().createRoomType(roomType, roomPrice)){
+			System.out.println("A RoomType was created with the type <" + roomType + "> and the price <" + roomPrice + ">.");
+		}
+		else{
+			System.out.println("An error occured while creating the object! Please try again!");
+		}
 	}
 	
 	private void changeRoomPrice() {
